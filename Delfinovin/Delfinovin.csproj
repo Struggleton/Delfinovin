@@ -71,7 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="resources\Delfinovin - Screenshot Debug.png" />
     <Content Include="gamecube_icon.ico" />
+    <Content Include="resources\ViGEmBus Icon.png" />
+    <Content Include="resources\Zadig Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
