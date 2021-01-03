@@ -39,8 +39,6 @@ Delfinovin has a couple of settings that can be set currently:
 ## Notes
 Delfinovin can not take exclusive control over the Gamecube device yet. This means you will have to close anything that does (Yuzu, Dolphin, etc.) first, run the program and then open them. 
 
-If you'd like to figure out 
-
 ## Planned features
 - In-program deadzone/range support for sticks
 
