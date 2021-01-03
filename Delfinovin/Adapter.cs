@@ -11,7 +11,16 @@ namespace Delfinovin
 
         public ControllerInstance[] Controllers;
 
-        public Adapter(byte[] data)
+        public Adapter()
+        {
+            Controllers = new ControllerInstance[4];
+            for (int i = 0; i < 4; i++)
+            {
+                Controllers[i] = new ControllerInstance();
+            }
+        }
+
+        public void UpdateAdapter(byte[] data)
         {
             _Stream = BitStream.Create(data);
             if (_Stream.ReadByte() != _Identifier)
@@ -19,10 +28,10 @@ namespace Delfinovin
                 throw new Exception(Strings.EXCEPTION_IDENTIFIER);
             }
 
-            Controllers = new ControllerInstance[4];
             for (int i = 0; i < 4; i++)
             {
-                Controllers[i] = new ControllerInstance(_Stream);
+                Controllers[i].ReadControllerData(_Stream);
+                Controllers[i].CalibrateController();
             }
         }
     }

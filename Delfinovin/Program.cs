@@ -141,6 +141,7 @@ namespace Delfinovin
         {
             // controller data is 37 bytes between 4 ports
             byte[] controllerData = new byte[37];
+            Adapter adapter = new Adapter();
 
             InitializeControllers();
             while (ec == ErrorCode.None)
@@ -152,9 +153,9 @@ namespace Delfinovin
                 {
                     throw new Exception(string.Format("", ec));
                 }
-                    
 
-                Adapter adapter = new Adapter(controllerData);
+
+                adapter.UpdateAdapter(controllerData);
                 
                 foreach (int port in ApplicationSettings.PortsEnabled)
                 {
