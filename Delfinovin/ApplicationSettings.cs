@@ -21,6 +21,9 @@ namespace Delfinovin
         [Description("Enable/disable printing raw data that is being sent from the adapter.")]
         public static bool EnableRawPrint { get; set; } = true;
 
+        [Description("If enabled, when first running the programs, the stick's center will be recalibrated. Make sure to leave the stick in a neutral position on startup.")]
+        public static bool CalibrateCenter { get; set; } = true;
+
         [Description("If enabled, any analog button press will act as a full digital press. Make sure your analog deadzone is set properly!")]
         public static bool EnableAnalogPress { get; set; } = false;
 

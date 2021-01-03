@@ -36,7 +36,20 @@ namespace Delfinovin
         public byte ANALOG_LEFT; // 8
         public byte ANALOG_RIGHT; // 9
 
-        public ControllerInstance(BitStream bStream)
+        private bool IsPlugged;
+        private bool IsCalibrated = false;
+
+        private int LeftScaleFactorX = 0;
+        private int LeftScaleFactorY = 0;
+        private int CScaleFactorX = 0;
+        private int CScaleFactorY = 0;
+
+        public ControllerInstance()
+        {
+
+        }
+
+        public void ReadControllerData(BitStream bStream)
         {
             bStream.ReadBits(2);
             IsPowered = bStream.ReadBit();
@@ -67,6 +80,21 @@ namespace Delfinovin
 
             ANALOG_LEFT = AnalogDeadzone(bStream.ReadByte());
             ANALOG_RIGHT = AnalogDeadzone(bStream.ReadByte());
+
+            IsPlugged = NormalType || WavebirdType;
+        }
+
+        public void CalibrateController()
+        {
+            if (IsPlugged && ApplicationSettings.CalibrateCenter && !IsCalibrated)
+            {
+                LeftScaleFactorX = 127 - LEFT_STICK_X;
+                LeftScaleFactorY = 127 - LEFT_STICK_Y;
+                CScaleFactorX = 127 - C_STICK_X;
+                CScaleFactorY = 127 - C_STICK_Y;
+
+                IsCalibrated = true;
+            }
         }
 
         public void UpdateController(IXbox360Controller controller)
@@ -95,6 +123,7 @@ namespace Delfinovin
                     controller.SetButtonState(Xbox360Button.RightShoulder, true);
                 }
             }
+
             else
             {
                 controller.SetButtonState(Xbox360Button.LeftShoulder, BUTTON_L);
@@ -104,11 +133,11 @@ namespace Delfinovin
             controller.SetSliderValue(Xbox360Slider.LeftTrigger, ANALOG_LEFT);
             controller.SetSliderValue(Xbox360Slider.RightTrigger, ANALOG_RIGHT);
 
-            controller.SetAxisValue(Xbox360Axis.LeftThumbX, ByteToShort(LEFT_STICK_X));
-            controller.SetAxisValue(Xbox360Axis.LeftThumbY, ByteToShort(LEFT_STICK_Y));
+            controller.SetAxisValue(Xbox360Axis.LeftThumbX, ByteToShort((byte)(LEFT_STICK_X + LeftScaleFactorX)));
+            controller.SetAxisValue(Xbox360Axis.LeftThumbY, ByteToShort((byte)(LEFT_STICK_Y + LeftScaleFactorY)));
 
-            controller.SetAxisValue(Xbox360Axis.RightThumbX, ByteToShort(C_STICK_X));
-            controller.SetAxisValue(Xbox360Axis.RightThumbY, ByteToShort(C_STICK_Y));
+            controller.SetAxisValue(Xbox360Axis.RightThumbX, ByteToShort((byte)(C_STICK_X + CScaleFactorX)));
+            controller.SetAxisValue(Xbox360Axis.RightThumbY, ByteToShort((byte)(C_STICK_Y + CScaleFactorY)));
 
             controller.SubmitReport();
         }
