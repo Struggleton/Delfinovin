@@ -2,7 +2,7 @@
 {
     public static class Strings
     {
-        public static string PROGRAM_NAME = "PosediconController - v0.01 [@Struggleton]";
+        public static string PROGRAM_NAME = "Delfinovin - v0.01 [@Struggleton]";
         public static string MENU_DIVIDER = "=================================================";
         public static string MENU_OPTIONS = "1.) Begin controller input loop\n" +
             "2.) Credits / Thanks\n" +
@@ -19,9 +19,9 @@
             "Pete Batard for Zadig/libwdi which makes setting up WinUSB convenient\n" +
             $"{MENU_DIVIDER}\n";
 
-        public static string MENU_SETUP = "PosediconController uses the ViGEmBus driver to setup up virtual controller inputs.\n" +
+        public static string MENU_SETUP = "Delfinovin uses the ViGEmBus driver to setup up virtual controller inputs.\n" +
             "Download and install the latest release of ViGEmBus here: https://github.com/ViGEm/ViGEmBus/releases\n\n" +
-            "PosediconController also uses the WinUSB driver to interface with the Gamecube adapter as well.\n" +
+            "Delfinovin also uses the WinUSB driver to interface with the Gamecube adapter as well.\n" +
             "Download and run Zadig (https://zadig.akeo.ie/)\n\n" +
             "Under Options, select \"List All Devices \" and look for WUP-028 in the main dropdown menu. " +
             "(If this does not appear, ensure your adapter is in Wii U mode and try plugging the black cable into another port.)\n" +

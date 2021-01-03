@@ -5,9 +5,9 @@ using Nefarius.ViGEm.Client.Exceptions;
 using Nefarius.ViGEm.Client.Targets;
 using System;
 
-namespace Delfinocon
+namespace Delfinovin
 {
-    public class Delfinocon
+    public class Delfinovin
     {
         public static UsbDevice MyUsbDevice;
         public static UsbDeviceFinder MyUsbFinder = new UsbDeviceFinder(0x057E, 0x0337);
