@@ -34,7 +34,7 @@ Delfinovin has a couple of settings that can be set currently:
 Delfinovin can not take exclusive control over the Gamecube device yet. This means you will have to close anything that does (Yuzu, Dolphin, etc.) first, run the program and then open them. 
 
 ## Planned features
-- In-program deadzone support for sticks
+- In-program deadzone/range support for sticks
 
 ## Credits
 Credits and appreciation go to:
@@ -49,3 +49,6 @@ Credits and appreciation go to:
 - LibUsbDotNet
 - Nefarius.ViGEm.Client
 - BitStream
+
+## Contributing
+Thank you! I am still learning a lot about the USB architecture and Gamecube Controllers, so any help / commits are appreciated! I can be contacted on Discord at Struggleton#4071 / Twitter at @Struggleton as well.
