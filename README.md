@@ -14,7 +14,11 @@ This includes Mayflash controllers, Nintendo's own gamecube adapter and probably
 	- (If this does not appear, ensure your adapter is in Wii U mode if you're using a Mayflash adapter and try plugging the black cable into another port.)
 
 ![](https://github.com/Struggleton/Delfinovin/blob/master/Delfinovin/resources/Zadig%20Icon.png)
-- Select *"WinUSB"* in the right columm and click *"Replace Driver." Accept any system driver prompts. Restart the program and choose "*Begin controller input loop"*!
+- Select *"WinUSB"* in the right columm and click *"Replace Driver." Accept any system driver prompts. 
+
+- Check settings.txt and modify the settings to your desired values. [GamepadTester](https://gamepad-tester.com/ "Gamepad Tester") can be useful for visualizing the sticks / button inputs if you're trying to figure out what settings to use in programs and other games. 
+
+- Restart the program and choose "*Begin controller input loop"*!
 
 ## Settings
 Delfinovin has a couple of settings that can be set currently:
@@ -29,6 +33,8 @@ Delfinovin has a couple of settings that can be set currently:
 	- If enabled, any analog button press will act as a full digital press. Make sure your analog deadzone is set properly!
 - PortsEnabled [Default - 1]
 	- Enable/disable specific ports. Ports 1-4 supported. (*PortsEnabled: 1 2 3 4 will enable all ports.*)
+- CalibrateCenter [Default - True]
+	- If enabled, when first running the programs, the stick's center will be recalibrated. Make sure to leave the stick in a neutral position on startup.
 
 ## Notes
 Delfinovin can not take exclusive control over the Gamecube device yet. This means you will have to close anything that does (Yuzu, Dolphin, etc.) first, run the program and then open them. 
