@@ -4,6 +4,9 @@ using Nefarius.ViGEm.Client;
 using Nefarius.ViGEm.Client.Exceptions;
 using Nefarius.ViGEm.Client.Targets;
 using System;
+using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Delfinovin
 {
@@ -14,6 +17,7 @@ namespace Delfinovin
 
         private static ViGEmClient[] _controllerClients;
         private static IXbox360Controller[] _XInputControllers;
+        public static Adapter _controllerAdapter = new Adapter();
 
         public static void Main(string[] args)
         {
@@ -22,13 +26,7 @@ namespace Delfinovin
 
             while (menuContinue)
             {
-                Console.WriteLine(Strings.PROGRAM_NAME);
-                Console.WriteLine(Strings.MENU_DIVIDER);
-                Console.WriteLine(Strings.MENU_OPTIONS);
-
-                string input = Console.ReadLine();
-                Console.WriteLine();
-
+                string input = PrintMenu();
                 if (int.TryParse(input, out int numInput))
                 {
                     switch (numInput)
@@ -58,27 +56,26 @@ namespace Delfinovin
             }
         }
 
+        public static string PrintMenu()
+        {
+            Console.WriteLine(Strings.PROGRAM_NAME);
+            Console.WriteLine(Strings.MENU_DIVIDER);
+            Console.WriteLine(Strings.MENU_OPTIONS);
+
+            string input = Console.ReadLine();
+            Console.WriteLine();
+
+            return input;
+        }
+
         public static void BeginControllerLoop()
         {
-            
             ErrorCode ec = ErrorCode.None;
-
             try
             {
-                MyUsbDevice = UsbDevice.OpenUsbDevice(MyUsbFinder);
-                if (MyUsbDevice == null)
-                {
-                    throw new Exception(Strings.ERROR_ADAPTERNOTFOUND);
-                }
-
-                IUsbDevice wholeUsbDevice = MyUsbDevice as IUsbDevice;
-                if (!ReferenceEquals(wholeUsbDevice, null))
-                {
-                    wholeUsbDevice.SetConfiguration(1);
-                    wholeUsbDevice.ClaimInterface(0);
-                }
-
+                InitializeUSBDevice();
                 Console.Clear();
+
                 Console.WriteLine(Strings.MENU_BEGINNING);
                 UsbEndpointReader reader = MyUsbDevice.OpenEndpointReader(ReadEndpointID.Ep01);
                 ec = ReadControllerData(reader, ec);
@@ -94,20 +91,7 @@ namespace Delfinovin
 
             finally
             {
-                if (MyUsbDevice != null)
-                {
-                    if (MyUsbDevice.IsOpen)
-                    {
-                        IUsbDevice wholeUsbDevice = MyUsbDevice as IUsbDevice;
-                        if (!ReferenceEquals(wholeUsbDevice, null))
-                            wholeUsbDevice.ReleaseInterface(0);
-
-                        MyUsbDevice.Close();
-                    }
-
-                    MyUsbDevice = null;
-                    UsbDevice.Exit();
-                }
+                CloseUSBDevice();
             }
         }
 
@@ -139,30 +123,19 @@ namespace Delfinovin
 
         public static ErrorCode ReadControllerData(UsbEndpointReader reader, ErrorCode ec = ErrorCode.None)
         {
-            // controller data is 37 bytes between 4 ports
-            byte[] controllerData = new byte[37];
-            Adapter adapter = new Adapter();
-
             InitializeControllers();
+
             while (ec == ErrorCode.None)
             {
-                int bytesRead;
-                ec = reader.Read(controllerData, 5000, out bytesRead);
-
-                if (bytesRead == 0)
-                {
-                    throw new Exception(string.Format("", ec));
-                }
-
-
-                adapter.UpdateAdapter(controllerData);
+                byte[] controllerData = ReadBytes(reader, 37, ec);
+                _controllerAdapter.UpdateAdapter(controllerData);
                 
                 foreach (int port in ApplicationSettings.PortsEnabled)
                 {
-                    adapter.Controllers[port].UpdateController(_XInputControllers[port]);
+                    _controllerAdapter.Controllers[port].UpdateController(_XInputControllers[port]);
                     if (ApplicationSettings.EnableRawPrint)
                     {
-                        PrintControllerInfo(adapter, controllerData);
+                        PrintControllerInfo();
                     }
                 }
 
@@ -176,7 +149,7 @@ namespace Delfinovin
             return ec;
         }
 
-        public static void PrintControllerInfo(Adapter adapter, byte[] rawData)
+        public static void PrintControllerInfo()
         {
             Console.SetCursorPosition(0, 1);
             Console.CursorVisible = false;
@@ -186,38 +159,87 @@ namespace Delfinovin
                 Console.WriteLine(Strings.MENU_DIVIDER);
 
                 Console.Write(string.Format(Strings.INFO_STICK,
-                    adapter.Controllers[port].LEFT_STICK_X.ToString(),
-                    adapter.Controllers[port].LEFT_STICK_Y.ToString()));
+                    _controllerAdapter.Controllers[port].LEFT_STICK_X.ToString(),
+                    _controllerAdapter.Controllers[port].LEFT_STICK_Y.ToString()));
                 Console.WriteLine();
 
                 Console.Write(string.Format(Strings.INFO_CSTICK,
-                        adapter.Controllers[port].C_STICK_X.ToString(),
-                        adapter.Controllers[port].C_STICK_Y.ToString()));
+                        _controllerAdapter.Controllers[port].C_STICK_X.ToString(),
+                        _controllerAdapter.Controllers[port].C_STICK_Y.ToString()));
                 Console.WriteLine();
 
                 Console.Write(string.Format(Strings.INFO_FACEBUTTONS,
-                        ConvertYesNo(adapter.Controllers[port].BUTTON_A),
-                        ConvertYesNo(adapter.Controllers[port].BUTTON_B),
-                        ConvertYesNo(adapter.Controllers[port].BUTTON_X),
-                        ConvertYesNo(adapter.Controllers[port].BUTTON_Y),
-                        ConvertYesNo(adapter.Controllers[port].BUTTON_START)));
+                        ConvertYesNo(_controllerAdapter.Controllers[port].BUTTON_A),
+                        ConvertYesNo(_controllerAdapter.Controllers[port].BUTTON_B),
+                        ConvertYesNo(_controllerAdapter.Controllers[port].BUTTON_X),
+                        ConvertYesNo(_controllerAdapter.Controllers[port].BUTTON_Y),
+                        ConvertYesNo(_controllerAdapter.Controllers[port].BUTTON_START)));
                 Console.WriteLine();
 
                 Console.Write(string.Format(Strings.INFO_TRIGGERS,
-                        adapter.Controllers[port].ANALOG_LEFT.ToString(),
-                        adapter.Controllers[port].ANALOG_RIGHT.ToString(),
-                        ConvertYesNo(adapter.Controllers[port].BUTTON_Z)
+                        _controllerAdapter.Controllers[port].ANALOG_LEFT.ToString(),
+                        _controllerAdapter.Controllers[port].ANALOG_RIGHT.ToString(),
+                        ConvertYesNo(_controllerAdapter.Controllers[port].BUTTON_Z)
                         ));
                 Console.WriteLine();
 
                 Console.Write(string.Format(Strings.INFO_DPAD,
-                        ConvertYesNo(adapter.Controllers[port].DPAD_LEFT),
-                        ConvertYesNo(adapter.Controllers[port].DPAD_RIGHT),
-                        ConvertYesNo(adapter.Controllers[port].DPAD_UP),
-                        ConvertYesNo(adapter.Controllers[port].DPAD_DOWN)));
+                        ConvertYesNo(_controllerAdapter.Controllers[port].DPAD_LEFT),
+                        ConvertYesNo(_controllerAdapter.Controllers[port].DPAD_RIGHT),
+                        ConvertYesNo(_controllerAdapter.Controllers[port].DPAD_UP),
+                        ConvertYesNo(_controllerAdapter.Controllers[port].DPAD_DOWN)));
                 Console.WriteLine();
                 Console.WriteLine();
             }
+        }
+
+        public static void InitializeUSBDevice()
+        {
+            MyUsbDevice = UsbDevice.OpenUsbDevice(MyUsbFinder);
+            if (MyUsbDevice == null)
+            {
+                throw new Exception(Strings.ERROR_ADAPTERNOTFOUND);
+            }
+
+            IUsbDevice wholeUsbDevice = MyUsbDevice as IUsbDevice;
+            if (!ReferenceEquals(wholeUsbDevice, null))
+            {
+                wholeUsbDevice.SetConfiguration(1);
+                wholeUsbDevice.ClaimInterface(0);
+            }
+        }
+
+        public static void CloseUSBDevice()
+        {
+            if (MyUsbDevice != null)
+            {
+                if (MyUsbDevice.IsOpen)
+                {
+                    IUsbDevice wholeUsbDevice = MyUsbDevice as IUsbDevice;
+                    if (!ReferenceEquals(wholeUsbDevice, null))
+                    {
+                        wholeUsbDevice.ReleaseInterface(0);
+                        Console.WriteLine(Strings.INFO_INTERFACERELEASE);
+                    }
+                    MyUsbDevice.Close();
+                }
+
+                MyUsbDevice = null;
+                UsbDevice.Exit();
+            }
+        }
+
+        public static byte[] ReadBytes(UsbEndpointReader reader, int amount, ErrorCode ec = ErrorCode.None)
+        {
+            byte[] data = new byte[amount];
+            int bytesRead = 0;
+            ec = reader.Read(data, 5000, out bytesRead);
+
+            if (ec != ErrorCode.None)
+                throw new Exception(string.Format(Strings.ERROR_GENERIC, ec));
+            if (bytesRead == 0)
+                throw new Exception(string.Format(Strings.ERROR_NOBYTES, bytesRead));
+            return data;
         }
 
         public static string ConvertYesNo(bool input)

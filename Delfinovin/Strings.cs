@@ -36,6 +36,7 @@
         public static string INFO_TRIGGERS = "Left Analog: [{0}] | Right Analog [{1}] | Z Button: [{2}]";
         public static string INFO_STICK = "Left Stick X: [{0}] | Left Stick Y: [{1}]";
         public static string INFO_CSTICK = "Right Stick X: [{0}] | Right Stick Y: [{1}]";
+        public static string INFO_INTERFACERELEASE = "Releasing Gamecube Controller USB interface.";
 
         public static string ERROR_SELECTIONINVALID = "Invalid input! Choose a number between 1-5.";
         public static string ERROR_ADAPTERNOTFOUND = "Gamecube Adapter not found. Have you installed WinUSB? " +
@@ -43,6 +44,7 @@
         public static string ERROR_SETTINGSNOTFOUND = "Settings.txt not found! Generating one with default settings.";
         public static string ERROR_NOBYTES = "{0}: No more bytes!";
         public static string ERROR_PORTS = "Failed to read port number! Make sure that the setting is formatted properly (PortsEnabled: 1 2 3 4)";
+        public static string ERROR_GENERIC = "Error! Error code: {0}";
 
         public static string EXCEPTION_IDENTIFIER = "Error! Gamecube magic header not found!";
         public static string EXCEPTION_EMBUSNOTFOUND = "The ViGEmBus driver was not found! Have you installed it?";
