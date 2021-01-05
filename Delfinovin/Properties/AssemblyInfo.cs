@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Delfinovin")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("An XInput solution for Gamecube Controllers")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Delfinovin")]
