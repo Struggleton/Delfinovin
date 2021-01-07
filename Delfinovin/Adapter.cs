@@ -31,7 +31,7 @@ namespace Delfinovin
             for (int i = 0; i < 4; i++)
             {
                 Controllers[i].ReadControllerData(_Stream);
-                Controllers[i].CalibrateController();
+                Controllers[i].UpdateCenter();
             }
         }
     }

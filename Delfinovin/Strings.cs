@@ -2,12 +2,13 @@
 {
     public static class Strings
     {
-        public static string PROGRAM_NAME = "Delfinovin - v0.01 [@Struggleton]";
+        public static string PROGRAM_NAME = "Delfinovin - v0.02 [@Struggleton]";
         public static string MENU_DIVIDER = "=================================================";
         public static string MENU_OPTIONS = "1.) Begin controller input loop\n" +
-            "2.) Credits / Thanks\n" +
-            "3.) Setup Guide\n" +
-            "4.) Exit";
+            "2.) Calibrate Controllers\n" +
+            "3.) Credits / Thanks\n" +
+            "4.) Setup Guide\n" +
+            "5.) Exit";
 
         public static string MENU_CREDITS = "Credits and appreciation go to\n" +
             $"{MENU_DIVIDER}\n" +
@@ -28,8 +29,10 @@
             "Select WinUSB in the right column and click on \"Replace Driver\" and accept any system driver prompts.\n\n" +
             "Restart this program and select the 1st option in the main menu!";
 
-        public static string MENU_BEGINNING = "Beginning controller input loop.";
-        public static string MENU_COMPLETE = "All done! Ending loop...";
+        public static string MENU_LOOP_BEGINNING = "Beginning controller input loop.";
+        public static string MENU_LOOP_COMPLETE = "All done! Ending loop...";
+        public static string MENU_CALIBRATION = "Beginning controller calibration on port {0}. Rotate the sticks so that they hit the edges. Press enter when done.";
+        public static string MENU_CALIBRATION_COMPLETE = "Completed calibration! Press any button to continue...";
 
         public static string INFO_FACEBUTTONS = "A Button: [{0}] | B Button [{1}] | X Button [{2}] | Y Button [{3}] | Start Button [{4}]";
         public static string INFO_DPAD = "Left DPAD: [{0}] | Right DPAD: [{1}] | Up DPAD: [{2}] | Down DPAD: [{3}]";

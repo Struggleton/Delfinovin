@@ -19,7 +19,7 @@ namespace Delfinovin
         private static IXbox360Controller[] _XInputControllers;
         public static Adapter _controllerAdapter = new Adapter();
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             bool menuContinue = true;
             ApplicationSettings.LoadSettings();
@@ -35,12 +35,15 @@ namespace Delfinovin
                             BeginControllerLoop();
                             break;
                         case 2:
-                            Console.WriteLine(Strings.MENU_CREDITS);
+                            await CalibrateControllers();
                             break;
                         case 3:
-                            Console.WriteLine(Strings.MENU_SETUP);
+                            Console.WriteLine(Strings.MENU_CREDITS);
                             break;
                         case 4:
+                            Console.WriteLine(Strings.MENU_SETUP);
+                            break;
+                        case 5:
                             menuContinue = false;
                             break;
                         default:
@@ -55,6 +58,52 @@ namespace Delfinovin
                 }
             }
         }
+
+        private static async void WaitForInput(CancellationTokenSource cts)
+        {
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                    {
+                        cts.Cancel();
+                        break;
+                    }
+                }
+            }
+        }
+
+        public static async Task CalibrateControllers()
+        {
+            InitializeUSBDevice();
+            UsbEndpointReader reader = MyUsbDevice.OpenEndpointReader(ReadEndpointID.Ep01);
+
+            foreach (int port in ApplicationSettings.PortsEnabled)
+            {
+                Console.WriteLine(string.Format(Strings.MENU_CALIBRATION, port));
+
+                var cts = new CancellationTokenSource();
+                var token = cts.Token;
+
+                Task.Run(() =>
+                {
+                    while (!token.IsCancellationRequested)
+                    {
+                        _controllerAdapter.UpdateAdapter(ReadBytes(reader, 37));
+                        _controllerAdapter.Controllers[port].UpdateMinMax();
+                    }
+
+                }, token);
+
+                WaitForInput(cts);
+
+                Console.WriteLine(Strings.MENU_CALIBRATION_COMPLETE);
+            }
+
+            CloseUSBDevice();
+        }
+
 
         public static string PrintMenu()
         {
@@ -76,11 +125,11 @@ namespace Delfinovin
                 InitializeUSBDevice();
                 Console.Clear();
 
-                Console.WriteLine(Strings.MENU_BEGINNING);
+                Console.WriteLine(Strings.MENU_LOOP_BEGINNING);
                 UsbEndpointReader reader = MyUsbDevice.OpenEndpointReader(ReadEndpointID.Ep01);
                 ec = ReadControllerData(reader, ec);
 
-                Console.WriteLine(Strings.MENU_COMPLETE);
+                Console.WriteLine(Strings.MENU_LOOP_COMPLETE);
             }
 
             catch (Exception ex)
