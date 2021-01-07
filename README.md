@@ -18,7 +18,7 @@ This includes Mayflash controllers, Nintendo's own gamecube adapter and probably
 
 - Check settings.txt and modify the settings to your desired values. [GamepadTester](https://gamepad-tester.com/ "Gamepad Tester") can be useful for visualizing the sticks / button inputs if you're trying to figure out what settings to use in programs and other games. 
 
-If you would like to calibrate the sticks in order to use their full ranges, do so now by using the *Calibrate sticks* menu. 
+If you would like to calibrate the sticks in order to use their full ranges, do so now by using the *Calibrate Controllers* menu. 
 - Restart the program and choose "*Begin controller input loop"*!
 
 ## Settings
@@ -52,15 +52,16 @@ Delfinovin has a couple of settings that can be set currently:
 
 ## Credits
 Credits and appreciation go to:
-- Rubendal for writing the BitStream library!
-- The LibUSBDot.NET team for writing the LibUSBDotNET library! / WinUSB team at Microsoft for providing the driver
-- Nefarius for writing the ViGEmBus driver and the ViGEmBus.NET client library
-- ms4v for a great reference with GCNUSBFeeder and the vJoy library
-- Gemarcano for providing the essential documentation on how the adapter sends data
-- Pete Batard for Zadig/libwdi which makes setting up WinUSB convenient
+- (Rubendal)[https://github.com/rubendal] for writing the (BitStream)[https://github.com/rubendal/BitStream] library!
+- The (LibUSB.NET)[https://github.com/LibUsbDotNet] team for writing the (LibUSB.NET)[https://github.com/LibUsbDotNet/LibUsbDotNet] library! / WinUSB team at Microsoft for providing the driver
+- (Nefarius)[https://github.com/nefarius] for writing the ViGEmBus driver and the (ViGEmBus.NET)[https://github.com/ViGEm/ViGEm.NET] client library
+- (Matt "ms4v" Cunningham)[https://bitbucket.org/elmassivo/] for a great reference with GCNUSBFeeder and the vJoy library
+- (Gabriel "gemarcano" Marcano)[https://github.com/gemarcano] for providing the (essential documentation on how the adapter sends data)[https://github.com/gemarcano/GCN_Adapter-Driver/tree/master/docs]
+- (Pete "pbatard" Batard)[https://github.com/pbatard] for (Zadig/libwdi)[https://github.com/pbatard/libwdi] which makes setting up WinUSB convenient
+- (BarkingFrog)[https://twitter.com/Barking_Frogssb] for providing the math behind calibrating/centering sticks
 
 ## Libraries used
-- LibUsbDotNet
+- LibUSB.NET
 - Nefarius.ViGEm.Client
 - BitStream
 
