@@ -1,5 +1,5 @@
 # Delfinovin
-Delfinovin - An XInput solution for Gamecube Controllers
+Delfinovin - An XInput solution for Gamecube Controllers (Dell-fie-no-vin)
 ------------
 Delfinovin is an XInput conversion for use with Gamecube Controller adapters that implement Nintendo's WUP-028 firmware.
 This includes Mayflash controllers, Nintendo's own gamecube adapter and probably more that exist out there.
@@ -14,10 +14,11 @@ This includes Mayflash controllers, Nintendo's own gamecube adapter and probably
 	- (If this does not appear, ensure your adapter is in Wii U mode if you're using a Mayflash adapter and try plugging the black cable into another port.)
 
 ![](https://github.com/Struggleton/Delfinovin/blob/master/Delfinovin/resources/Zadig%20Icon.png)
-- Select *"WinUSB"* in the right columm and click *"Replace Driver." Accept any system driver prompts. 
+- Select *"WinUSB"* in the right columm and click *"Replace Driver."* Accept any system driver prompts. 
 
 - Check settings.txt and modify the settings to your desired values. [GamepadTester](https://gamepad-tester.com/ "Gamepad Tester") can be useful for visualizing the sticks / button inputs if you're trying to figure out what settings to use in programs and other games. 
 
+If you would like to calibrate the sticks in order to use their full ranges, do so now by using the *Calibrate sticks* menu. 
 - Restart the program and choose "*Begin controller input loop"*!
 
 ## Settings
@@ -37,10 +38,17 @@ Delfinovin has a couple of settings that can be set currently:
 	- If enabled, when first running the programs, the stick's center will be recalibrated. Make sure to leave the stick in a neutral position on startup.
 
 ## Notes
-Delfinovin can not take exclusive control over the Gamecube device yet. This means you will have to close anything that does (Yuzu, Dolphin, etc.) first, run the program and then open them. 
+- Delfinovin can not take exclusive control over the controller adapter. This means you will have to close anything that does (Yuzu, Dolphin, etc.) first, run the program and then open them. 
+
+- By default, Delfinovin will calibrate the stick centers. However, if you calibrate the sticks in the stick menu, the new calibration for the ranges will take priority. 
+
+- Currently, there is a bug in the program ([Documented here](https://github.com/Struggleton/Delfinovin/issues/2)) that causes the controller loop to not properly begin. There's a workaround documented in this video here: https://www.youtube.com/watch?v=bi2hf6VxmiI, but please post on the linked issue if there are any underlying causes you can find.
+
+- The Z-button is currently mapped to Back (the select button.) I ran out of buttons because of the analog triggers... Please remember to map your buttons in your games accordingly. I will look into migrating it to the Right Bumper.
+
 
 ## Planned features
-- In-program deadzone/range support for sticks
+- In-program deadzone support for sticks
 
 ## Credits
 Credits and appreciation go to:
