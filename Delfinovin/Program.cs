@@ -81,7 +81,7 @@ namespace Delfinovin
 
             foreach (int port in ApplicationSettings.PortsEnabled)
             {
-                Console.WriteLine(string.Format(Strings.MENU_CALIBRATION, port));
+                Console.WriteLine(string.Format(Strings.MENU_CALIBRATION, port + 1));
 
                 var cts = new CancellationTokenSource();
                 var token = cts.Token;

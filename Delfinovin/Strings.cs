@@ -32,7 +32,7 @@
         public static string MENU_LOOP_BEGINNING = "Beginning controller input loop.";
         public static string MENU_LOOP_COMPLETE = "All done! Ending loop...";
         public static string MENU_CALIBRATION = "Beginning controller calibration on port {0}. Rotate the sticks so that they hit the edges. Press enter when done.";
-        public static string MENU_CALIBRATION_COMPLETE = "Completed calibration! Press any button to continue...";
+        public static string MENU_CALIBRATION_COMPLETE = "Completed calibration!";
 
         public static string INFO_FACEBUTTONS = "A Button: [{0}] | B Button [{1}] | X Button [{2}] | Y Button [{3}] | Start Button [{4}]";
         public static string INFO_DPAD = "Left DPAD: [{0}] | Right DPAD: [{1}] | Up DPAD: [{2}] | Down DPAD: [{3}]";
