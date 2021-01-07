@@ -52,13 +52,13 @@ Delfinovin has a couple of settings that can be set currently:
 
 ## Credits
 Credits and appreciation go to:
-- (Rubendal)[https://github.com/rubendal] for writing the (BitStream)[https://github.com/rubendal/BitStream] library!
-- The (LibUSB.NET)[https://github.com/LibUsbDotNet] team for writing the (LibUSB.NET)[https://github.com/LibUsbDotNet/LibUsbDotNet] library! / WinUSB team at Microsoft for providing the driver
-- (Nefarius)[https://github.com/nefarius] for writing the ViGEmBus driver and the (ViGEmBus.NET)[https://github.com/ViGEm/ViGEm.NET] client library
-- (Matt "ms4v" Cunningham)[https://bitbucket.org/elmassivo/] for a great reference with GCNUSBFeeder and the vJoy library
-- (Gabriel "gemarcano" Marcano)[https://github.com/gemarcano] for providing the (essential documentation on how the adapter sends data)[https://github.com/gemarcano/GCN_Adapter-Driver/tree/master/docs]
-- (Pete "pbatard" Batard)[https://github.com/pbatard] for (Zadig/libwdi)[https://github.com/pbatard/libwdi] which makes setting up WinUSB convenient
-- (BarkingFrog)[https://twitter.com/Barking_Frogssb] for providing the math behind calibrating/centering sticks
+- [Rubendal](https://github.com/rubendal) for writing the [BitStream](https://github.com/rubendal/BitStream) library!
+- The [LibUSB.NET](https://github.com/LibUsbDotNet) team for writing the [LibUSB.NET](https://github.com/LibUsbDotNet/LibUsbDotNet) library! / WinUSB team at Microsoft for providing the driver
+- [Nefarius](https://github.com/nefarius) for writing the ViGEmBus driver and the [ViGEmBus.NET](https://github.com/ViGEm/ViGEm.NET) client library
+- [Matt "ms4v" Cunningham](https://bitbucket.org/elmassivo/) for a great reference with GCNUSBFeeder and the vJoy library
+- [Gabriel "gemarcano" Marcano](https://github.com/gemarcano) for providing the [essential documentation on how the adapter sends data](https://github.com/gemarcano/GCN_Adapter-Driver/tree/master/docs)
+- [Pete "pbatard" Batard](https://github.com/pbatard) for [Zadig/libwdi](https://github.com/pbatard/libwdi) which makes setting up WinUSB convenient
+- [BarkingFrog](https://twitter.com/Barking_Frogssb) for providing the math behind calibrating/centering sticks
 
 ## Libraries used
 - LibUSB.NET
