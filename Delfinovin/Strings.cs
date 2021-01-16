@@ -18,6 +18,7 @@
             "ms4v for a great reference with GCNUSBFeeder and the vJoy library\n" +
             "Gemarcano for providing the essential documentation on how the adapter sends data\n" +
             "Pete Batard for Zadig/libwdi which makes setting up WinUSB convenient\n" +
+            "BarkingFrog for providing the math behind calibrating/centering sticks\n" +
             $"{MENU_DIVIDER}\n";
 
         public static string MENU_SETUP = "Delfinovin uses the ViGEmBus driver to setup up virtual controller inputs.\n" +
