@@ -14,10 +14,13 @@ namespace Delfinovin
     {
         public static UsbDevice MyUsbDevice;
         public static UsbDeviceFinder MyUsbFinder = new UsbDeviceFinder(0x057E, 0x0337);
+        private static UsbEndpointReader _controllerReader;
+        private static UsbEndpointWriter _controllerWriter;
 
         private static ViGEmClient[] _controllerClients;
         private static IXbox360Controller[] _XInputControllers;
         public static Adapter _controllerAdapter = new Adapter();
+        
 
         public static async Task Main(string[] args)
         {
@@ -32,9 +35,11 @@ namespace Delfinovin
                     switch (numInput)
                     {
                         case 1:
+                            Console.Clear();
                             BeginControllerLoop();
                             break;
                         case 2:
+                            Console.Clear();
                             await CalibrateControllers();
                             break;
                         case 3:
@@ -90,7 +95,7 @@ namespace Delfinovin
                 {
                     while (!token.IsCancellationRequested)
                     {
-                        _controllerAdapter.UpdateAdapter(ReadBytes(reader, 37));
+                        _controllerAdapter.UpdateAdapter(ReadBytes(37));
                         _controllerAdapter.Controllers[port].UpdateMinMax();
                     }
 
@@ -123,11 +128,8 @@ namespace Delfinovin
             try
             {
                 InitializeUSBDevice();
-                Console.Clear();
-
                 Console.WriteLine(Strings.MENU_LOOP_BEGINNING);
-                UsbEndpointReader reader = MyUsbDevice.OpenEndpointReader(ReadEndpointID.Ep01);
-                ec = ReadControllerData(reader, ec);
+                ec = ReadControllerData(_controllerReader, ec);
 
                 Console.WriteLine(Strings.MENU_LOOP_COMPLETE);
             }
@@ -176,9 +178,9 @@ namespace Delfinovin
 
             while (ec == ErrorCode.None)
             {
-                byte[] controllerData = ReadBytes(reader, 37, ec);
+                byte[] controllerData = ReadBytes(37, ec);
                 _controllerAdapter.UpdateAdapter(controllerData);
-                
+
                 foreach (int port in ApplicationSettings.PortsEnabled)
                 {
                     _controllerAdapter.Controllers[port].UpdateController(_XInputControllers[port]);
@@ -242,6 +244,23 @@ namespace Delfinovin
             }
         }
 
+        
+
+        public static byte[] ReadBytes(int amount, ErrorCode ec = ErrorCode.None)
+        {
+            byte[] data = new byte[amount];
+            int bytesRead = -1;
+            ec = _controllerReader.Read(data, 5000, out bytesRead);
+
+            if (bytesRead == 0)
+                throw new Exception(string.Format(Strings.ERROR_NOBYTES, bytesRead));
+
+            else if (ec != ErrorCode.None)
+                throw new Exception(string.Format(Strings.ERROR_GENERIC, ec));
+            
+            return data;
+        }
+
         public static void InitializeUSBDevice()
         {
             MyUsbDevice = UsbDevice.OpenUsbDevice(MyUsbFinder);
@@ -256,6 +275,12 @@ namespace Delfinovin
                 wholeUsbDevice.SetConfiguration(1);
                 wholeUsbDevice.ClaimInterface(0);
             }
+
+            _controllerReader = MyUsbDevice.OpenEndpointReader(ReadEndpointID.Ep01);
+            _controllerWriter = MyUsbDevice.OpenEndpointWriter(WriteEndpointID.Ep02);
+
+            // begin polling command - https://gbatemp.net/threads/wii-u-gamecube-adapter-reverse-engineering-cont.388169/
+            _controllerWriter.Write(Convert.ToByte(0x13), 5000, out int transferLength);
         }
 
         public static void CloseUSBDevice()
@@ -276,19 +301,6 @@ namespace Delfinovin
                 MyUsbDevice = null;
                 UsbDevice.Exit();
             }
-        }
-
-        public static byte[] ReadBytes(UsbEndpointReader reader, int amount, ErrorCode ec = ErrorCode.None)
-        {
-            byte[] data = new byte[amount];
-            int bytesRead = 0;
-            ec = reader.Read(data, 5000, out bytesRead);
-
-            if (ec != ErrorCode.None)
-                throw new Exception(string.Format(Strings.ERROR_GENERIC, ec));
-            if (bytesRead == 0)
-                throw new Exception(string.Format(Strings.ERROR_NOBYTES, bytesRead));
-            return data;
         }
 
         public static string ConvertYesNo(bool input)
