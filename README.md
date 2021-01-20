@@ -7,19 +7,21 @@ This includes Mayflash controllers, Nintendo's own gamecube adapter and probably
 ![](https://github.com/Struggleton/Delfinovin/blob/master/Delfinovin/resources/Delfinovin%20-%20Screenshot%20Debug.png)
 
 ## Usage
-- Delfinovin uses ViGEmBus in order to create virtual XInput joysticks. Download the latest release of [ViGEmBus](https://github.com/ViGEm/ViGEmBus/releases "ViGEmBus") and install it.
+- Delfinovin uses ViGEmBus in order to create virtual XInput joysticks. Download the latest release of [ViGEmBus](https://github.com/ViGEm/ViGEmBus/releases/tag/setup-v1.16.116 "ViGEmBus") and install it.
 
-- Delfinovin also uses the WinUSB driver to interface with the Gamecube Controller adapter. Download and run [Zadig](https://zadig.akeo.ie/ "Zadig"). Under *"Options, "* enable *"List all Devices"* and look for WUP-028 in the main dropdown menu.
+- Delfinovin also uses the WinUSB driver to interface with the Gamecube Controller adapter. Download and run [Zadig](https://zadig.akeo.ie/ "Zadig"). Under *"Options,"* enable *"List all Devices"* and look for WUP-028 in the main dropdown menu.
 
 	- (If this does not appear, ensure your adapter is in Wii U mode if you're using a Mayflash adapter and try plugging the black cable into another port.)
 
 ![](https://github.com/Struggleton/Delfinovin/blob/master/Delfinovin/resources/Zadig%20Icon.png)
 - Select *"WinUSB"* in the right columm and click *"Replace Driver."* Accept any system driver prompts. 
 
+- Download the latest release of Delfinovin from the releases page and extract it to somewhere safe. 
+
 - Check settings.txt and modify the settings to your desired values. [GamepadTester](https://gamepad-tester.com/ "Gamepad Tester") can be useful for visualizing the sticks / button inputs if you're trying to figure out what settings to use in programs and other games. 
 
 If you would like to calibrate the sticks in order to use their full ranges, do so now by using the *Calibrate Controllers* menu. 
-- Restart the program and choose "*Begin controller input loop"*!
+- Restart the program and choose "*Begin controller input loop"*! Delfinovin will only translate gamecube controller inputs while it is open and is in the controller loop, meaning you have to keep it open as long as you want to use your controller.
 
 ## Settings
 Delfinovin has a couple of settings that can be set currently:
@@ -35,7 +37,7 @@ Delfinovin has a couple of settings that can be set currently:
 - PortsEnabled [Default - 1]
 	- Enable/disable specific ports. Ports 1-4 supported. (*PortsEnabled: 1 2 3 4 will enable all ports.*)
 - CalibrateCenter [Default - True]
-	- If enabled, when first running the programs, the stick's center will be recalibrated. Make sure to leave the stick in a neutral position on startup.
+	- If enabled, when first running the programs, the stick's center will be recalibrated. Make sure to leave the stick in a neutral position on startup. Calibrating the sticks from the menu will override this option.
 
 ## Notes
 - Delfinovin can not take exclusive control over the controller adapter. This means you will have to close anything that does (Yuzu, Dolphin, etc.) first, run the program and then open them. 
