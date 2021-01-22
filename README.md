@@ -1,4 +1,5 @@
-# Delfinovin
+# Delfinovin 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/C0C43E4IB)
 Delfinovin - An XInput solution for Gamecube Controllers (Dell-fie-no-vin)
 ------------
 Delfinovin is an XInput conversion for use with Gamecube Controller adapters that implement Nintendo's WUP-028 firmware.
@@ -51,6 +52,7 @@ Delfinovin has a couple of settings that can be set currently:
 
 ## Planned features
 - In-program deadzone support for sticks
+- Rumble support for powered adapters
 
 ## Credits
 Credits and appreciation go to:
