@@ -34,26 +34,23 @@ Delfinovin has a couple of settings that can be set currently:
 	-  TriggerThreshold refers to the amount that the analog trigger has to be pressed before it registers as a full press.
 - EnableRawPrint [Default - True]
 	-  Enable/disable printing raw data that is being sent from the adapter.
-- EnableAnalogPress [Default - False]
+- EnableDigitalPress [Default - False]
 	- If enabled, any analog button press will act as a full digital press. Make sure your analog deadzone is set properly!
 - PortsEnabled [Default - 1]
 	- Enable/disable specific ports. Ports 1-4 supported. (*PortsEnabled: 1 2 3 4 will enable all ports.*)
 - CalibrateCenter [Default - True]
 	- If enabled, when first running the programs, the stick's center will be recalibrated. Make sure to leave the stick in a neutral position on startup. Calibrating the sticks from the menu will override this option.
+- EnableRumble [Default - False]
+	-If enabled, gamecube controllers will receive haptic feedback from the game (Rumble.)
 
 ## Notes
 - Delfinovin can not take exclusive control over the controller adapter. This means you will have to close anything that does (Yuzu, Dolphin, etc.) first, run the program and then open them. 
 
 - By default, Delfinovin will calibrate the stick centers. However, if you calibrate the sticks in the stick menu, the new calibration for the ranges will take priority. 
 
-- Currently, there is a bug in the program ([Documented here](https://github.com/Struggleton/Delfinovin/issues/2)) that causes the controller loop to not properly begin. There's a workaround documented in this video here: https://www.youtube.com/watch?v=bi2hf6VxmiI, but please post on the linked issue if there are any underlying causes you can find.
-
-- The Z-button is currently mapped to Back (the select button.) I ran out of buttons because of the analog triggers... Please remember to map your buttons in your games accordingly. I will look into migrating it to the Right Bumper.
-
 
 ## Planned features
 - In-program deadzone support for sticks
-- Rumble support for powered adapters
 
 ## Credits
 Credits and appreciation go to:
@@ -70,5 +67,5 @@ Credits and appreciation go to:
 - Nefarius.ViGEm.Client
 - BitStream
 
-## Contributing
-Thank you! I am still learning a lot about the USB architecture and Gamecube Controllers, so any help / commits are appreciated! I can be contacted on Discord at Struggleton#4071 / Twitter at @Struggleton as well.
+## Contributing and Support
+Thank you! I am still learning a lot about the USB architecture and Gamecube Controllers, so any help / commits are appreciated! I can be contacted on Discord at Struggleton#4071 / Twitter at @Struggleton as well. If you are interested in what I've got going on here, please consider throwing [a couple coins my way!](https://ko-fi.com/C0C43E4IB)

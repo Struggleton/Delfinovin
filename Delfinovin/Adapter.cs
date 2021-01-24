@@ -9,21 +9,22 @@ namespace Delfinovin
         private const byte _Identifier = 0x21;
         private BitStream _Stream;
 
-        public ControllerInstance[] Controllers;
+        public Controller[] Controllers;
 
         public Adapter()
         {
-            Controllers = new ControllerInstance[4];
+            // Initialize 4 controllers, one for each port
+            Controllers = new Controller[4];
             for (int i = 0; i < 4; i++)
             {
-                Controllers[i] = new ControllerInstance();
+                Controllers[i] = new Controller();
             }
         }
 
         public void UpdateAdapter(byte[] data)
         {
-            _Stream = BitStream.Create(data);
-            if (_Stream.ReadByte() != _Identifier)
+            _Stream = BitStream.Create(data); // Pass bitstream controller data
+            if (_Stream.ReadByte() != _Identifier) // Magic identifier check 
             {
                 throw new Exception(Strings.EXCEPTION_IDENTIFIER);
             }
