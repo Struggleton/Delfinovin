@@ -45,9 +45,8 @@ namespace Delfinovin
             if (_LeftStickMinMax[2] > controller.LEFT_STICK_Y)
                 _LeftStickMinMax[2] = controller.LEFT_STICK_Y;
 
-            if (_LeftStickMinMax[3] < controller.LEFT_STICK_X)
+            if (_LeftStickMinMax[3] < controller.LEFT_STICK_Y)
                 _LeftStickMinMax[3] = controller.LEFT_STICK_Y;
-
 
             if (_CStickMinMax[0] > controller.C_STICK_X)
                 _CStickMinMax[0] = controller.C_STICK_X;
