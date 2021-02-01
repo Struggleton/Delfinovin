@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Delfinovin
         public static float TriggerThreshold { get; set; } = 0.65f; // Set the amount that the analog trigger has to be pressed before it registers as a full press.
         public static bool EnableRawPrint { get; set; } = true; // Enable/disable printing raw data that is being sent from the adapter.
         public static bool CalibrateCenter { get; set; } = true; // Enable/disable stick center calibration on startup.
-        public static bool EnableDigitalPress { get; set; } = false; // If any press is past the TriggerDeadzone, it registers as a full press.
+        public static bool EnableDigitalPress { get; set; } = false; // If any press is past the TriggerDeadzone, it registers as a digital button.
         public static bool EnableRumble { get; set; } = false; // Enable Haptic Feedback on powered controllers.
         public static List<int> PortsEnabled { get; set; } = new List<int>() { 1 }; // Enable/disable ports (Ports 1-4 supported.)
 
@@ -50,7 +51,7 @@ namespace Delfinovin
                                 else
                                 {
                                     // Convert string to whatever type the field is
-                                    prop.SetValue(null, Convert.ChangeType(settingPair[1], prop.PropertyType));
+                                    prop.SetValue(null, Convert.ChangeType(settingPair[1], prop.PropertyType, CultureInfo.InvariantCulture));
                                 }
                             }
                         }
