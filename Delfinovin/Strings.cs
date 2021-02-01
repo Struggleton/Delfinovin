@@ -22,7 +22,7 @@
             $"{MENU_DIVIDER}\n";
 
         public static string MENU_SETUP = "Delfinovin uses the ViGEmBus driver to setup up virtual controller inputs.\n" +
-            "Download and install the latest release of ViGEmBus here: https://github.com/ViGEm/ViGEmBus/releases\n\n" +
+            "Download and install ViGEmBus here: https://github.com/ViGEm/ViGEmBus/releases/tag/setup-v1.16.116\n\n" +
             "Delfinovin also uses the WinUSB driver to interface with the Gamecube adapter as well.\n" +
             "Download and run Zadig (https://zadig.akeo.ie/)\n\n" +
             "Under Options, select \"List All Devices \" and look for WUP-028 in the main dropdown menu. " +
