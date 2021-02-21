@@ -18,8 +18,9 @@ namespace Delfinovin
         public static float TriggerThreshold { get; set; } = 0.65f; // Set the amount that the analog trigger has to be pressed before it registers as a full press.
         public static bool EnableRawPrint { get; set; } = true; // Enable/disable printing raw data that is being sent from the adapter.
         public static bool CalibrateCenter { get; set; } = true; // Enable/disable stick center calibration on startup.
-        public static bool EnableDigitalPress { get; set; } = false; // If any press is past the TriggerDeadzone, it registers as a digital button.
+        public static bool EnableDigitalPress { get; set; } = true; // If any press is past the TriggerDeadzone, it registers as a digital button.
         public static bool EnableRumble { get; set; } = false; // Enable Haptic Feedback on powered controllers.
+        public static float StickDeadzone { get; set; } = 0.00f; // Sets the range of the stick that is registered as a neutral position.
         public static List<int> PortsEnabled { get; set; } = new List<int>() { 1 }; // Enable/disable ports (Ports 1-4 supported.)
 
         public static void LoadSettings()

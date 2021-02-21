@@ -2,6 +2,7 @@
 using Nefarius.ViGEm.Client.Targets;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
 using System;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace Delfinovin
@@ -39,9 +40,11 @@ namespace Delfinovin
         public byte ANALOG_LEFT; // 8
         public byte ANALOG_RIGHT; // 9
 
-        
-        private ControllerCalibration _Calibration;
         public bool IsPlugged;
+        public double LeftStickX, LeftStickY, CStickX, CStickY; // These are used for stick calculations etc
+
+        private ControllerCalibration _Calibration;
+        
         private int _VibrationMotor;
 
         private bool _RumbleEnabled;
@@ -53,7 +56,7 @@ namespace Delfinovin
                 _RumbleEnabled = value;
                 if (!_RumbleEnabled)
                 {
-                    // If the rumble goes on for more than a second without any changes, end it
+                    // If the rumble goes on for more than a second without any changes in strength, end it
                     Task.Delay(1000).ContinueWith(x =>
                     {
                         _VibrationMotor = 0;
@@ -123,27 +126,30 @@ namespace Delfinovin
             // Only update controller if it is plugged in.
             if (IsPlugged)
             {
-                controller.SetButtonState(Xbox360Button.A, BUTTON_A);
-                controller.SetButtonState(Xbox360Button.B, BUTTON_B);
-                controller.SetButtonState(Xbox360Button.X, BUTTON_X);
-                controller.SetButtonState(Xbox360Button.Y, BUTTON_Y);
+                controller.SetButtonState(Xbox360Button.A, BUTTON_B); // Button layouts on Xbox controllers are swapped from Nintendo layout
+                controller.SetButtonState(Xbox360Button.B, BUTTON_A);
+                controller.SetButtonState(Xbox360Button.X, BUTTON_Y);
+                controller.SetButtonState(Xbox360Button.Y, BUTTON_X);
                 controller.SetButtonState(Xbox360Button.Left, DPAD_LEFT);
                 controller.SetButtonState(Xbox360Button.Right, DPAD_RIGHT);
                 controller.SetButtonState(Xbox360Button.Up, DPAD_UP);
                 controller.SetButtonState(Xbox360Button.Down, DPAD_DOWN);
                 controller.SetButtonState(Xbox360Button.Start, BUTTON_START);
-                controller.SetButtonState(Xbox360Button.RightShoulder, BUTTON_Z);
 
-                // If enabled, any press becomes a full press.
+                // If enabled, the triggers act as digital buttons.
                 if (ApplicationSettings.EnableDigitalPress)
                 {
-                    // Check if analog trigger values are greater than deadzone. If so, set greatest possible value.
-                    // If not, set the value to 0 - no press.
                     if ((ANALOG_LEFT / 255f) > ApplicationSettings.TriggerDeadzone)
-                        controller.SetSliderValue(Xbox360Slider.LeftTrigger, 255);
+                        controller.SetButtonState(Xbox360Button.LeftShoulder, true);
                     else
-                        controller.SetSliderValue(Xbox360Slider.LeftTrigger, 0);
+                        controller.SetButtonState(Xbox360Button.LeftShoulder, false);
+
                     if ((ANALOG_RIGHT / 255f) > ApplicationSettings.TriggerDeadzone)
+                        controller.SetButtonState(Xbox360Button.RightShoulder, true);
+                    else
+                        controller.SetButtonState(Xbox360Button.RightShoulder, false);
+
+                    if (BUTTON_Z)
                         controller.SetSliderValue(Xbox360Slider.RightTrigger, 255);
                     else
                         controller.SetSliderValue(Xbox360Slider.RightTrigger, 0);
@@ -154,6 +160,7 @@ namespace Delfinovin
                 {
                     controller.SetSliderValue(Xbox360Slider.LeftTrigger, ANALOG_LEFT);
                     controller.SetSliderValue(Xbox360Slider.RightTrigger, ANALOG_RIGHT);
+                    controller.SetButtonState(Xbox360Button.RightShoulder, BUTTON_Z);
                 }
 
                 // Check if calibration has been done. If not generate it
@@ -165,40 +172,53 @@ namespace Delfinovin
                 // Full calibration scales generated
                 if (_Calibration.CurrentState == CalibrationState.Calibrated)
                 {
-                    double newX = Math.Round(LEFT_STICK_X * _Calibration.LeftStickCalibration[0] - _Calibration.LeftStickCalibration[2]);
-                    double newY = Math.Round(LEFT_STICK_Y * _Calibration.LeftStickCalibration[1] - _Calibration.LeftStickCalibration[3]);
-
-                    controller.SetAxisValue(Xbox360Axis.LeftThumbX, Extensions.ByteToShort((byte)Extensions.Clamp(newX, 0, 255)));
-                    controller.SetAxisValue(Xbox360Axis.LeftThumbY, Extensions.ByteToShort((byte)Extensions.Clamp(newY, 0, 255)));
-
-
-                    newX = Math.Round(C_STICK_X * _Calibration.CStickCalibration[0] - _Calibration.CStickCalibration[2]);
-                    newY = Math.Round(C_STICK_Y * _Calibration.CStickCalibration[1] - _Calibration.CStickCalibration[3]);
-
-                    controller.SetAxisValue(Xbox360Axis.RightThumbX, Extensions.ByteToShort((byte)Extensions.Clamp(newX, 0, 255)));
-                    controller.SetAxisValue(Xbox360Axis.RightThumbY, Extensions.ByteToShort((byte)Extensions.Clamp(newY, 0, 255)));
+                    LeftStickX = Math.Round(LEFT_STICK_X * _Calibration.LeftStickCalibration[0] - _Calibration.LeftStickCalibration[2]);
+                    LeftStickY = Math.Round(LEFT_STICK_Y * _Calibration.LeftStickCalibration[1] - _Calibration.LeftStickCalibration[3]);
+                    CStickX = Math.Round(C_STICK_X * _Calibration.CStickCalibration[0] - _Calibration.CStickCalibration[2]);
+                    CStickY = Math.Round(C_STICK_Y * _Calibration.CStickCalibration[1] - _Calibration.CStickCalibration[3]);
                 }
 
                 // Stick centers generated
                 else if (_Calibration.CurrentState == CalibrationState.SticksCentered)
                 {
-                    controller.SetAxisValue(Xbox360Axis.LeftThumbX, Extensions.ByteToShort((byte)(LEFT_STICK_X + _Calibration.StickCenters[0])));
-                    controller.SetAxisValue(Xbox360Axis.LeftThumbY, Extensions.ByteToShort((byte)(LEFT_STICK_Y + _Calibration.StickCenters[1])));
-
-                    controller.SetAxisValue(Xbox360Axis.RightThumbX, Extensions.ByteToShort((byte)(C_STICK_X + _Calibration.StickCenters[2])));
-                    controller.SetAxisValue(Xbox360Axis.RightThumbY, Extensions.ByteToShort((byte)(C_STICK_Y + _Calibration.StickCenters[3])));
-
+                    LeftStickX = LEFT_STICK_X + _Calibration.StickCenters[0];
+                    LeftStickY = LEFT_STICK_Y + _Calibration.StickCenters[1];
+                    CStickX = C_STICK_X + _Calibration.StickCenters[2];
+                    CStickY = C_STICK_Y + _Calibration.StickCenters[3];
                 }
 
                 // No calibration done
                 else
                 {
-                    controller.SetAxisValue(Xbox360Axis.LeftThumbX, Extensions.ByteToShort(LEFT_STICK_X));
-                    controller.SetAxisValue(Xbox360Axis.LeftThumbY, Extensions.ByteToShort(LEFT_STICK_Y));
-
-                    controller.SetAxisValue(Xbox360Axis.RightThumbX, Extensions.ByteToShort(C_STICK_X));
-                    controller.SetAxisValue(Xbox360Axis.RightThumbY, Extensions.ByteToShort(C_STICK_Y));
+                    LeftStickX = LEFT_STICK_X;
+                    LeftStickY = LEFT_STICK_Y;
+                    CStickX = C_STICK_X;
+                    CStickY = C_STICK_Y;
                 }
+
+                LeftStickX = Extensions.ByteToShort((byte)Extensions.Clamp(LeftStickX, 0, 255)); // ensure stick values are within byte range
+                LeftStickY = Extensions.ByteToShort((byte)Extensions.Clamp(LeftStickY, 0, 255));
+
+                CStickX = Extensions.ByteToShort((byte)Extensions.Clamp(CStickX, 0, 255));
+                CStickY = Extensions.ByteToShort((byte)Extensions.Clamp(CStickY, 0, 255));
+
+                if (GetDeadzone((float)LeftStickX, (float)LeftStickY)) // This means they are within the deadzone, take no input
+                {
+                    LeftStickX = 0;
+                    LeftStickY = 0;
+                }
+
+                if (GetDeadzone((float)CStickX, (float)CStickY))
+                {
+                    CStickX = 0;
+                    CStickY = 0;
+                }
+                
+                controller.SetAxisValue(Xbox360Axis.LeftThumbX, (short)LeftStickX);
+                controller.SetAxisValue(Xbox360Axis.LeftThumbY, (short)LeftStickY);
+
+                controller.SetAxisValue(Xbox360Axis.RightThumbX, (short)CStickX);
+                controller.SetAxisValue(Xbox360Axis.RightThumbY, (short)CStickY);
 
                 controller.FeedbackReceived += Controller_FeedbackReceived;
                 controller.SubmitReport();
@@ -210,6 +230,18 @@ namespace Delfinovin
             // Set whether or not the value increased
             RumbleChanged = _VibrationMotor > 0;
             _VibrationMotor = e.LargeMotor;
+        }
+
+        private bool GetDeadzone(float x, float y)
+        {
+            if (ApplicationSettings.StickDeadzone <= 0.00f) // this means they use no deadzone. Use normal input.
+                return false; 
+
+            float rad = 32767 * ApplicationSettings.StickDeadzone;
+            if ((x - 0f) * (x - 0f) + (y - 0f) * (y - 0f) < rad * rad)
+                return true;
+            else
+                return false;
         }
 
         private byte CompareDeadzones(byte input)
