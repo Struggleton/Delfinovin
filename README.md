@@ -32,10 +32,12 @@ Delfinovin has a couple of settings that can be set currently:
 	-  TriggerDeadzone refers to the amount that the trigger has to be pressed in order to register any input.
 - TriggerThreshold [Default - 0.65]
 	-  TriggerThreshold refers to the amount that the analog trigger has to be pressed before it registers as a full press.
+-StickDeadzone [Default - 0.00]
+	-  Sets the range of the stick that is registered as a neutral position.
 - EnableRawPrint [Default - True]
 	-  Enable/disable printing raw data that is being sent from the adapter.
 - EnableDigitalPress [Default - False]
-	- If enabled, any analog button press will act as a full digital press. Make sure your analog deadzone is set properly!
+	- If any press is past the TriggerDeadzone, it registers as a digital button, emulating digital triggers. Make sure the TriggerDeadzone setting is set properly!
 - PortsEnabled [Default - 1]
 	- Enable/disable specific ports. Ports 1-4 supported. (*PortsEnabled: 1 2 3 4 will enable all ports.*)
 - CalibrateCenter [Default - True]
@@ -50,7 +52,7 @@ Delfinovin has a couple of settings that can be set currently:
 
 
 ## Planned features
-- In-program deadzone support for sticks
+- Create new/default profiles for stick calibrations - Name and create new ones for quick access.
 
 ## Credits
 Credits and appreciation go to:
@@ -61,6 +63,7 @@ Credits and appreciation go to:
 - [Gabriel "gemarcano" Marcano](https://github.com/gemarcano) for providing the [essential documentation on how the adapter sends data](https://github.com/gemarcano/GCN_Adapter-Driver/tree/master/docs)
 - [Pete "pbatard" Batard](https://github.com/pbatard) for [Zadig/libwdi](https://github.com/pbatard/libwdi) which makes setting up WinUSB convenient
 - [BarkingFrog](https://twitter.com/Barking_Frogssb) for providing the math behind calibrating/centering sticks
+- All of the testers in the Smash Ultimate Yuzu discord for helping iron out bugs!
 
 ## Libraries used
 - LibUSB.NET

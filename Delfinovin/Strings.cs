@@ -2,7 +2,7 @@
 {
     public static class Strings
     {
-        public static string PROGRAM_NAME = "Delfinovin - v0.03-stickdebug [@Struggleton]";
+        public static string PROGRAM_NAME = "Delfinovin - v0.03 [@Struggleton]";
         public static string MENU_DIVIDER = "=================================================";
         public static string MENU_OPTIONS = "1.) Begin controller input loop\n" +
             "2.) Calibrate Controllers\n" +
@@ -19,6 +19,7 @@
             "Gemarcano for providing the essential documentation on how the adapter sends data\n" +
             "Pete Batard for Zadig/libwdi which makes setting up WinUSB convenient\n" +
             "BarkingFrog for providing the math behind calibrating/centering sticks\n" +
+            "All of the testers in the Smash Ultimate Yuzu discord for helping iron out bugs\n" +
             $"{MENU_DIVIDER}\n";
 
         public static string MENU_SETUP = "Delfinovin uses the ViGEmBus driver to setup up virtual controller inputs.\n" +
