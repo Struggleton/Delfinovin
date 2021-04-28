@@ -2,6 +2,8 @@
 using LibUsbDotNet.Main;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DelfinovinActX2
 {
@@ -17,10 +19,13 @@ namespace DelfinovinActX2
         private static UsbEndpointWriter _controllerWriter;
 
         private static bool _IsRunning;
+        private static bool _IsCalibrating;
 
         private static GamecubeAdapter _gamecubeAdapter;
         private static byte[] _rumbleCommand;
 
+        private static CancellationTokenSource _cancelTokenSrc = new CancellationTokenSource();
+        private static CancellationToken keyInputToken = _cancelTokenSrc.Token;
         public static void Main(string[] args)
         {
             ApplicationSettings.LoadSettings();
@@ -36,18 +41,16 @@ namespace DelfinovinActX2
                     switch (numInput)
                     {
                         case 1:
+                            menuContinue = false;
                             BeginControllerLoop();
                             break;
                         case 2:
-                            //calibrateControllers
-                            break;
-                        case 3:
                             Console.WriteLine(Strings.MENU_CREDITS);
                             break;
-                        case 4:
+                        case 3:
                             Console.WriteLine(Strings.MENU_SETUP);
                             break;
-                        case 5:
+                        case 4:
                             menuContinue = false;
                             break;
                         default:
@@ -82,18 +85,29 @@ namespace DelfinovinActX2
         {
             InitializeUSB();
             InitializeAdapter();
+            Console.Clear();
 
             _IsRunning = true;
             _controllerReader.DataReceived += CtrlrDataReceived;
+
+            Task.Run(() => WaitForInput(), keyInputToken);
             //DeinitializeUSB();
         }
 
         private static void InitializeAdapter()
         {
-            _gamecubeAdapter = new GamecubeAdapter();
-            _rumbleCommand = new byte[] { 0x11, 0x00, 0x00, 0x00, 0x00 }; // set up rumble command
+            try
+            {
+                _gamecubeAdapter = new GamecubeAdapter();
+                _rumbleCommand = new byte[] { 0x11, 0x00, 0x00, 0x00, 0x00 }; // set up rumble command
 
-            _controllerWriter.Write(new byte[] { 0x13 }, 5000, out int transferLength); // send start command
+                ErrorCode ec = _controllerWriter.Write(new byte[] { 0x13 }, 5000, out int transferLength); // send start command
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(Strings.ERROR_WRITEFAILED);
+            }
         }
         private static void InitializeUSB()
         {
@@ -149,14 +163,39 @@ namespace DelfinovinActX2
 
         private static void CtrlrDataReceived(object sender, EndpointDataEventArgs e)
         {
+            if (_IsRunning)
+            {
+                Console.WriteLine("In order to calibrate your controllers, press enter and rotate the control sticks on the connected controllers.");
+                Console.WriteLine("Press backspace to stop calibrating.");
+                Console.WriteLine();
 
-            _gamecubeAdapter.UpdateStates(e.Buffer);
-            _gamecubeAdapter.UpdateControllers();
+                _gamecubeAdapter.UpdateStates(e.Buffer);
+                _gamecubeAdapter.UpdateControllers();
 
-            if (_gamecubeAdapter.RumbleChanged && ApplicationSettings.EnableRumble)
-                SendRumble();
-            if (ApplicationSettings.EnableRawPrint)
-                PrintDebugInfo();
+                if (_IsCalibrating)
+                    _gamecubeAdapter.UpdateCalibrations();
+
+                if (_gamecubeAdapter.RumbleChanged && ApplicationSettings.EnableRumble)
+                    SendRumble();
+                if (ApplicationSettings.EnableRawPrint)
+                    PrintDebugInfo();
+            }
+        }
+
+        private static async void WaitForInput()
+        {
+            while (true)
+            {
+                if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                {
+                    _IsCalibrating = true;
+                }
+
+                if (Console.ReadKey(true).Key == ConsoleKey.Backspace)
+                {
+                    _IsCalibrating = false;
+                }
+            }
         }
 
         private static void SendRumble()
@@ -166,14 +205,18 @@ namespace DelfinovinActX2
                 byte currentRumbleState = Extensions.BoolToByte(_gamecubeAdapter.Controllers[i].RumbleChanged);
                 _rumbleCommand[i + 1] = currentRumbleState;
             }
-            _controllerWriter.Write(_rumbleCommand, 5000, out int transferLength);
+            
+            ErrorCode ec = _controllerWriter.Write(_rumbleCommand, 5000, out int transferLength);
+
+            if (ec != ErrorCode.None)
+                throw new Exception(Strings.ERROR_WRITEFAILED);
         }
         private static void PrintDebugInfo()
         {
             if (ApplicationSettings.EnableRawPrint)
                 _gamecubeAdapter.PrintStates();
 
-            Console.SetCursorPosition(0, 1);
+            Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
         }
         private static string PrintMenu()

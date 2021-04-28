@@ -73,6 +73,7 @@
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GamecubeAdapter.cs" />
+    <Compile Include="GamecubeCalibration.cs" />
     <Compile Include="GamecubeController.cs" />
     <Compile Include="GamecubeDeadzones.cs" />
     <Compile Include="GamecubeInputState.cs" />

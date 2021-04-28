@@ -1,6 +1,7 @@
 ﻿using Nefarius.ViGEm.Client;
 using Nefarius.ViGEm.Client.Targets;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
+using System;
 using System.Threading.Tasks;
 
 namespace DelfinovinActX2
@@ -13,7 +14,7 @@ namespace DelfinovinActX2
         private int _vibrationMotor;
         private bool _rumbleEnabled;
 
-        private int[] _StickCenters;
+        public GamecubeCalibration Calibration;
 
         public bool RumbleChanged
         {
@@ -37,16 +38,31 @@ namespace DelfinovinActX2
         public GamecubeController(ViGEmClient client)
         {
             _controller = client.CreateXbox360Controller();
-            _StickCenters = new int[4];
+            Calibration = new GamecubeCalibration();
             Init();
         }
 
-        public void SetStickCenters(GamecubeInputState inputState)
+        private void Init()
         {
-            _StickCenters[0] = inputState.LEFT_STICK_X;
-            _StickCenters[1] = inputState.LEFT_STICK_Y;
-            _StickCenters[2] = inputState.C_STICK_X;
-            _StickCenters[3] = inputState.C_STICK_Y;
+            if (ApplicationSettings.EnableRumble)
+                _controller.FeedbackReceived += FeedbackReceived;
+            _currentState = new GamecubeInputState();
+        }
+
+        public void Connect()
+        {
+            _controller.Connect();
+            UpdateInput(new GamecubeInputState());
+            IsConnected = true;
+        }
+
+        public void Disconnect()
+        {
+            if (ApplicationSettings.EnableRumble)
+                _controller.FeedbackReceived -= FeedbackReceived;
+
+            _controller.Disconnect();
+            IsConnected = false;
         }
 
         public void UpdateInput(GamecubeInputState inputState)
@@ -90,49 +106,60 @@ namespace DelfinovinActX2
                 _controller.SetButtonState(Xbox360Button.RightShoulder, inputState.BUTTON_Z);
             }
 
-            byte LeftStickX = inputState.LEFT_STICK_X;
-            byte LeftStickY = inputState.LEFT_STICK_Y;
-            byte CStickX = inputState.C_STICK_X;
-            byte CStickY = inputState.C_STICK_Y;
+            double LeftStickX = inputState.LEFT_STICK_X;
+            double LeftStickY = inputState.LEFT_STICK_Y;
+            double CStickX = inputState.C_STICK_X;
+            double CStickY = inputState.C_STICK_Y;
 
-            if (ApplicationSettings.CalibrateCenter)
+            if (Calibration.CurrentStatus == CalibrationStatus.Calibrated)
             {
-                LeftStickX += (byte)(127 - _StickCenters[0]);
-                LeftStickY += (byte)(127 - _StickCenters[1]);
-                CStickX += (byte)(127 - _StickCenters[2]);
-                CStickY += (byte)(127 - _StickCenters[3]);
+                LeftStickX = Math.Round(LeftStickX * Calibration.LeftStickCalibration[0] - Calibration.LeftStickCalibration[2]);
+                LeftStickY = Math.Round(LeftStickY * Calibration.LeftStickCalibration[1] - Calibration.LeftStickCalibration[3]);
+                CStickX = Math.Round(CStickX * Calibration.CStickCalibration[0] - Calibration.CStickCalibration[2]);
+                CStickY = Math.Round(CStickY * Calibration.CStickCalibration[1] - Calibration.CStickCalibration[3]);
             }
 
-            _controller.SetAxisValue(Xbox360Axis.LeftThumbX, Extensions.ByteToShort(LeftStickX, false));
-            _controller.SetAxisValue(Xbox360Axis.LeftThumbY, Extensions.ByteToShort(LeftStickY, false));
-            
-            _controller.SetAxisValue(Xbox360Axis.RightThumbX, Extensions.ByteToShort(CStickX, false));
-            _controller.SetAxisValue(Xbox360Axis.RightThumbY, Extensions.ByteToShort(CStickY, false));
-           
+            else if (Calibration.CurrentStatus == CalibrationStatus.Centered)
+            {
+                LeftStickX += Calibration.StickCenters[0];
+                LeftStickY += Calibration.StickCenters[1];
+                CStickX += Calibration.StickCenters[2];
+                CStickY += Calibration.StickCenters[3];
+            }
+
+            LeftStickX = Extensions.ByteToShort((byte)Extensions.Clamp(LeftStickX, 0, 255), false); // ensure stick values are within byte range
+            LeftStickY = Extensions.ByteToShort((byte)Extensions.Clamp(LeftStickY, 0, 255), false);
+
+            CStickX = Extensions.ByteToShort((byte)Extensions.Clamp(CStickX, 0, 255), false);
+            CStickY = Extensions.ByteToShort((byte)Extensions.Clamp(CStickY, 0, 255), false);
+
+            _controller.SetAxisValue(Xbox360Axis.LeftThumbX, (short)LeftStickX);
+            _controller.SetAxisValue(Xbox360Axis.LeftThumbY, (short)LeftStickY);
+                                                              
+            _controller.SetAxisValue(Xbox360Axis.RightThumbX, (short)CStickX);
+            _controller.SetAxisValue(Xbox360Axis.RightThumbY, (short)CStickY);
+
             _controller.SubmitReport();
         }
 
-        private void Init()
+        public void SetStickCenters(GamecubeInputState controllerInput)
         {
-            if (ApplicationSettings.EnableRumble)
-                _controller.FeedbackReceived += FeedbackReceived;
-            _currentState = new GamecubeInputState();
+            Calibration.SetStickCenters(controllerInput);
         }
 
-        public void Connect()
+        public void SetMinMax(GamecubeInputState controllerInput)
         {
-            _controller.Connect();
-            UpdateInput(new GamecubeInputState());
-            IsConnected = true;
+            Calibration.GetMinMax(controllerInput);
         }
 
-        public void Disconnect()
+        public void GenerateCalibrations()
         {
-            if (ApplicationSettings.EnableRumble)
-                _controller.FeedbackReceived -= FeedbackReceived;
+            Calibration.GenerateCalibrations();
+        }
 
-            _controller.Disconnect();
-            IsConnected = false;
+        public void ResetCalibration()
+        {
+            Calibration = new GamecubeCalibration();
         }
 
         private void FeedbackReceived(object sender, Xbox360FeedbackReceivedEventArgs e)

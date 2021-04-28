@@ -24,7 +24,6 @@ namespace DelfinovinActX2
                 Controllers[i] = new GamecubeController(_vgmClient[i]);
                 _inputStates[i] = new GamecubeInputState();
             }
-            
         }
 
         public void UpdateStates(byte[] controllerData)
@@ -76,7 +75,9 @@ namespace DelfinovinActX2
                     {
                         Controllers[i].Connect();
                         if (ApplicationSettings.CalibrateCenter)
+                        {
                             Controllers[i].SetStickCenters(_inputStates[i]);
+                        }
                     }
                         
                     Controllers[i].UpdateInput(_inputStates[i]);
@@ -91,8 +92,21 @@ namespace DelfinovinActX2
                         _inputStates[i] = new GamecubeInputState(); // Reset to default before disconnecting
                         Controllers[i].UpdateInput(_inputStates[i]);
                         Controllers[i].SetStickCenters(_inputStates[i]);
+                        Controllers[i].ResetCalibration();
                         Controllers[i].Disconnect();
                     }
+                }
+            }
+        }
+
+        public void UpdateCalibrations()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (_inputStates[i].IsPlugged())
+                {
+                    Controllers[i].SetMinMax(_inputStates[i]);
+                    Controllers[i].GenerateCalibrations();
                 }
             }
         }
@@ -101,6 +115,7 @@ namespace DelfinovinActX2
         {
             for (int i = 0; i < 4; i++)
             {
+                Console.WriteLine(Controllers[i].Calibration.CurrentStatus);
                 Console.WriteLine(_inputStates[i].ToString());
             }
         }
