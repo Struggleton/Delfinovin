@@ -1,4 +1,5 @@
 ﻿using Nefarius.ViGEm.Client;
+using Nefarius.ViGEm.Client.Exceptions;
 using System;
 
 namespace DelfinovinActX2
@@ -18,18 +19,30 @@ namespace DelfinovinActX2
             Controllers = new GamecubeController[4];
             _previousRumbleStates = new bool[4];
 
-            for (int i = 0; i < 4; i++)
+            try
             {
-                _vgmClient[i] = new ViGEmClient();
-                Controllers[i] = new GamecubeController(_vgmClient[i]);
-                _inputStates[i] = new GamecubeInputState();
+                for (int i = 0; i < 4; i++)
+                {
+                    _vgmClient[i] = new ViGEmClient();
+                    Controllers[i] = new GamecubeController(_vgmClient[i]);
+                    _inputStates[i] = new GamecubeInputState();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                // TODO - Fill out the rest of the possible exceptions while initializing 
+                if (ex is VigemBusNotFoundException)
+                {
+                    throw new Exception(Strings.EXCEPTION_EMBUSNOTFOUND);
+                }
             }
         }
 
         public void UpdateStates(byte[] controllerData)
         {
             if (controllerData[0] != 0x21)
-                throw new Exception("Magic missing exception");
+                throw new Exception(Strings.EXCEPTION_IDENTIFIER);
 
             for (int port = 0; port < 4; port++)
             {

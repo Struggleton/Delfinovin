@@ -5,14 +5,12 @@
         public static string PROGRAM_NAME = "DelfinovinActX2 - debugging";
         public static string MENU_DIVIDER = "=================================================";
         public static string MENU_OPTIONS = "1.) Begin controller input loop\n" +
-            "2.) Calibrate Controllers not working atm\n" +
-            "3.) Credits / Thanks\n" +
-            "4.) Setup Guide\n" +
-            "5.) Exit";
+            "2.) Credits / Thanks\n" +
+            "3.) Setup Guide\n" +
+            "4.) Exit";
 
         public static string MENU_CREDITS = "Credits and appreciation go to\n" +
             $"{MENU_DIVIDER}\n" +
-            "Rubendal for writing the BitStream library!\n" +
             "The LibUSBDot.NET team for writing the LibUSBDotNET library! / WinUSB team at Microsoft for providing the driver\n" +
             "Nefarius for writing the ViGEmBus driver and the ViGEmBus.NET client library\n" +
             "ms4v for a great reference with GCNUSBFeeder and the vJoy library\n" +
@@ -50,6 +48,7 @@
         public static string ERROR_NOBYTES = "{0}: No more bytes!";
         public static string ERROR_PORTS = "Failed to read port number! Make sure that the setting is formatted properly (PortsEnabled: 1 2 3 4)";
         public static string ERROR_GENERIC = "Error! Error code: {0}";
+        public static string ERROR_WRITEFAILED = "Error! Write failed!";
 
         public static string EXCEPTION_IDENTIFIER = "Error! Gamecube magic header not found!";
         public static string EXCEPTION_EMBUSNOTFOUND = "The ViGEmBus driver was not found! Have you installed it?";
