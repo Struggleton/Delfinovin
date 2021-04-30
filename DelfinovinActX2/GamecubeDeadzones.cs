@@ -27,5 +27,17 @@ namespace DelfinovinActX2
 
             return triggerSlider;
         }
+
+        public static bool GetDeadzone(float x, float y)
+        {
+            if (ApplicationSettings.StickDeadzone <= 0.00f) // this means they use no deadzone. Use normal input.
+                return false;
+
+            float rad = 32767 * ApplicationSettings.StickDeadzone;
+            if ((x - 0f) * (x - 0f) + (y - 0f) * (y - 0f) < rad * rad)
+                return true;
+            else
+                return false;
+        }
     }
 }

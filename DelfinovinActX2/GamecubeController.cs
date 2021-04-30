@@ -133,6 +133,19 @@ namespace DelfinovinActX2
             CStickX = Extensions.ByteToShort((byte)Extensions.Clamp(CStickX, 0, 255), false);
             CStickY = Extensions.ByteToShort((byte)Extensions.Clamp(CStickY, 0, 255), false);
 
+            if (GamecubeDeadzones.GetDeadzone((float)LeftStickX, (float)LeftStickY)) // This means they are within the deadzone, take no input
+            {
+                LeftStickX = 0;
+                LeftStickY = 0;
+            }
+
+            if (GamecubeDeadzones.GetDeadzone((float)CStickX, (float)CStickY))
+            {
+                CStickX = 0;
+                CStickY = 0;
+            }
+
+
             _controller.SetAxisValue(Xbox360Axis.LeftThumbX, (short)LeftStickX);
             _controller.SetAxisValue(Xbox360Axis.LeftThumbY, (short)LeftStickY);
                                                               
