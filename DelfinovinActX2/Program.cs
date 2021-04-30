@@ -26,13 +26,15 @@ namespace DelfinovinActX2
 
         private static CancellationTokenSource _cancelTokenSrc = new CancellationTokenSource();
         private static CancellationToken keyInputToken = _cancelTokenSrc.Token;
+
+        private static bool _menuContinue = true;
         public static void Main(string[] args)
         {
             ApplicationSettings.LoadSettings();
-            bool menuContinue = true;
+            Console.WindowHeight = 35;
 
             // Continue taking input until menuContinue is not set
-            while (menuContinue)
+            while (_menuContinue)
             {
                 string input = PrintMenu();
                 if (int.TryParse(input, out int numInput))
@@ -41,7 +43,6 @@ namespace DelfinovinActX2
                     switch (numInput)
                     {
                         case 1:
-                            menuContinue = false;
                             BeginControllerLoop();
                             break;
                         case 2:
@@ -51,7 +52,7 @@ namespace DelfinovinActX2
                             Console.WriteLine(Strings.MENU_SETUP);
                             break;
                         case 4:
-                            menuContinue = false;
+                            _menuContinue = false;
                             break;
                         default:
                             Console.WriteLine(Strings.ERROR_SELECTIONINVALID);
@@ -83,15 +84,24 @@ namespace DelfinovinActX2
 
         private static void BeginControllerLoop()
         {
-            InitializeUSB();
-            InitializeAdapter();
-            Console.Clear();
+            try
+            {
+                InitializeUSB();
+                InitializeAdapter();
+                Console.Clear();
 
-            _IsRunning = true;
-            _controllerReader.DataReceived += CtrlrDataReceived;
+                _IsRunning = true;
+                _menuContinue = false;
+                _controllerReader.DataReceived += CtrlrDataReceived;
 
-            Task.Run(() => WaitForInput(), keyInputToken);
-            //DeinitializeUSB();
+                Task.Run(() => WaitForInput(), keyInputToken);
+                //DeinitializeUSB();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private static void InitializeAdapter()
@@ -112,35 +122,27 @@ namespace DelfinovinActX2
         private static void InitializeUSB()
         {
             _usbDeviceFinder = new UsbDeviceFinder(_VendorID, _ProductID);
-            try
+            _usbDevice = UsbDevice.OpenUsbDevice(_usbDeviceFinder);
+            if (_usbDevice == null)
             {
-                _usbDevice = UsbDevice.OpenUsbDevice(_usbDeviceFinder);
-                if (_usbDevice == null)
-                {
-                    throw new Exception(Strings.ERROR_ADAPTERNOTFOUND); // couldn't find the gc adapter
-                }
-
-                IUsbDevice wholeUsbDevice = _usbDeviceFinder as IUsbDevice;
-                if (!ReferenceEquals(wholeUsbDevice, null))
-                {
-                    wholeUsbDevice.SetConfiguration(1);
-                    wholeUsbDevice.ClaimInterface(0);
-                }
-                
-                // Setup for using events
-                _controllerReader = _usbDevice.OpenEndpointReader(ReadEndpointID.Ep01, 37);
-                _controllerReader.ReadThreadPriority = ThreadPriority.Highest;
-                _controllerReader.DataReceivedEnabled = true;
-
-                _controllerWriter = _usbDevice.OpenEndpointWriter(WriteEndpointID.Ep02);
+                throw new Exception(Strings.ERROR_ADAPTERNOTFOUND); // couldn't find the gc adapter
             }
 
-            catch (Exception ex)
+            IUsbDevice wholeUsbDevice = _usbDeviceFinder as IUsbDevice;
+            if (!ReferenceEquals(wholeUsbDevice, null))
             {
-                Console.WriteLine(ex.Message);
-                return;
+                wholeUsbDevice.SetConfiguration(1);
+                wholeUsbDevice.ClaimInterface(0);
             }
+
+            // Setup for using events
+            _controllerReader = _usbDevice.OpenEndpointReader(ReadEndpointID.Ep01, 37);
+            _controllerReader.ReadThreadPriority = ThreadPriority.Highest;
+            _controllerReader.DataReceivedEnabled = true;
+
+            _controllerWriter = _usbDevice.OpenEndpointWriter(WriteEndpointID.Ep02);
         }
+    
 
         private static void DeinitializeUSB()
         {
@@ -174,7 +176,11 @@ namespace DelfinovinActX2
                 _gamecubeAdapter.UpdateControllers();
 
                 if (_IsCalibrating)
+                {
                     _gamecubeAdapter.UpdateCalibrations();
+                    Console.WriteLine("-Calibrating-");
+                }
+                    
 
                 if (_gamecubeAdapter.RumbleChanged && ApplicationSettings.EnableRumble)
                     SendRumble();
