@@ -18,6 +18,8 @@ namespace DelfinovinActX2
         public static bool EnableRawPrint { get; set; } = true; // Enable/disable printing raw data that is being sent from the adapter.
         public static bool CalibrateCenter { get; set; } = true; // Enable/disable stick center calibration on startup.
         public static bool EnableDigitalPress { get; set; } = false; // If any press is past the TriggerDeadzone, it registers as a digital button.
+        public static bool SwapAB { get; set; } = true;
+        public static bool SwapXY { get; set; } = true;
         public static bool EnableRumble { get; set; } = false; // Enable Haptic Feedback on powered controllers.
 
         public static void LoadSettings()

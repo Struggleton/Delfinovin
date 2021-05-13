@@ -70,10 +70,31 @@ namespace DelfinovinActX2
             if (_currentState.IsEqual(inputState) || !IsConnected)
                 return;
 
-            _controller.SetButtonState(Xbox360Button.A, inputState.BUTTON_B);
-            _controller.SetButtonState(Xbox360Button.B, inputState.BUTTON_A);
-            _controller.SetButtonState(Xbox360Button.X, inputState.BUTTON_Y);
-            _controller.SetButtonState(Xbox360Button.Y, inputState.BUTTON_X);
+            if (ApplicationSettings.SwapAB)
+            {
+                _controller.SetButtonState(Xbox360Button.A, inputState.BUTTON_B);
+                _controller.SetButtonState(Xbox360Button.B, inputState.BUTTON_A);
+            }
+
+            else
+            {
+                _controller.SetButtonState(Xbox360Button.A, inputState.BUTTON_A);
+                _controller.SetButtonState(Xbox360Button.B, inputState.BUTTON_B);
+            }
+
+            if (ApplicationSettings.SwapXY)
+            {
+                _controller.SetButtonState(Xbox360Button.X, inputState.BUTTON_Y);
+                _controller.SetButtonState(Xbox360Button.Y, inputState.BUTTON_X);
+            }
+
+            else
+            {
+                _controller.SetButtonState(Xbox360Button.X, inputState.BUTTON_X);
+                _controller.SetButtonState(Xbox360Button.Y, inputState.BUTTON_Y);
+            }
+
+            
             _controller.SetButtonState(Xbox360Button.Left, inputState.DPAD_LEFT);
             _controller.SetButtonState(Xbox360Button.Right, inputState.DPAD_RIGHT);
             _controller.SetButtonState(Xbox360Button.Up, inputState.DPAD_UP);
