@@ -46,7 +46,7 @@ Delfinovin has a couple of settings that can be set currently:
 - CalibrateCenter [Default - True]
 	- If enabled, when first running the programs, the stick's center will be recalibrated. Make sure to leave the stick in a neutral position on startup. Calibrating the sticks from the menu will override this option.
 - EnableRumble [Default - False]
-	-If enabled, gamecube controllers will receive haptic feedback from the game (Rumble.)
+	- If enabled, gamecube controllers will receive haptic feedback from the game (Rumble.)
 - SwapAB [Default - True]
 	- If enabled, the A/B buttons are swapped to fit the Nintendo layout.
 - SwapXY [Default - True]
