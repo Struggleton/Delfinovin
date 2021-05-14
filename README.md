@@ -1,7 +1,7 @@
 # Delfinovin 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/C0C43E4IB)
 
-Delfinovin - An XInput solution for Gamecube Controllers (Dell-fie-no-vin)
+Delfinovin - An XInput solution for Gamecube Controllers (Dell-fee-no-vin)
 ------------
 Delfinovin is an XInput conversion for use with Gamecube Controller adapters that implement Nintendo's WUP-028 firmware.
 This includes Mayflash controllers, Nintendo's own gamecube adapter and probably more that exist out there.
