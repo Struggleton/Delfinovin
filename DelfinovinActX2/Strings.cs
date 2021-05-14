@@ -46,7 +46,6 @@
             "If so, make sure any other program that takes control over GC adapter (Dolphin, Yuzu.) is closed and reopen the program.";
         public static string ERROR_SETTINGSNOTFOUND = "Settings.txt not found! Generating one with default settings.";
         public static string ERROR_NOBYTES = "{0}: No more bytes!";
-        public static string ERROR_PORTS = "Failed to read port number! Make sure that the setting is formatted properly (PortsEnabled: 1 2 3 4)";
         public static string ERROR_GENERIC = "Error! Error code: {0}";
         public static string ERROR_WRITEFAILED = "Error! Write failed!";
 
