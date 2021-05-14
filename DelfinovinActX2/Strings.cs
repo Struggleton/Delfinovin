@@ -2,7 +2,7 @@
 {
     public static class Strings
     {
-        public static string PROGRAM_NAME = "DelfinovinActX2 - debugging";
+        public static string PROGRAM_NAME = "Delfinovin - v0.04 [@Struggleton]";
         public static string MENU_DIVIDER = "=================================================";
         public static string MENU_OPTIONS = "1.) Begin controller input loop\n" +
             "2.) Credits / Thanks\n" +
