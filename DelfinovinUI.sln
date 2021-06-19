@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelfinovinUI", "DelfinovinUI\DelfinovinUI.csproj", "{CC17CB84-8E10-4C51-AF8D-AEAD12A9C5A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC17CB84-8E10-4C51-AF8D-AEAD12A9C5A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC17CB84-8E10-4C51-AF8D-AEAD12A9C5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC17CB84-8E10-4C51-AF8D-AEAD12A9C5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC17CB84-8E10-4C51-AF8D-AEAD12A9C5A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6468700D-39FE-49E1-8689-AA0E9BC3D5D9}
+	EndGlobalSection
+EndGlobal

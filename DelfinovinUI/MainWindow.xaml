@@ -1,0 +1,112 @@
+﻿<Window x:Name="winDelfinovin" x:Class="DelfinovinUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DelfinovinUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True">
+    <Grid x:Name="gridDelfinovin">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Rectangle x:Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0A1620" Offset="0.0" />
+                    <GradientStop Color="#050B16" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!-- Controller Bar-->
+        <Rectangle x:Name="rectSidebar" Grid.Row="1" Grid.RowSpan="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0E1E29" Offset="0.0" />
+                    <GradientStop Color="#091720" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <StackPanel x:Name="stpLists" Grid.Row="1" Grid.RowSpan="2">
+            <ListView x:Name="lvwControllers" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="White" Margin="0,0,0,45" FontFamily="Microsoft JhengHei Light">
+                <ListViewItem Height="50" IsEnabled="False" IsSelected="True">Controller 1</ListViewItem>
+                <ListViewItem Height="50" IsEnabled="False">Controller 2</ListViewItem>
+                <ListViewItem Height="50" IsEnabled="False">Controller 3</ListViewItem>
+                <ListViewItem Height="50" IsEnabled="False">Controller 4</ListViewItem>
+            </ListView>
+
+            <ListView x:Name="lvwFaqSettings" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="White" FontFamily="Microsoft JhengHei Light" VerticalAlignment="Bottom">
+                <ListViewItem x:Name="lviSettings" Height="50">Settings</ListViewItem>
+                <ListViewItem x:Name="lviFAQHelp" Height="50" MouseUp="lviFAQHelp_MouseUp">FAQ / Help</ListViewItem>
+            </ListView>
+        </StackPanel>
+
+
+        <!-- Footer Bar-->
+        <Rectangle x:Name="infoBar" Grid.Row="2" Grid.ColumnSpan="3">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0A1620" Offset="0.0" />
+                    <GradientStop Color="#050B16" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <StackPanel x:Name="stpWinControls" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3" Grid.Column="2">
+            <Button x:Name="btnMinimize" Grid.Column="2" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Right" Click="btnMinimize_Click">
+                <Image Source="application_minimize.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
+
+            <Button x:Name="btnClose" Grid.Column="2" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Right" Margin="0,0,5,0" Click="btnClose_Click">
+                <Image Source="application_close.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
+        </StackPanel>
+
+        <!-- Main Area-->
+        <Rectangle x:Name="rectMain" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0F2632" Offset="0.0" />
+                    <GradientStop Color="#040912" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <StackPanel x:Name="stpStatus" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-10"/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+            <Label x:Name="lblAdapterStatus" Content="🌎 Gamecube adapter not connected" Foreground="Red"/>
+            <Label x:Name="lblViGEmStatus" Content="🎮 ViGEmBus is not installed" Foreground="Red"/>
+        </StackPanel>
+
+        <StackPanel x:Name="stpControllerDlg" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+            <local:ControllerControl x:Name="controllerDialog"></local:ControllerControl>
+        </StackPanel>
+
+    </Grid>
+</Window>
