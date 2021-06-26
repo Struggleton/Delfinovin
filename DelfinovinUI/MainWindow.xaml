@@ -1,4 +1,5 @@
 ﻿<Window x:Name="winDelfinovin" x:Class="DelfinovinUI.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,6 +7,7 @@
         xmlns:local="clr-namespace:DelfinovinUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True">
+    
     <Grid x:Name="gridDelfinovin">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"></ColumnDefinition>
@@ -19,6 +21,7 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
 
+        
         <Rectangle x:Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -38,7 +41,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <StackPanel x:Name="stpLists" Grid.Row="1" Grid.RowSpan="2">
+        <StackPanel x:Name="stpLists" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top">
             <ListView x:Name="lvwControllers" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="White" Margin="0,0,0,45" FontFamily="Microsoft JhengHei Light">
                 <ListViewItem Height="50" IsEnabled="False" IsSelected="True">Controller 1</ListViewItem>
                 <ListViewItem Height="50" IsEnabled="False">Controller 2</ListViewItem>
@@ -47,14 +50,21 @@
             </ListView>
 
             <ListView x:Name="lvwFaqSettings" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="White" FontFamily="Microsoft JhengHei Light" VerticalAlignment="Bottom">
-                <ListViewItem x:Name="lviSettings" Height="50">Settings</ListViewItem>
+                <ListViewItem x:Name="lviSettings" Height="50" Selected="lviSettings_Selected">Settings</ListViewItem>
                 <ListViewItem x:Name="lviFAQHelp" Height="50" MouseUp="lviFAQHelp_MouseUp">FAQ / Help</ListViewItem>
             </ListView>
         </StackPanel>
 
-
-        <!-- Footer Bar-->
-        <Rectangle x:Name="infoBar" Grid.Row="2" Grid.ColumnSpan="3">
+        <StackPanel x:Name="stpEdit" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <ListView x:Name="lvwEdits" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="White" Margin="0,0,0,45" FontFamily="Microsoft JhengHei Light">
+                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click">Edit</Button>
+                <Button Background="#FF0E2531" BorderBrush="Transparent">Edit</Button>
+                <Button Background="#FF0E2531" BorderBrush="Transparent">Edit</Button>
+                <Button Background="#FF0E2531" BorderBrush="Transparent">Edit</Button>
+            </ListView>
+        </StackPanel>
+        
+        <Rectangle x:Name="rectInfobar" Grid.Row="2" Grid.ColumnSpan="3">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#0A1620" Offset="0.0" />
@@ -63,6 +73,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
+        <!-- Window Controls-->
         <StackPanel x:Name="stpWinControls" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3" Grid.Column="2">
             <Button x:Name="btnMinimize" Grid.Column="2" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Right" Click="btnMinimize_Click">
                 <Image Source="application_minimize.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -73,6 +84,8 @@
             </Button>
         </StackPanel>
 
+
+        
         <!-- Main Area-->
         <Rectangle x:Name="rectMain" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
             <Rectangle.Fill>
@@ -82,7 +95,18 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-
+        <materialDesign:Transitioner x:Name="tnrSlides" SelectedIndex="0" AutoApplyTransitionOrigins="True" Grid.Column="1" Grid.Row="1">
+            <materialDesign:TransitionerSlide>
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:CircleWipe/>
+                </materialDesign:TransitionerSlide.BackwardWipe>
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Right"/>
+                </materialDesign:TransitionerSlide.ForwardWipe>
+            </materialDesign:TransitionerSlide>
+            <local:ControllerSettings x:Name="ctsDialog"></local:ControllerSettings>
+        </materialDesign:Transitioner>
+            
         <StackPanel x:Name="stpStatus" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
             <StackPanel.RenderTransform>
                 <TransformGroup>
@@ -107,6 +131,5 @@
             </StackPanel.RenderTransform>
             <local:ControllerControl x:Name="controllerDialog"></local:ControllerControl>
         </StackPanel>
-
     </Grid>
 </Window>

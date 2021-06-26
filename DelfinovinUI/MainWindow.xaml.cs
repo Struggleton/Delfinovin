@@ -1,6 +1,7 @@
 ﻿using LibUsbDotNet;
 using LibUsbDotNet.DeviceNotify;
 using LibUsbDotNet.Main;
+using MaterialDesignThemes.Wpf.Transitions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -49,6 +50,7 @@ namespace DelfinovinUI
 
             _syncContext = SynchronizationContext.Current;
             UsbDeviceNotifier.OnDeviceNotify += (OnDeviceNotify);
+            ctsDialog.btnApply.Click += BtnApply_Click;
 
             BeginControllerLoop();
         }
@@ -211,6 +213,7 @@ namespace DelfinovinUI
                         {
                             ListViewItem currentItem = ((ListViewItem)lvwControllers.Items[i]);
                             currentItem.IsEnabled = _gamecubeAdapter.Controllers[i].IsConnected;
+                            currentItem.IsSelected = _gamecubeAdapter.Controllers[i].IsConnected;
                         }
 
                         _gamecubeAdapter.ControllerInserted = false;
@@ -266,6 +269,23 @@ namespace DelfinovinUI
         private void lviFAQHelp_MouseUp(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("testin!");
+
+            
+        }
+
+        private void BtnApply_Click(object sender, RoutedEventArgs e)
+        {
+            tnrSlides.SelectedIndex = 0;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            tnrSlides.SelectedIndex = 1;
+        }
+
+        private void lviSettings_Selected(object sender, RoutedEventArgs e)
+        {
+            controllerDialog.CStickOutline.LayoutTransform = new ScaleTransform(1.1, 1.1);
         }
     }
 }
