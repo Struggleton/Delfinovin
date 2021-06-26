@@ -44,7 +44,7 @@ namespace DelfinovinUI
 
         private void Init()
         {
-            if (ApplicationSettings.EnableRumble)
+            if (true) // Add controller based settings
                 _controller.FeedbackReceived += FeedbackReceived;
             _currentState = new GamecubeInputState();
         }
@@ -58,7 +58,7 @@ namespace DelfinovinUI
 
         public void Disconnect()
         {
-            if (ApplicationSettings.EnableRumble)
+            if (true) // Add controller based settings
                 _controller.FeedbackReceived -= FeedbackReceived;
 
             _controller.Disconnect();
