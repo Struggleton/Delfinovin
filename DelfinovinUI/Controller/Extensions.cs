@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DelfinovinnUI
+namespace DelfinovinUI
 {
 	public static class Extensions
 	{

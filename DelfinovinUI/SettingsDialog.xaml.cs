@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace DelfinovinnUI
+namespace DelfinovinUI
 {
     /// <summary>
     /// Interaction logic for SettingsDialog.xaml

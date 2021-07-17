@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace DelfinovinnUI
+namespace DelfinovinUI
 {
     /// <summary>
     /// Interaction logic for TextEntry.xaml

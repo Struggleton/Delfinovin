@@ -23,7 +23,7 @@ using System.Windows.Shapes;
 using static System.Windows.Forms.ListView;
 
 
-namespace DelfinovinnUI
+namespace DelfinovinUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

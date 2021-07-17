@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DelfinovinnUI
+namespace DelfinovinUI
 {
     /// <summary>
     /// Interaction logic for GamecubeDialog.xaml

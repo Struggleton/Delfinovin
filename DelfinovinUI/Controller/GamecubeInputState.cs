@@ -1,4 +1,4 @@
-﻿namespace DelfinovinnUI
+﻿namespace DelfinovinUI
 {
 	public class GamecubeInputState
 	{

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<UserControl x:Class="DelfinovinnUI.GamecubeDialog"
+<UserControl x:Class="DelfinovinUI.GamecubeDialog"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DelfinovinnUI">
+             xmlns:local="clr-namespace:DelfinovinUI">
     
     <Canvas Name="dialogCanvas">
         <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="LeftStickOutline" Fill="#FFDCDCDC" Data="M104.653,205.399 C66.538000000000011,205.399 35.534000000000006,236.403 35.534000000000006,274.518 C35.534000000000006,312.63300000000004 66.538000000000011,343.63700000000006 104.653,343.63700000000006 C142.762,343.63700000000006 173.76600000000002,312.63300000000004 173.76600000000002,274.518 C173.76600000000002,236.40300000000002 142.76200000000003,205.39900000000003 104.65300000000002,205.39900000000003" />

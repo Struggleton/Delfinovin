@@ -1,7 +1,7 @@
 ﻿using System;
 using Nefarius.ViGEm.Client;
 
-namespace DelfinovinnUI
+namespace DelfinovinUI
 {
 	internal class GamecubeAdapter
 	{

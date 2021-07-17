@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelfinovinnUI", "DelfinovinnUI\DelfinovinnUI.csproj", "{04417221-65F8-4A64-BC4B-43BF0289DDFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelfinovinUI", "DelfinovinUI\DelfinovinUI.csproj", "{04417221-65F8-4A64-BC4B-43BF0289DDFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
