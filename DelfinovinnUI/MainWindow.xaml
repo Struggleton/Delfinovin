@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="DelfinovinnUI.MainWindow" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DelfinovinnUI" 
+        Title="MainWindow" Height="500" Width="830" WindowStyle="None" AllowsTransparency="True" FontFamily="Microsoft JhengHei Light">
+    
+    <FrameworkElement.Resources>
+        <ResourceDictionary>
+            <ContextMenu x:Key="ctmControllerSettings">
+                <MenuItem Name="cmiEditSettings" Header="Edit Settings" Click="cmiEditSettings_Click" />
+                <MenuItem Name="cmiCalibrate" Header="Calibrate Controller" Click="cmiCalibrate_Click" />
+            </ContextMenu>
+        </ResourceDictionary>
+    </FrameworkElement.Resources>
+    <Grid Name="gridDelfinovin">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        
+        <Rectangle Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown">
+            <Shape.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0A1620" Offset="0.0" />
+                    <GradientStop Color="#050B16" Offset="1.0" />
+                </LinearGradientBrush>
+            </Shape.Fill>
+        </Rectangle>
+        <Rectangle Name="rectSidebar" Grid.Row="1" Grid.RowSpan="2">
+            <Shape.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0E1E29" Offset="0.0" />
+                    <GradientStop Color="#091720" Offset="1.0" />
+                </LinearGradientBrush>
+            </Shape.Fill>
+        </Rectangle>
+        <Rectangle Name="rectInfobar" Grid.Row="2" Grid.ColumnSpan="3">
+            <Shape.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0A1620" Offset="0.0" />
+                    <GradientStop Color="#050B16" Offset="1.0" />
+                </LinearGradientBrush>
+            </Shape.Fill>
+        </Rectangle>
+        <Rectangle Name="rectMain" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+            <Shape.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0F2632" Offset="0.0" />
+                    <GradientStop Color="#040912" Offset="1.0" />
+                </LinearGradientBrush>
+            </Shape.Fill>
+        </Rectangle>
+        
+        <StackPanel Name="stpLists" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top">
+            <ListView Name="lvwControllers" Foreground="White" Margin="0,0,0,100">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="IsEnabled" Value="False" />
+                        <Setter Property="Height" Value="50" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ListViewItem IsSelected="True" Content="Controller 1" MouseUp="ListViewItem_MouseUp" />
+                <ListViewItem Content="Controller 2" MouseUp="ListViewItem_MouseUp" />
+                <ListViewItem Content="Controller 3" MouseUp="ListViewItem_MouseUp" />
+                <ListViewItem Content="Controller 4" MouseUp="ListViewItem_MouseUp" />
+            </ListView>
+            
+            <ListView Name="lvwFaqSettings" Background="#00FFFFFF" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="#FFFFFFFF" VerticalAlignment="Bottom">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Height" Value="50" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ListViewItem Name="lviSettings" Content="Settings" MouseUp="lviSettings_MouseUp" />
+                <ListViewItem Name="lviFAQHelp" Content="FAQ / Help" />
+            </ListView>
+        </StackPanel>
+        
+        <StackPanel Name="stpWinControls" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3" Grid.Column="2">
+            <Button Name="btnMinimize" Click="btnMinimize_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="/DelfinovinnUI;component/Resources/application_minimize.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
+
+
+            <Button Name="btnClose" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="/DelfinovinnUI;component/Resources/application_close.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
+        </StackPanel>
+        
+        <StackPanel Name="stpStatus" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+            <Label Name="lblOtherInfo" Foreground="#FF87CEFA" />
+            <Label Name="lblAdapterStatus" Content="🌎 Gamecube adapter not connected" Foreground="#FFFF0000" />
+            <Label Name="lblViGEmStatus" Content="🎮 ViGEmBus is not installed" Foreground="#FFFF0000" />
+        </StackPanel>
+        
+        <StackPanel Name="stpControllerDlg" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.5" ScaleY="0.5" />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+            <local:GamecubeDialog x:Name="controllerDialog" />
+        </StackPanel>
+
+        <materialDesign:Transitioner Name="tnrSlides" SelectedIndex="0" AutoApplyTransitionOrigins="True" Grid.Column="1" Grid.Row="1">
+            <materialDesign:TransitionerSlide>
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:CircleWipe />
+                </materialDesign:TransitionerSlide.BackwardWipe>
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Right" />
+                </materialDesign:TransitionerSlide.ForwardWipe>
+            </materialDesign:TransitionerSlide>
+            <local:SettingsDialog x:Name="ctsDialog" />
+        </materialDesign:Transitioner>
+    </Grid>
+</Window>
