@@ -71,13 +71,13 @@
                         <Setter Property="Height" Value="50" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
-                <ListViewItem IsSelected="True" Content="Controller 1" MouseUp="ListViewItem_MouseUp" />
-                <ListViewItem Content="Controller 2" MouseUp="ListViewItem_MouseUp" />
-                <ListViewItem Content="Controller 3" MouseUp="ListViewItem_MouseUp" />
-                <ListViewItem Content="Controller 4" MouseUp="ListViewItem_MouseUp" />
+                <ListViewItem IsSelected="True" Content="Controller 1"/>
+                <ListViewItem Content="Controller 2"/>
+                <ListViewItem Content="Controller 3"/>
+                <ListViewItem Content="Controller 4"/>
             </ListView>
             
-            <ListView Name="lvwFaqSettings" Background="#00FFFFFF" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="#FFFFFFFF" VerticalAlignment="Bottom">
+            <ListView Name="lvwFaqSettings" Background="#00FFFFFF" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="#FFFFFFFF" VerticalAlignment="Bottom" >
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="Height" Value="50" />
@@ -87,7 +87,22 @@
                 <ListViewItem Name="lviFAQHelp" Content="FAQ / Help" />
             </ListView>
         </StackPanel>
-        
+
+        <StackPanel x:Name="stpEdit" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <ListView x:Name="lvwEdits" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="White" Margin="0,0,0,45" FontFamily="Microsoft JhengHei Light">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Height" Value="50" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                
+                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+            </ListView>
+        </StackPanel>
+
         <StackPanel Name="stpWinControls" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3" Grid.Column="2">
             <Button Name="btnMinimize" Click="btnMinimize_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Image Source="/DelfinovinUI;component/Resources/application_minimize.png" VerticalAlignment="Center" HorizontalAlignment="Center" />

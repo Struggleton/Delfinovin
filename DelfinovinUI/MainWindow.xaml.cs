@@ -252,6 +252,7 @@ namespace DelfinovinUI
 			_syncContext.Post(delegate
 			{
 				_gamecubeAdapter.UpdateDialog(controllerDialog, lvwControllers.SelectedIndex);
+				
 				if (_gamecubeAdapter.ControllerInserted)
 				{
 					for (int i = 0; i < 4; i++)
@@ -259,9 +260,13 @@ namespace DelfinovinUI
 						ListViewItem listViewItem = (ListViewItem)lvwControllers.Items[i];
 						listViewItem.IsEnabled = _gamecubeAdapter.Controllers[i].IsConnected;
 						listViewItem.IsSelected = _gamecubeAdapter.Controllers[i].IsConnected;
+
+						Button editButton = (Button)lvwEdits.Items[i];
+						editButton.IsEnabled = _gamecubeAdapter.Controllers[i].IsConnected;
 					}
 					_gamecubeAdapter.ControllerInserted = false;
 				}
+				
 			}, null);
 		}
 
@@ -335,17 +340,6 @@ namespace DelfinovinUI
 			tnrSlides.SelectedIndex = 0; // Transitions to blank page
 		}
 
-		private void ListViewItem_MouseUp(object sender, MouseButtonEventArgs e)
-		{
-			if (e.ChangedButton == MouseButton.Right)
-			{
-				ContextMenu cm = FindResource("ctmControllerSettings") as ContextMenu;
-				cm.PlacementTarget = sender as Button;
-				cm.IsOpen = true;
-			}
-			e.Handled = true;
-		}
-
 		// Implement custom header bars
 		private void rectHeader_MouseDown(object sender, MouseButtonEventArgs e)
 		{
@@ -416,5 +410,12 @@ namespace DelfinovinUI
 				ctsDialog.UpdateControl(_settings[lvwControllers.SelectedIndex]);
 			}
 		}
-	}
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+			ContextMenu cm = this.FindResource("ctmControllerSettings") as ContextMenu;
+			cm.PlacementTarget = sender as Button;
+			cm.IsOpen = true;
+		}
+    }
 }
