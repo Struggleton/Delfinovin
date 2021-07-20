@@ -181,6 +181,7 @@ namespace DelfinovinUI
 			{
 				ViGEmClient client = new ViGEmClient();
 				_vigemInstalled = true;
+				client.Dispose();
 				
 			}
 
