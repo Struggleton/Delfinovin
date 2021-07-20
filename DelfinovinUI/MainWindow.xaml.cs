@@ -98,7 +98,12 @@ namespace DelfinovinUI
 					"ViGEm is required to use Delfinovin." +
 					"\n\nWould you like to open the ViGEm downloads page?", true, true, "Yes!", "No.");
 				messageWindow.ShowDialog();
-            }
+
+				if (messageWindow.Result != WindowResult.OK)
+					return;
+
+				Process.Start("https://github.com/ViGEm/ViGEmBus/releases");
+			}
 		}
 
 		private void InitializeUSB()
