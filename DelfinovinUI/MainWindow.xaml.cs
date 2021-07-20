@@ -137,9 +137,12 @@ namespace DelfinovinUI
 			_usbDevice = null;
 			UsbDevice.Exit();
 
-			_controllerReader.DataReceived -= CtrlrDataReceived;
-			_controllerReader.Dispose();
-			_controllerWriter.Dispose();
+			if (_controllerReader != null)
+            {
+				_controllerReader.DataReceived -= CtrlrDataReceived;
+				_controllerReader.Dispose();
+				_controllerWriter.Dispose();
+			}
 
 			_adapterStatus = AdapterStatus.AdapterDisconnected;
 			SetAdapterStatus();
