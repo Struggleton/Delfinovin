@@ -7,14 +7,22 @@
 
 		public float[] LeftStickCalibration = new float[4];
 		public float[] CStickCalibration = new float[4];
-		public int[] StickCenters = new int[4];
+		public int[] StickOrigins = new int[4];
 
-		public void SetStickCenters(GamecubeInputState controllerInput)
+		public void SetStickOrigins(GamecubeInputState controllerInput)
 		{
-			StickCenters[0] = 127 - controllerInput.LEFT_STICK_X;
-			StickCenters[1] = 127 - controllerInput.LEFT_STICK_Y;
-			StickCenters[2] = 127 - controllerInput.C_STICK_X;
-			StickCenters[3] = 127 - controllerInput.C_STICK_Y;
+			StickOrigins[0] = controllerInput.LEFT_STICK_X;
+			StickOrigins[1] = controllerInput.LEFT_STICK_Y;
+			StickOrigins[2] = controllerInput.C_STICK_X;
+			StickOrigins[3] = controllerInput.C_STICK_Y;
+		}
+		
+		public bool CompareStickOrigins(GamecubeCalibration calibration)
+        {
+			return StickOrigins[0] == calibration.StickOrigins[0] &&
+				StickOrigins[1] == calibration.StickOrigins[1] &&
+				StickOrigins[2] == calibration.StickOrigins[2] &&
+				StickOrigins[3] == calibration.StickOrigins[3];
 		}
 
 		public void ResetCalibration()

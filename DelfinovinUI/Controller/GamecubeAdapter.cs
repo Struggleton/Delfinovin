@@ -7,6 +7,7 @@ namespace DelfinovinUI
 	{
 		private GamecubeInputState[] _inputStates = new GamecubeInputState[4];
 		private ViGEmClient[] _vgmClient = new ViGEmClient[4];
+		private GamecubeCalibration[] _previousStickCenters;
 		private bool[] _previousRumbleStates;
 
 		public GamecubeController[] Controllers;
@@ -16,11 +17,13 @@ namespace DelfinovinUI
 		public GamecubeAdapter()
 		{
 			Controllers = new GamecubeController[4];
+			_previousStickCenters = new GamecubeCalibration[4];
 			_previousRumbleStates = new bool[4];
 			for (int i = 0; i < 4; i++)
 			{
 				_vgmClient[i] = new ViGEmClient();
 				Controllers[i] = new GamecubeController(_vgmClient[i]);
+				_previousStickCenters[i] = new GamecubeCalibration();
 				_inputStates[i] = new GamecubeInputState();
 			}
 		}
@@ -28,9 +31,7 @@ namespace DelfinovinUI
 		public void UpdateStates(byte[] controllerData)
 		{
 			if (controllerData[0] != 0x21)
-			{
 				throw new Exception("Error! Gamecube magic header not found!");
-			}
 
 			for (int port = 0; port < 4; port++)
 			{
@@ -76,8 +77,7 @@ namespace DelfinovinUI
 
 					if (ApplicationSettings.CalibrateCenter && Controllers[i].CalibrationStatus == CalibrationStatus.Uncalibrated) // Only center sticks when fist plugged in
 					{
-						Controllers[i].Calibration.SetStickCenters(_inputStates[i]);
-						Controllers[i].CalibrationStatus = CalibrationStatus.Centered;
+						CalibrateCenter(i);
 					}
 
 					else if (Controllers[i].CalibrationStatus == CalibrationStatus.Calibrating) // This gets set by the UI 
@@ -101,12 +101,32 @@ namespace DelfinovinUI
 			}
 		}
 
+		private void CalibrateCenter(int port)
+        {
+			Controllers[port].Calibration.SetStickOrigins(_inputStates[port]);
+			if (_previousStickCenters[port].CompareStickOrigins(Controllers[port].Calibration))
+			{
+				Controllers[port].CalibrationAttempt++;
+			}
+
+			else
+			{
+				Controllers[port].CalibrationAttempt = 0;
+				_previousStickCenters[port] = Controllers[port].Calibration;
+			}
+
+			if (Controllers[port].CalibrationAttempt >= 5)
+			{
+				Controllers[port].CalibrationStatus = CalibrationStatus.Centered;
+			}
+		}
+
 		public void UpdateSettings(ControllerSettings controllerSettings, int port)
 		{
 			Controllers[port].Settings = controllerSettings;
-			int[] stickCenters = Controllers[port].Calibration.StickCenters;
+			int[] stickCenters = Controllers[port].Calibration.StickOrigins;
 			Controllers[port].Calibration = new GamecubeCalibration();
-			Controllers[port].Calibration.StickCenters = stickCenters; // Copy current stick centers
+			Controllers[port].Calibration.StickOrigins = stickCenters; // Copy current stick centers
 
 			GamecubeInputState input = new GamecubeInputState(); // Generate new calibrations based on settings
 			input.LEFT_STICK_X = (byte)Math.Floor(255f * controllerSettings.LeftStickRange); // Maximum range calibration

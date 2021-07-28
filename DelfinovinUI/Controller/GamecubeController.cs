@@ -11,12 +11,14 @@ namespace DelfinovinUI
 		private IXbox360Controller _controller;
 		private GamecubeInputState _currentState;
 
-		public GamecubeCalibration Calibration;
-		public ControllerSettings Settings;
-		public CalibrationStatus CalibrationStatus;
-
 		private int _vibrationMotor;
 		private bool _rumbleEnabled;
+
+		public GamecubeCalibration Calibration;
+		public ControllerSettings Settings;
+		public CalibrationStatus CalibrationStatus { get; set; }
+		public bool IsConnected;
+		public int CalibrationAttempt; 
 
 		public bool RumbleChanged
 		{
@@ -34,16 +36,12 @@ namespace DelfinovinUI
 			}
 		}
 
-		public bool IsConnected;
-
 		public GamecubeController(ViGEmClient client)
 		{
 			_controller = client.CreateXbox360Controller();
 			Calibration = new GamecubeCalibration();
 			Settings = new ControllerSettings();
-
-			CalibrationStatus = CalibrationStatus.Uncalibrated;
-
+			
 			Init();
 		}
 
@@ -54,6 +52,8 @@ namespace DelfinovinUI
 			_controller.AutoSubmitReport = false;
 
 			_currentState = new GamecubeInputState();
+			CalibrationStatus = CalibrationStatus.Uncalibrated;
+			CalibrationAttempt = 0;
 		}
 
 		public void Connect()
@@ -67,6 +67,8 @@ namespace DelfinovinUI
 		{
 			_controller.FeedbackReceived -= FeedbackReceived;
 			CalibrationStatus = CalibrationStatus.Uncalibrated;
+			CalibrationAttempt = 0;
+
 			_controller.Disconnect();
 			IsConnected = false;
 		}
@@ -110,18 +112,18 @@ namespace DelfinovinUI
 
 				if (CalibrationStatus == CalibrationStatus.Calibrated)
 				{
-					LeftStickX = Math.Round((LeftStickX * Calibration.LeftStickCalibration[0] - Calibration.LeftStickCalibration[2]) + Calibration.StickCenters[0]);
-					LeftStickY = Math.Round((LeftStickY * Calibration.LeftStickCalibration[1] - Calibration.LeftStickCalibration[3]) + Calibration.StickCenters[1]);
-					CStickX = Math.Round((CStickX * Calibration.CStickCalibration[0] - Calibration.CStickCalibration[2]) + Calibration.StickCenters[2]);
-					CStickY = Math.Round((CStickY * Calibration.CStickCalibration[1] - Calibration.CStickCalibration[3]) + Calibration.StickCenters[3]);
+					LeftStickX = (127 - Calibration.StickOrigins[0]) + Math.Round((LeftStickX * Calibration.LeftStickCalibration[0] - Calibration.LeftStickCalibration[2]));
+					LeftStickY = (127 - Calibration.StickOrigins[1]) + Math.Round((LeftStickY * Calibration.LeftStickCalibration[1] - Calibration.LeftStickCalibration[3]));
+					CStickX = (127 - Calibration.StickOrigins[2]) + Math.Round((CStickX * Calibration.CStickCalibration[0] - Calibration.CStickCalibration[2]));
+					CStickY = (127 - Calibration.StickOrigins[3]) + Math.Round((CStickY * Calibration.CStickCalibration[1] - Calibration.CStickCalibration[3]));
 				}
 
 				else if (CalibrationStatus == CalibrationStatus.Centered)
 				{
-					LeftStickX += Calibration.StickCenters[0];
-					LeftStickY += Calibration.StickCenters[1];
-					CStickX += Calibration.StickCenters[2];
-					CStickY += Calibration.StickCenters[3];
+					LeftStickX += 127 - Calibration.StickOrigins[0];
+					LeftStickY += 127 - Calibration.StickOrigins[1];
+					CStickX += 127 - Calibration.StickOrigins[2];
+					CStickY += 127 - Calibration.StickOrigins[3];
 				}
 
 				LeftStickX = Extensions.ByteToShort((byte)Extensions.Clamp(LeftStickX, 0.0, 255.0), false);
