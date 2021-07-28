@@ -259,10 +259,9 @@ namespace DelfinovinUI
 			if (_gamecubeAdapter.RumbleChanged)
 				SendRumbleStatus();
 
-			_syncContext.Post(delegate
+			_syncContext.Post(delegate // Update UI from different thread
 			{
-				_gamecubeAdapter.UpdateDialog(controllerDialog, lvwControllers.SelectedIndex);
-				
+				_gamecubeAdapter.UpdateDialog(controllerDialog, _selectedPort);
 				if (_gamecubeAdapter.ControllerInserted)
 				{
 					for (int i = 0; i < 4; i++)
@@ -274,6 +273,8 @@ namespace DelfinovinUI
 						Button editButton = (Button)lvwEdits.Items[i];
 						editButton.IsEnabled = _gamecubeAdapter.Controllers[i].IsConnected;
 					}
+
+					UpdateDefaultProfiles();
 					_gamecubeAdapter.ControllerInserted = false;
 				}
 				
@@ -300,9 +301,7 @@ namespace DelfinovinUI
 
 		private void cmiCalibrate_Click(object sender, RoutedEventArgs e)
 		{
-			_selectedPort = lvwControllers.SelectedIndex;
 			_isCalibrating = !_isCalibrating;
-
 			if (_isCalibrating) // Reset calibration so new values take precedence 
             {
 				_gamecubeAdapter.Controllers[_selectedPort].Calibration.ResetCalibration();
@@ -342,10 +341,9 @@ namespace DelfinovinUI
 		
 		private void BtnApply_Click(object sender, RoutedEventArgs e)
 		{
-			int port = lvwControllers.SelectedIndex;
-			_settings[port] = ctsDialog.GetSettings(); 
-			_gamecubeAdapter.UpdateSettings(_settings[port], port);
-			lblOtherInfo.Content = $"Applied settings on Controller {port + 1}!";
+			_settings[_selectedPort] = ctsDialog.GetSettings(); 
+			_gamecubeAdapter.UpdateSettings(_settings[_selectedPort], _selectedPort);
+			lblOtherInfo.Content = $"Applied settings on Controller {_selectedPort + 1}!";
 
 			tnrSlides.SelectedIndex = 0; // Transitions to blank page
 		}
@@ -414,7 +412,7 @@ namespace DelfinovinUI
 			if (appSettingDialog.Result == WindowResult.SaveClosed)
 			{
 				UpdateDefaultProfiles();
-				ctsDialog.UpdateControl(_settings[lvwControllers.SelectedIndex]);
+				ctsDialog.UpdateControl(_settings[_selectedPort]);
 			}
 		}
 
@@ -424,5 +422,12 @@ namespace DelfinovinUI
 			cm.PlacementTarget = sender as Button;
 			cm.IsOpen = true;
 		}
+
+        private void lvwControllers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+			_selectedPort = lvwControllers.SelectedIndex;
+			if (_settings != null && _selectedPort != -1)
+				ctsDialog.UpdateControl(_settings[_selectedPort]);
+        }
     }
 }

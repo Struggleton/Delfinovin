@@ -64,7 +64,7 @@
         </Rectangle>
         
         <StackPanel Name="stpLists" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top">
-            <ListView Name="lvwControllers" Foreground="White" Margin="0,0,0,100">
+            <ListView Name="lvwControllers" Foreground="White" Margin="0,0,0,100" SelectionChanged="lvwControllers_SelectionChanged">
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="IsEnabled" Value="False" />
