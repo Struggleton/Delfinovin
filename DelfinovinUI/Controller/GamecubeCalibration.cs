@@ -8,12 +8,6 @@
 		public float[] LeftStickCalibration = new float[4];
 		public float[] CStickCalibration = new float[4];
 		public int[] StickCenters = new int[4];
-		public CalibrationStatus CurrentStatus;
-
-		public GamecubeCalibration()
-		{
-			CurrentStatus = CalibrationStatus.Uncalibrated;
-		}
 
 		public void SetStickCenters(GamecubeInputState controllerInput)
 		{
@@ -21,7 +15,6 @@
 			StickCenters[1] = 127 - controllerInput.LEFT_STICK_Y;
 			StickCenters[2] = 127 - controllerInput.C_STICK_X;
 			StickCenters[3] = 127 - controllerInput.C_STICK_Y;
-			CurrentStatus = CalibrationStatus.Centered;
 		}
 
 		public void ResetCalibration()
@@ -66,15 +59,12 @@
 
 			if (_cStickMinMax[3] < controllerInput.C_STICK_Y)
 				_cStickMinMax[3] = controllerInput.C_STICK_Y;
-
-			CurrentStatus = CalibrationStatus.Calibrating;
 		}
 
 		public void GenerateCalibrations()
 		{
 			LeftStickCalibration = GenerateCoefficients(_leftStickMinMax);
 			CStickCalibration = GenerateCoefficients(_cStickMinMax);
-			CurrentStatus = CalibrationStatus.Calibrated;
 		}
 
 		private float[] GenerateCoefficients(byte[] minMax)

@@ -10,24 +10,17 @@ namespace DelfinovinUI
 		private bool[] _previousRumbleStates;
 
 		public GamecubeController[] Controllers;
-		public GamecubeCalibration[] Calibrations;
-		public ControllerSettings[] Settings;
-		
 		public bool ControllerInserted;
 		public bool RumbleChanged;
 
 		public GamecubeAdapter()
 		{
 			Controllers = new GamecubeController[4];
-			Calibrations = new GamecubeCalibration[4];
-			Settings = new ControllerSettings[4];
 			_previousRumbleStates = new bool[4];
 			for (int i = 0; i < 4; i++)
 			{
 				_vgmClient[i] = new ViGEmClient();
 				Controllers[i] = new GamecubeController(_vgmClient[i]);
-				Calibrations[i] = new GamecubeCalibration();
-				Settings[i] = new ControllerSettings();
 				_inputStates[i] = new GamecubeInputState();
 			}
 		}
@@ -75,16 +68,24 @@ namespace DelfinovinUI
 			{
 				if (_inputStates[i].IsPlugged())
 				{
-					if (!Controllers[i].IsConnected)
+					if (!Controllers[i].IsConnected) // Newly inserted controller
 					{
-						Controllers[i].Connect();
 						ControllerInserted = true;
-						if (ApplicationSettings.CalibrateCenter)
-						{
-							Calibrations[i].SetStickCenters(_inputStates[i]);
-							Controllers[i].UpdateCalibration(Calibrations[i]);
-						}
+						Controllers[i].Connect();
 					}
+
+					if (ApplicationSettings.CalibrateCenter && Controllers[i].CalibrationStatus == CalibrationStatus.Uncalibrated) // Only center sticks when fist plugged in
+					{
+						Controllers[i].Calibration.SetStickCenters(_inputStates[i]);
+						Controllers[i].CalibrationStatus = CalibrationStatus.Centered;
+					}
+
+					else if (Controllers[i].CalibrationStatus == CalibrationStatus.Calibrating) // This gets set by the UI 
+                    {
+						Controllers[i].Calibration.SetMinMax(_inputStates[i]);
+						Controllers[i].Calibration.GenerateCalibrations();
+					}
+
 					Controllers[i].UpdateInput(_inputStates[i]);
 					RumbleChanged |= _previousRumbleStates[i] != Controllers[i].RumbleChanged;
 					_previousRumbleStates[i] = Controllers[i].RumbleChanged;
@@ -93,55 +94,40 @@ namespace DelfinovinUI
 				else if (Controllers[i].IsConnected)
 				{
 					_inputStates[i] = new GamecubeInputState();
-					Calibrations[i] = new GamecubeCalibration();
+					Controllers[i].Calibration = new GamecubeCalibration();
 					Controllers[i].UpdateInput(_inputStates[i]);
-					Controllers[i].UpdateCalibration(Calibrations[i]);
 					Controllers[i].Disconnect();
 				}
 			}
 		}
 
-		public void UpdateCalibrations(int port)
-		{
-			if (_inputStates[port].IsPlugged())
-			{
-				Calibrations[port].SetMinMax(_inputStates[port]);
-				Calibrations[port].GenerateCalibrations();
-				Controllers[port].UpdateCalibration(Calibrations[port]);
-
-				int breakPoint = 9;
-			}
-		}
-
 		public void UpdateSettings(ControllerSettings controllerSettings, int port)
 		{
-			Settings[port] = controllerSettings;
-			int[] stickCenters = Calibrations[port].StickCenters;
-			Calibrations[port] = new GamecubeCalibration();
-			Calibrations[port].StickCenters = stickCenters; // Copy current stick centers
+			Controllers[port].Settings = controllerSettings;
+			int[] stickCenters = Controllers[port].Calibration.StickCenters;
+			Controllers[port].Calibration = new GamecubeCalibration();
+			Controllers[port].Calibration.StickCenters = stickCenters; // Copy current stick centers
 
 			GamecubeInputState input = new GamecubeInputState(); // Generate new calibrations based on settings
-			input.LEFT_STICK_X = (byte)Math.Floor(255f * Settings[port].LeftStickRange); // Maximum range calibration
-			input.LEFT_STICK_Y = (byte)Math.Floor(255f * Settings[port].LeftStickRange);
-			input.C_STICK_X = (byte)Math.Floor(255f * Settings[port].RightStickRange);
-			input.C_STICK_Y = (byte)Math.Floor(255f * Settings[port].RightStickRange);
-			Calibrations[port].SetMinMax(input);
+			input.LEFT_STICK_X = (byte)Math.Floor(255f * controllerSettings.LeftStickRange); // Maximum range calibration
+			input.LEFT_STICK_Y = (byte)Math.Floor(255f * controllerSettings.LeftStickRange);
+			input.C_STICK_X = (byte)Math.Floor(255f * controllerSettings.RightStickRange);
+			input.C_STICK_Y = (byte)Math.Floor(255f * controllerSettings.RightStickRange);
+			Controllers[port].Calibration.SetMinMax(input);
 
 			// Minimum range calibration
-			input.LEFT_STICK_X = (byte)Math.Floor(255f * (1f - Settings[port].LeftStickRange));
-			input.LEFT_STICK_Y = (byte)Math.Floor(255f * (1f - Settings[port].LeftStickRange));
-			input.C_STICK_X = (byte)Math.Floor(255f * (1f - Settings[port].RightStickRange));
-			input.C_STICK_Y = (byte)Math.Floor(255f * (1f - Settings[port].RightStickRange));
-			Calibrations[port].SetMinMax(input);
-
-			Calibrations[port].GenerateCalibrations();
-			Controllers[port].UpdateSettings(Settings[port]);
-			Controllers[port].UpdateCalibration(Calibrations[port]);
+			input.LEFT_STICK_X = (byte)Math.Floor(255f * (1f - controllerSettings.LeftStickRange));
+			input.LEFT_STICK_Y = (byte)Math.Floor(255f * (1f - controllerSettings.LeftStickRange));
+			input.C_STICK_X = (byte)Math.Floor(255f * (1f - controllerSettings.RightStickRange));
+			input.C_STICK_Y = (byte)Math.Floor(255f * (1f - controllerSettings.RightStickRange));
+			Controllers[port].Calibration.SetMinMax(input);
+			Controllers[port].Calibration.GenerateCalibrations();
+			Controllers[port].CalibrationStatus = CalibrationStatus.Calibrated;
 		}
 
 		public void UpdateDialog(GamecubeDialog controllerControl, int port)
 		{
-			controllerControl.UpdateDialog(_inputStates[port], Settings[port]);
+			controllerControl.UpdateDialog(_inputStates[port], Controllers[port].Settings);
 		}
 	}
 }

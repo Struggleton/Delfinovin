@@ -229,13 +229,17 @@ namespace DelfinovinUI
 
 		public void UpdateDefaultProfiles()
 		{
-			_settings[0].LoadFromFile($"profiles\\{ApplicationSettings.DefaultProfile1}.txt");
-			_settings[1].LoadFromFile($"profiles\\{ApplicationSettings.DefaultProfile2}.txt");
-			_settings[2].LoadFromFile($"profiles\\{ApplicationSettings.DefaultProfile3}.txt");
-			_settings[3].LoadFromFile($"profiles\\{ApplicationSettings.DefaultProfile4}.txt");
+			bool[] settingLoaded = new bool[4];
+			settingLoaded[0] = _settings[0].LoadFromFile($"profiles\\{ApplicationSettings.DefaultProfile1}.txt");
+			settingLoaded[1] = _settings[1].LoadFromFile($"profiles\\{ApplicationSettings.DefaultProfile2}.txt");
+			settingLoaded[2] = _settings[2].LoadFromFile($"profiles\\{ApplicationSettings.DefaultProfile3}.txt");
+			settingLoaded[3] = _settings[3].LoadFromFile($"profiles\\{ApplicationSettings.DefaultProfile4}.txt");
 
 			for (int i = 0; i < 4; i++)
-				_gamecubeAdapter.UpdateSettings(_settings[i], i);
+            {
+				if (settingLoaded[i])
+					_gamecubeAdapter.UpdateSettings(_settings[i], i); // Do this so we don't load falsely calibrated profiles
+			}
 		}
 
 		private void ExitProgram()
@@ -251,9 +255,6 @@ namespace DelfinovinUI
 
 			_gamecubeAdapter.UpdateStates(e.Buffer);
 			_gamecubeAdapter.UpdateControllers();
-
-			if (_isCalibrating)
-				_gamecubeAdapter.UpdateCalibrations(_selectedPort);
 
 			if (_gamecubeAdapter.RumbleChanged)
 				SendRumbleStatus();
@@ -284,14 +285,10 @@ namespace DelfinovinUI
 			if (e.Device.IdVendor == _VendorID && e.Device.IdProduct == _ProductID)
 			{
 				if (e.EventType == EventType.DeviceArrival)
-				{
 					BeginControllerLoop();
-				}
 
 				else if (e.EventType == EventType.DeviceRemoveComplete)
-				{
 					DeinitializeUSB();
-				}
 			}
 		}
 
@@ -307,7 +304,10 @@ namespace DelfinovinUI
 			_isCalibrating = !_isCalibrating;
 
 			if (_isCalibrating) // Reset calibration so new values take precedence 
-				_gamecubeAdapter.Calibrations[_selectedPort].ResetCalibration();
+            {
+				_gamecubeAdapter.Controllers[_selectedPort].Calibration.ResetCalibration();
+				_gamecubeAdapter.Controllers[_selectedPort].CalibrationStatus = CalibrationStatus.Calibrating;
+			}
 
 			lblOtherInfo.Content = (_isCalibrating ? $"Calibrating Controller {_selectedPort + 1}..." : "");
 			ContextMenu menu = Resources["ctmControllerSettings"] as ContextMenu;
@@ -316,13 +316,14 @@ namespace DelfinovinUI
 
 			if (!_isCalibrating)
 			{
-				_settings[_selectedPort].LeftStickRange = _gamecubeAdapter.Calibrations[_selectedPort].GetRange()[0];
-				_settings[_selectedPort].RightStickRange = _gamecubeAdapter.Calibrations[_selectedPort].GetRange()[1];
+				_settings[_selectedPort].LeftStickRange = _gamecubeAdapter.Controllers[_selectedPort].Calibration.GetRange()[0];
+				_settings[_selectedPort].RightStickRange = _gamecubeAdapter.Controllers[_selectedPort].Calibration.GetRange()[1];
 
 				ctsDialog.leftStickRange.Value = _settings[_selectedPort].LeftStickRange * 100f; // Scale values to slider values
 				ctsDialog.rightStickRange.Value = _settings[_selectedPort].RightStickRange * 100f;
 
 				_gamecubeAdapter.UpdateSettings(_settings[_selectedPort], _selectedPort); // update controller settings
+				_gamecubeAdapter.Controllers[_selectedPort].CalibrationStatus = CalibrationStatus.Calibrated;
 				lblOtherInfo.Content = "Finshed calibrating controller.";
 			}
 		}
@@ -364,7 +365,6 @@ namespace DelfinovinUI
 		private void CloseMenu_Click(object sender, EventArgs e)
 		{
 			ExitProgram();
-
 		}
 
 		private void btnMinimize_Click(object sender, RoutedEventArgs e)
@@ -403,9 +403,7 @@ namespace DelfinovinUI
         protected override void OnStateChanged(EventArgs e)
 		{
 			if (WindowState == WindowState.Minimized && ApplicationSettings.MinimizeToTray)
-			{
 				this.Hide();
-			}
 		}
 
 		private void lviSettings_MouseUp(object sender, MouseButtonEventArgs e)
