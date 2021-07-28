@@ -75,7 +75,7 @@ namespace DelfinovinUI
 						Controllers[i].Connect();
 					}
 
-					if (ApplicationSettings.CalibrateCenter && Controllers[i].CalibrationStatus == CalibrationStatus.Uncalibrated) // Only center sticks when fist plugged in
+					if (Controllers[i].CalibrationStatus == CalibrationStatus.Uncalibrated) // Only center sticks when fist plugged in
 					{
 						CalibrateCenter(i);
 					}

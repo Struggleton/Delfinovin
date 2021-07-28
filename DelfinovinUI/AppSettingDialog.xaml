@@ -59,7 +59,6 @@
                         <Setter Property="IsTabStop" Value="False" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
-                <ListViewItem Content="Center Controllers when Plugged In" />
                 <ListViewItem Content="Minimize Program to System Tray" />
                 <ListViewItem Content="Default Profile - Controller #1" />
                 <ListViewItem Content="Default Profile - Controller #2" />
@@ -73,9 +72,6 @@
                         <Setter Property="Foreground" Value="#FFFFFFFF" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
-                <ListViewItem>
-                    <ToggleButton Name="centerControllers" />
-                </ListViewItem>
                 <ListViewItem>
                     <ToggleButton Name="minimizeSystemTray" />
                 </ListViewItem>

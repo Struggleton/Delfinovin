@@ -58,7 +58,6 @@ namespace DelfinovinUI
 
 		private void UpdateControls()
 		{
-			centerControllers.IsChecked = ApplicationSettings.CalibrateCenter;
 			minimizeSystemTray.IsChecked = ApplicationSettings.MinimizeToTray;
 			defaultProfile1.SelectedItem = ApplicationSettings.DefaultProfile1;
 			defaultProfile2.SelectedItem = ApplicationSettings.DefaultProfile2;
@@ -83,7 +82,6 @@ namespace DelfinovinUI
 
 		private void btnSave_Click(object sender, RoutedEventArgs e)
 		{
-			ApplicationSettings.CalibrateCenter = centerControllers.IsChecked.Value;
 			ApplicationSettings.MinimizeToTray = minimizeSystemTray.IsChecked.Value;
 			ApplicationSettings.DefaultProfile1 = defaultProfile1.Text;
 			ApplicationSettings.DefaultProfile2 = defaultProfile2.Text;

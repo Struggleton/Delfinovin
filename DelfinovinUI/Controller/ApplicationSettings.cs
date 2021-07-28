@@ -10,7 +10,6 @@ namespace DelfinovinUI
 	{
 		private const string SETTING_FILENAME = "settings.txt";
 
-		public static bool CalibrateCenter { get; set; } = true;
 		public static bool MinimizeToTray { get; set; } = true;
 		public static string DefaultProfile1 { get; set; } = "";
 		public static string DefaultProfile2 { get; set; } = "";
