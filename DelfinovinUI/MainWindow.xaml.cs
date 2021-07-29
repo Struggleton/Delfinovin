@@ -314,7 +314,7 @@ namespace DelfinovinUI
 				_gamecubeAdapter.Controllers[_selectedPort].CalibrationStatus = CalibrationStatus.Calibrating;
 			}
 
-			lblOtherInfo.Content = (_isCalibrating ? $"Calibrating Controller {_selectedPort + 1}... Make sure to finalize the calibration." : "");
+			lblOtherInfo.Content = (_isCalibrating ? $"Calibrating Controller {_selectedPort + 1}..." : "");
 			ContextMenu menu = Resources["ctmControllerSettings"] as ContextMenu;
 			MenuItem menuItem = menu.Items[1] as MenuItem;
 			menuItem.Header = ((!_isCalibrating) ? "Calibrate Controller" : "Finish Calibrating");
