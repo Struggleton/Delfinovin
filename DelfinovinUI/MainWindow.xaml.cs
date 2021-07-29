@@ -58,6 +58,7 @@ namespace DelfinovinUI
 		private bool _isCalibrating;
 		private bool _vigemInstalled;
 
+		System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -79,15 +80,16 @@ namespace DelfinovinUI
 				InitializeUSB();
 				InitializeAdapter();
 
+				_settings = new ControllerSettings[4];
+				for (int i = 0; i < 4; i++)
+					_settings[i] = new ControllerSettings();
+
+				ApplicationSettings.LoadSettings();
+				UpdateDefaultProfiles();
+
+
 				if (_adapterStatus == AdapterStatus.AdapterInitialized)
 				{
-					_settings = new ControllerSettings[4];
-					for (int i = 0; i < 4; i++)
-						_settings[i] = new ControllerSettings();
-
-					ApplicationSettings.LoadSettings();
-					UpdateDefaultProfiles();
-
 					_controllerReader.DataReceived += CtrlrDataReceived;
 				}
 			}
@@ -160,6 +162,10 @@ namespace DelfinovinUI
 
 			try
 			{
+				byte[] buffer = new byte[256];
+				UsbSetupPacket packet = new UsbSetupPacket(0x21, 11, 0x0001, 0, 0); // apparently this fixes support with Nyko/third party adapters
+				_usbDevice.ControlTransfer(ref packet, buffer, buffer.Length, out int lengthTranfered);
+
 				_gamecubeAdapter = new GamecubeAdapter();
 				_rumbleCommand = new byte[5] { 0x11, 0x00, 0x00, 0x00, 0x00 };
 				if (_adapterStatus == AdapterStatus.AdapterConnected)
@@ -244,8 +250,8 @@ namespace DelfinovinUI
 
 		private void ExitProgram()
 		{
-			this.Close();
-			Process.GetCurrentProcess().Kill();
+			ni.Dispose();
+			Environment.Exit(0);
 		}
 
 		private void CtrlrDataReceived(object sender, EndpointDataEventArgs e)
@@ -308,7 +314,7 @@ namespace DelfinovinUI
 				_gamecubeAdapter.Controllers[_selectedPort].CalibrationStatus = CalibrationStatus.Calibrating;
 			}
 
-			lblOtherInfo.Content = (_isCalibrating ? $"Calibrating Controller {_selectedPort + 1}..." : "");
+			lblOtherInfo.Content = (_isCalibrating ? $"Calibrating Controller {_selectedPort + 1}... Make sure to finalize the calibration." : "");
 			ContextMenu menu = Resources["ctmControllerSettings"] as ContextMenu;
 			MenuItem menuItem = menu.Items[1] as MenuItem;
 			menuItem.Header = ((!_isCalibrating) ? "Calibrate Controller" : "Finish Calibrating");
@@ -369,7 +375,6 @@ namespace DelfinovinUI
 		{
 			if (ApplicationSettings.MinimizeToTray)
 			{
-                System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
 				ni.Icon = Properties.Resources.trayMinimizeIcon;
 
 				ni.ContextMenu = new System.Windows.Forms.ContextMenu();
@@ -381,10 +386,10 @@ namespace DelfinovinUI
 				closeMenu.Click += CloseMenu_Click;
 				closeMenu.Text = "Exit";
 
-				ni.ContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] 
+				ni.ContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
 				{
 					openMenu,
-					closeMenu	
+					closeMenu
 				});
 
 				ni.Visible = true;
