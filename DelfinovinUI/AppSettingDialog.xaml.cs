@@ -37,7 +37,7 @@ namespace DelfinovinUI
 			if (!Directory.Exists("profiles"))
 				Directory.CreateDirectory("profiles");
 
-			string[] files = Directory.GetFiles("profiles", "*.txt");
+			string[] files = Directory.GetFiles(".\\profiles", "*.txt");
 			if (files.Length == 0)
 				return;
 			
