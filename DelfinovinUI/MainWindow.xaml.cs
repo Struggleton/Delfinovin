@@ -152,6 +152,13 @@ namespace DelfinovinUI
 			}
 
 			_adapterStatus = AdapterStatus.AdapterDisconnected;
+			for (int i = 0; i < 4; i++)
+            {
+				ListViewItem item = (ListViewItem)lvwControllers.Items[i];
+				item.IsEnabled = false;
+				item.IsSelected = false;
+			}
+				
 			SetAdapterStatus();
 		}
 
@@ -163,9 +170,9 @@ namespace DelfinovinUI
 			try
 			{
 				byte[] buffer = new byte[256];
-				UsbSetupPacket packet = new UsbSetupPacket(0x21, 11, 0x0001, 0, 0); // apparently this fixes support with Nyko/third party adapters
+				UsbSetupPacket packet = new UsbSetupPacket(0x21, 11, 0x0001, 0, 0); // this fixes support with Nyko/third party adapters don't ask me how
 				_usbDevice.ControlTransfer(ref packet, buffer, buffer.Length, out int lengthTranfered);
-
+				
 				_gamecubeAdapter = new GamecubeAdapter();
 				_rumbleCommand = new byte[5] { 0x11, 0x00, 0x00, 0x00, 0x00 };
 				if (_adapterStatus == AdapterStatus.AdapterConnected)
