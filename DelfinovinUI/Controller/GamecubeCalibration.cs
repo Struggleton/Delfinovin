@@ -9,7 +9,6 @@
 		public float[] CStickCalibration = new float[4];
 		public int[] StickOrigins = new int[4];
 
-
 		// Gather the currently set stick centers
 		public void SetStickOrigins(GamecubeInputState controllerInput)
 		{
