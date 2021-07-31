@@ -21,31 +21,40 @@ namespace DelfinovinUI
     public partial class AppSettingDialog : Window
     {
         private List<ControllerSettings> _loadedProfiles;
-
         public WindowResult Result;
 
 		public AppSettingDialog()
 		{
 			InitializeComponent();
+
+			// Load each profile then update the controls 
 			LoadProfiles();
 			UpdateControls();
 		}
 
 		private void LoadProfiles()
 		{
+			// Initialize the list of profiles
 			_loadedProfiles = new List<ControllerSettings>();
+
+			// If the profile directory doesn't exist, create it
 			if (!Directory.Exists("profiles"))
 				Directory.CreateDirectory("profiles");
 
+			// Load all text files from the profile directory.
+			// if there are none stop execution
 			string[] files = Directory.GetFiles(".\\profiles", "*.txt");
 			if (files.Length == 0)
 				return;
 			
 			for (int i = 0; i < files.Length; i++)
 			{
+				// Create a new profile to load settings into
 				ControllerSettings controllerSettings = new ControllerSettings();
+
 				if (controllerSettings.LoadFromFile(files[i]))
 				{
+					// Update the UI with the set default profiles
 					string name = System.IO.Path.GetFileNameWithoutExtension(files[i]);
 					_loadedProfiles.Add(controllerSettings);
 					defaultProfile1.Items.Add(name);
@@ -58,6 +67,7 @@ namespace DelfinovinUI
 
 		private void UpdateControls()
 		{
+			// Update the controls based on the currently loaded ApplicationSettings
 			minimizeSystemTray.IsChecked = ApplicationSettings.MinimizeToTray;
 			defaultProfile1.SelectedItem = ApplicationSettings.DefaultProfile1;
 			defaultProfile2.SelectedItem = ApplicationSettings.DefaultProfile2;
@@ -82,6 +92,7 @@ namespace DelfinovinUI
 
 		private void btnSave_Click(object sender, RoutedEventArgs e)
 		{
+			// Gather the application values and save them to the file.
 			ApplicationSettings.MinimizeToTray = minimizeSystemTray.IsChecked.Value;
 			ApplicationSettings.DefaultProfile1 = defaultProfile1.Text;
 			ApplicationSettings.DefaultProfile2 = defaultProfile2.Text;

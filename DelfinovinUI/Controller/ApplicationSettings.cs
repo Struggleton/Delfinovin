@@ -18,23 +18,37 @@ namespace DelfinovinUI
 
 		public static void LoadSettings()
 		{
+			// If the application setting file doesn't exist, 
 			if (!File.Exists(SETTING_FILENAME))
 				SaveSettings();
 
+			// Read all the settings to an array.
 			string[] settings = File.ReadAllLines(SETTING_FILENAME);
+
+			// If the file isn't longer than 0,
+			// Stop execution and don't overwrite default values.
 			if (settings.Length == 0)
 				return;
 
 			foreach (string setting in settings)
 			{
-				string[] settingPair = setting.Replace(": ", ":").Split(':'); // Make sure there is no white space between separator 
+				// Make sure there is no white space between separator 
+				string[] settingPair = setting.Replace(": ", ":").Split(':'); 
+
+				// This is so we can have Reflection assign values automatically
+				// Without having to hardcode the reading/writing of values.
 				Type type = typeof(ApplicationSettings);
 				PropertyInfo[] properties = type.GetProperties();
 
 				foreach (PropertyInfo prop in properties)
 				{
+					// If the name corresponds to the property, 
+					// Assign its value from the file to it.
 					if (settingPair[0] == prop.Name)
 					{
+						// Convert string to proper type.
+						// InvariantCulture fixes this not working on other 
+						// languages that use periods (.) instead of commas (,).
 						prop.SetValue(null, Convert.ChangeType(settingPair[1], prop.PropertyType, CultureInfo.InvariantCulture));
 					}
 				}
@@ -43,15 +57,23 @@ namespace DelfinovinUI
 
 		public static void SaveSettings()
 		{
+			// We're going to use Reflection to gather all the properties
+			// and their values and save them to a file.
 			StringBuilder sb = new StringBuilder();
 			Type type = typeof(ApplicationSettings);
 			PropertyInfo[] properties = type.GetProperties();
+
 			foreach (PropertyInfo prop in properties)
 			{
+				// Get the name of the property and its value
 				object value = prop.GetValue(null, null);
 				string name = prop.Name;
+
+				// Format the line
 				sb.AppendLine($"{name}: {value}");
 			}
+
+			// Save all the settings to a file. Overwrite it if it exists.
 			File.WriteAllText(SETTING_FILENAME, sb.ToString());
 		}
 	}

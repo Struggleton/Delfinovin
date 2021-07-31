@@ -10,8 +10,11 @@ namespace DelfinovinUI
             //return (short)(((b << 8) | b) ^ 0x8000);
 
             var intValue = b - 0x80;
-            if (intValue == -128) intValue = -127;
+            if (intValue == -128) 
+                intValue = -127;
 
+            // I have no clue what this value does. Thanks to Nefarius
+            // for this scaling function
             var wtfValue = intValue * 258.00787401574803149606299212599f;
 
             return (short)(invert ? -wtfValue : wtfValue);

@@ -25,6 +25,7 @@ namespace DelfinovinUI
 			InitializeComponent();
 		}
 
+		// Update the dialog based on current settings + controller state
 		public void UpdateDialog(GamecubeInputState inputState, ControllerSettings settings)
 		{
 			bool aButton = (settings.SwapAB ? inputState.BUTTON_B : inputState.BUTTON_A);

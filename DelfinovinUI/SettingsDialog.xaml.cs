@@ -15,6 +15,8 @@ namespace DelfinovinUI
 
 		public ControllerSettings GetSettings()
 		{
+			// Gather all settings set from the dialog
+			// and return them
 			return new ControllerSettings
 			{
 				EnableDigitalPress = enableDigitalTriggers.IsChecked.Value,
@@ -32,6 +34,7 @@ namespace DelfinovinUI
 
 		public void UpdateControl(ControllerSettings controllerSettings)
 		{
+			// Update the dialog based on the controller profile loaded
 			enableDigitalTriggers.IsChecked = controllerSettings.EnableDigitalPress;
 			enableRumble.IsChecked = controllerSettings.EnableRumble;
 			leftStickDeadzone.Value = controllerSettings.LeftStickDeadzone * 100f;

@@ -9,6 +9,8 @@
 		public float[] CStickCalibration = new float[4];
 		public int[] StickOrigins = new int[4];
 
+
+		// Gather the currently set stick centers
 		public void SetStickOrigins(GamecubeInputState controllerInput)
 		{
 			StickOrigins[0] = controllerInput.LEFT_STICK_X;
@@ -19,6 +21,7 @@
 		
 		public bool CompareStickOrigins(GamecubeCalibration calibration)
         {
+			// Compare the current calibration to another's origins
 			return StickOrigins[0] == calibration.StickOrigins[0] &&
 				StickOrigins[1] == calibration.StickOrigins[1] &&
 				StickOrigins[2] == calibration.StickOrigins[2] &&
@@ -27,6 +30,7 @@
 
 		public void ResetCalibration()
 		{
+			// Reset the min-max values to the center and regenerate the calibrations
 			_leftStickMinMax = new byte[4] { 127, 127, 127, 127 };
 			_cStickMinMax = new byte[4] { 127, 127, 127, 127 };
 			GenerateCalibrations();
@@ -35,6 +39,9 @@
 		public float[] GetRange()
 		{
 			float[] ranges = new float[2];
+
+			// Average the maximum values in both the X and Y direction
+			// and return the range of the stick.
 			ranges[0] = ((_leftStickMinMax[1] + _leftStickMinMax[3]) / 2) / 255f;
 			ranges[1] = ((_cStickMinMax[1] + _cStickMinMax[3]) / 2) / 255f;
 
@@ -78,6 +85,8 @@
 		private float[] GenerateCoefficients(byte[] minMax)
 		{
 			float[] stickCalibration = new float[4];
+
+			// Thanks to BarkingFrog for these calculations
 			stickCalibration[0] = 256f / (minMax[1] - minMax[0]);
 			stickCalibration[1] = 256f / (minMax[3] - minMax[2]);
 			stickCalibration[2] = 127f * stickCalibration[0] - 127f;

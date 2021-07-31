@@ -24,6 +24,8 @@ namespace DelfinovinUI
 		public MessageWindow(string text = "", bool displayLeft = false, bool displayRight = false, string leftText = "OK", string rightText = "Cancel")
 		{
 			InitializeComponent();
+
+			// Set control visibility based on parameters set
 			btnLeft.Visibility = ((!displayLeft) ? Visibility.Hidden : Visibility.Visible);
 			btnRight.Visibility = ((!displayRight) ? Visibility.Hidden : Visibility.Visible);
 			btnLeft.Content = leftText;
@@ -31,6 +33,7 @@ namespace DelfinovinUI
 			lblText.Text = text;
 		}
 
+		// Implement custom header bars
 		private void rectHeader_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (e.ChangedButton == MouseButton.Left)

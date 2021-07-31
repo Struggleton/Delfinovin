@@ -13,9 +13,11 @@ namespace DelfinovinUI
 		public string EnteredText { get; set; }
 		public WindowResult Result { get; set; }
 
-		public TextEntry(string displayText)
+		public TextEntry(string displayText = "")
 		{
 			InitializeComponent();
+
+			// Set the textbox text
 			txbTextEntry.Text = displayText;
 		}
 
@@ -26,6 +28,7 @@ namespace DelfinovinUI
 			this.Close();
 		}
 
+		// Implement custom header bars
 		private void rectHeader_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (e.ChangedButton == MouseButton.Left)

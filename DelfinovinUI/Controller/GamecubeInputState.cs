@@ -55,6 +55,7 @@
 
 		public bool IsPlugged()
 		{
+			// If neither of these are set, the controller is not plugged in.
 			return NormalType || WavebirdType;
 		}
 	}
