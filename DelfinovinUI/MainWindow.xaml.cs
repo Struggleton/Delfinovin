@@ -7,6 +7,7 @@ using Nefarius.ViGEm.Client.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -234,7 +235,7 @@ namespace DelfinovinUI
 				item.IsSelected = false;
 
 				Button editButton = (Button)lvwEdits.Items[i];
-				editButton.IsEnabled = _gamecubeAdapter.Controllers[i].IsConnected;
+				editButton.IsEnabled = false;
 			}
 
 			// Set adapter status and update UI
@@ -530,6 +531,11 @@ namespace DelfinovinUI
 				_selectedPort = lvwControllers.SelectedIndex;
 				ctsDialog.UpdateControl(_settings[_selectedPort]);
 			}
+        }
+
+        private void lviFAQHelp_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+			Process.Start("https://github.com/Struggleton/Delfinovin/blob/wpf-uidev/Delfinovin Help & FAQ.pdf");
         }
     }
 }

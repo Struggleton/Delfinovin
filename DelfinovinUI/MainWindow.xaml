@@ -84,7 +84,7 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ListViewItem Name="lviSettings" Content="Settings" MouseUp="lviSettings_MouseUp" />
-                <ListViewItem Name="lviFAQHelp" Content="FAQ / Help" />
+                <ListViewItem Name="lviFAQHelp" Content="FAQ / Help" MouseUp="lviFAQHelp_MouseUp" />
             </ListView>
         </StackPanel>
 
