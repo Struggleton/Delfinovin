@@ -88,7 +88,7 @@ namespace DelfinovinUI
 					}
 
 					// Only center sticks when fist plugged in
-					if (Controllers[i].CalibrationStatus == CalibrationStatus.Uncalibrated) 
+					if (!Controllers[i].IsCentered) 
 					{
 						CalibrateCenter(i);
 					}
@@ -153,6 +153,7 @@ namespace DelfinovinUI
 			// If the calibrationAttempt counter passes 5, these are the proper stick origins.
 			if (Controllers[port].CalibrationAttempt >= 5)
 			{
+				Controllers[port].IsCentered = true;
 				Controllers[port].CalibrationStatus = CalibrationStatus.Centered;
 			}
 		}

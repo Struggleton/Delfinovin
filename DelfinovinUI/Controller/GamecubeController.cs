@@ -17,6 +17,7 @@ namespace DelfinovinUI
 		public GamecubeCalibration Calibration;
 		public ControllerSettings Settings;
 		public CalibrationStatus CalibrationStatus;
+		public bool IsCentered;
 		public bool IsConnected;
 		public int CalibrationAttempt; 
 
@@ -89,6 +90,7 @@ namespace DelfinovinUI
 			// Disconnect the XInput device
 			_controller.Disconnect();
 			IsConnected = false;
+			IsCentered = false;
 		}
 
 		public void UpdateInput(GamecubeInputState inputState)
