@@ -63,6 +63,7 @@ Delfinovin should automatically detect any controllers / adapters being plugged 
 
 # Planned features
 - Automatic update checking (Octokit?)
+- Themes / Colors
 
 # Credits
 Credits and appreciation go to:
