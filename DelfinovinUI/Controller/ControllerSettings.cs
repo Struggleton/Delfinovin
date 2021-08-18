@@ -8,6 +8,8 @@ namespace DelfinovinUI
 {
 	public class ControllerSettings
 	{
+		private static CultureInfo usLangProvider = new CultureInfo("en-US");
+
 		public float TriggerDeadzone { get; set; } = 0.15f;
 		public float TriggerThreshold { get; set; } = 0.65f;
 		public float LeftStickDeadzone { get; set; } = 0f;
@@ -52,9 +54,9 @@ namespace DelfinovinUI
 					if (settingPair[0] == prop.Name)
 					{
 						// Convert string to proper type.
-						// InvariantCulture fixes this not working on other 
-						// languages that use periods (.) instead of commas (,).
-						prop.SetValue(this, Convert.ChangeType(settingPair[1], prop.PropertyType, CultureInfo.InvariantCulture));
+						// Set the CultureInfo to United States so we
+						// have a consistent decimal separator.
+						prop.SetValue(this, Convert.ChangeType(settingPair[1], prop.PropertyType, usLangProvider));
 					}
 				}
 			}
@@ -75,9 +77,16 @@ namespace DelfinovinUI
 			foreach (PropertyInfo prop in properties)
 			{
 				// Get the name of the property and its value
-				object value = prop.GetValue(this, null);
+				object value = prop.GetValue(this, BindingFlags.GetProperty, null, null, usLangProvider);
+
+				// Apply the United States language provider 
+				// to the string conversion so we have a consistent separator. 
+				string valueStr = Convert.ToString(value, usLangProvider);
+
 				string name = prop.Name;
-				sb.AppendLine($"{name}: {value}");
+
+				// Format the line
+				sb.AppendLine($"{name}: {valueStr}");
 			}
 
 			// Save all the settings to a file. Overwrite it if it exists.
