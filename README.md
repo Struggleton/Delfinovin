@@ -39,7 +39,7 @@ Delfinovin should automatically detect any controllers / adapters being plugged 
 	- For the controller settings:
 		-  Enable Rumble - When enabled, controllers will receive haptic feedback (rumble.)
 		
-		-   Enable Digital Triggers - When enabled, instead of using analog values, the triggers will consider any press a full press (digital)
+		-   Enable Digital Triggers - When enabled, the digital button of the triggers will be enabled. Button/trigger layouts will be swapped.
 		
 		-   SwapAB / SwapXY - Swaps the button layout of the face buttons.
 		
