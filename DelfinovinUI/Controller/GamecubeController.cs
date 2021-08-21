@@ -109,25 +109,27 @@ namespace DelfinovinUI
 				_controller.SetButtonState(Xbox360Button.Down, inputState.DPAD_DOWN);
 				_controller.SetButtonState(Xbox360Button.Start, inputState.BUTTON_START);
 
-				// The user set EnableDigitalPress
+				// Normalize values into triggerdeadzone/threshold range
+				byte clampedLeftTrigger = ClampTriggers(inputState.ANALOG_LEFT, Settings.TriggerDeadzone, Settings.TriggerThreshold);
+				byte clampedRightTrigger = ClampTriggers(inputState.ANALOG_RIGHT, Settings.TriggerDeadzone, Settings.TriggerThreshold);
+
+				// The user set EnableDigitalPress - We map both analog and digital trigger values
 				if (Settings.EnableDigitalPress)
 				{
-					// This means we use digital values + triggers instead of analog values
-					bool leftShoulderPress = inputState.ANALOG_LEFT / 255f > Settings.TriggerDeadzone;
-					bool rightShoulderPress = inputState.ANALOG_RIGHT / 255f > Settings.TriggerDeadzone;
+					_controller.SetSliderValue(Xbox360Slider.LeftTrigger, clampedLeftTrigger);
+					_controller.SetSliderValue(Xbox360Slider.RightTrigger, clampedRightTrigger);
 
-					// Convert the Z button press into analog so we can use the slider value
-					int zButtonPress = (inputState.BUTTON_Z ? 255 : 0);
+					_controller.SetButtonState(Xbox360Button.LeftShoulder, inputState.BUTTON_L);
+					_controller.SetButtonState(Xbox360Button.RightShoulder, inputState.BUTTON_R);
 
-					_controller.SetButtonState(Xbox360Button.LeftShoulder, leftShoulderPress);
-					_controller.SetButtonState(Xbox360Button.RightShoulder, rightShoulderPress);
-					_controller.SetSliderValue(Xbox360Slider.RightTrigger, (byte)zButtonPress);
+					// Since we lack buttons map this to the back/select button.
+					_controller.SetButtonState(Xbox360Button.Back, inputState.BUTTON_Z);
 				}
 
-				else
+				else // Map only the analog values. 
 				{
-					_controller.SetSliderValue(Xbox360Slider.LeftTrigger, ClampTriggers(inputState.ANALOG_LEFT, Settings.TriggerDeadzone, Settings.TriggerThreshold));
-					_controller.SetSliderValue(Xbox360Slider.RightTrigger, ClampTriggers(inputState.ANALOG_RIGHT, Settings.TriggerDeadzone, Settings.TriggerThreshold));
+					_controller.SetSliderValue(Xbox360Slider.LeftTrigger, clampedLeftTrigger);
+					_controller.SetSliderValue(Xbox360Slider.RightTrigger, clampedRightTrigger);
 					_controller.SetButtonState(Xbox360Button.RightShoulder, inputState.BUTTON_Z);
 				}
 
