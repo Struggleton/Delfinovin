@@ -216,8 +216,8 @@ namespace DelfinovinUI
 
 		private void FeedbackReceived(object sender, Xbox360FeedbackReceivedEventArgs e)
 		{
-			_vibrationMotor = e.LargeMotor;
-
+			// This should fix an issue where vibrations reported on smallMotor don't get received
+			_vibrationMotor = (e.LargeMotor + e.SmallMotor) / 2;
 			RumbleChanged = _vibrationMotor > 0;
 		}
 	}
