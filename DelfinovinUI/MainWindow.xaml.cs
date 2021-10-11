@@ -43,7 +43,9 @@ namespace DelfinovinUI
 		private AdapterStatus _adapterStatus;
 
 		private byte[] _rumbleCommand;
-		private int _selectedPort = 0;
+
+		public int _selectedPort = 0;
+
 		private bool _isCalibrating;
 		private bool _vigemInstalled;
 
@@ -287,8 +289,16 @@ namespace DelfinovinUI
 
 		private void ExitProgram()
 		{
-			// Dispose of the notifyIcon so that it
-			// doesn't hang around after program close.
+			// This is so we can close the notifyIcon properly
+			// after application close.
+
+			// I have no idea why you have to dispose of the Icon
+			// and the notifyIcon object.
+			notifyIcon.Visible = false;
+
+			if (notifyIcon.Icon != null)
+				notifyIcon.Icon.Dispose(); 
+
 			notifyIcon.Dispose();
 
 			// I couldn't find a better way to close the WPF application
@@ -480,6 +490,9 @@ namespace DelfinovinUI
 			// Show the window and set the status back to normal
 			this.Show();
 			base.WindowState = WindowState.Normal;
+
+			// Hide the notifyIcon
+			notifyIcon.Visible = false;
 		}
 
         protected override void OnStateChanged(EventArgs e)
