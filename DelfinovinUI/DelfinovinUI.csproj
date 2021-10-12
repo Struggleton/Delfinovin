@@ -67,9 +67,13 @@
     <Reference Include="Nefarius.ViGEm.Client, Version=1.17.178.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nefarius.ViGEm.Client.1.17.178\lib\net452\Nefarius.ViGEm.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Octokit, Version=0.50.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Octokit.0.50.0\lib\net46\Octokit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -114,6 +118,7 @@
     <Compile Include="TextEntry.xaml.cs">
       <DependentUpon>TextEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Updater.cs" />
     <Page Include="AppSettingDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
