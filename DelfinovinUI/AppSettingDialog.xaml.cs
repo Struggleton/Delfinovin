@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using IWshRuntimeLibrary;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -45,7 +47,7 @@ namespace DelfinovinUI
 				if (controllerSettings.LoadFromFile(files[i]))
 				{
 					// Update the UI with the set default profiles
-					string name = System.IO.Path.GetFileNameWithoutExtension(files[i]);
+					string name = Path.GetFileNameWithoutExtension(files[i]);
 					_loadedProfiles.Add(controllerSettings);
 					defaultProfile1.Items.Add(name);
 					defaultProfile2.Items.Add(name);
@@ -101,7 +103,47 @@ namespace DelfinovinUI
 
         private void btnUpdates_Click(object sender, RoutedEventArgs e)
         {
+			// Check for updates and enable message dialog
 			Updater.CheckCurrentRelease(false);
         }
+
+        private void runOnBoot_Checked(object sender, RoutedEventArgs e)
+        {
+			// Get the Startup folder's path 
+			string startupPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\DelfinovinUI.lnk";
+
+			// Check to see if the shortcut exists
+			if (!System.IO.File.Exists(startupPath))
+            {
+				// Create a WshShell to create the shortcut with
+				WshShell wsh = new WshShell();
+				IWshShortcut shortcut = wsh.CreateShortcut(startupPath) as IWshRuntimeLibrary.IWshShortcut;
+
+				// Get the application's current working path
+				shortcut.TargetPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+
+				// Not sure what this does
+				shortcut.WindowStyle = 1;
+
+				// Set the description for the shortcut
+				shortcut.Description = "An XInput solution for Gamecube Controllers";
+
+				// Get the application's working directory
+				shortcut.WorkingDirectory = Directory.GetCurrentDirectory();
+
+				// Save the shortcut to the startup folder
+				shortcut.Save();
+			}
+		}
+
+        private void runOnBoot_Unchecked(object sender, RoutedEventArgs e)
+        {
+			// Get the Startup folder's path 
+			string startupPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\DelfinovinUI.lnk";
+
+			// See if the shortcut exists. If it does remove it
+			if (System.IO.File.Exists(startupPath))
+                System.IO.File.Delete(startupPath);
+		}
     }
 }

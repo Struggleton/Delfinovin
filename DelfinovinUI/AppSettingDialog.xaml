@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:DelfinovinUI" 
-        Title="ProfileDialog" Height="430" Width="550" WindowStyle="None" AllowsTransparency="True" FontFamily="Microsoft JhengHei Light">
+        Title="ProfileDialog" Height="500" Width="550" WindowStyle="None" AllowsTransparency="True" FontFamily="Microsoft JhengHei Light">
     <FrameworkElement.Resources>
         <ResourceDictionary>
             <Style x:Key="{x:Type Slider}" TargetType="{x:Type Slider}" BasedOn="{StaticResource MaterialDesignDiscreteSlider}">
@@ -62,6 +62,7 @@
                 <ListViewItem Content="Check for Updates on Startup" />
                 <ListViewItem Content="Minimize Program to System Tray" />
                 <ListViewItem Content="Minimize Application on Startup" />
+                <ListViewItem Content="Run Application on PC Startup" />
                 
                 <ListViewItem Content="Default Profile - Controller #1" />
                 <ListViewItem Content="Default Profile - Controller #2" />
@@ -83,6 +84,9 @@
                 </ListViewItem>
                 <ListViewItem>
                     <ToggleButton Name="minimizeOnStartup" />
+                </ListViewItem>
+                <ListViewItem>
+                    <ToggleButton Name="runOnBoot" Checked="runOnBoot_Checked" Unchecked="runOnBoot_Unchecked" />
                 </ListViewItem>
                 <ListViewItem>
                     <ComboBox Name="defaultProfile1" />
