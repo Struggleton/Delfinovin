@@ -53,7 +53,6 @@ namespace DelfinovinUI
 		public MainWindow()
 		{
 			InitializeComponent();
-
 			_usbDeviceNotifier = DeviceNotifier.OpenDeviceNotifier();
 
 			// This is used later for updating the UI from a different thread
@@ -65,7 +64,26 @@ namespace DelfinovinUI
 			ctsDialog.btnApply.Click += BtnApply_Click;
 			ctsDialog.btnProfiles.Click += BtnProfiles_Click;
 
+			GetApplicationSettings();
 			BeginControllerLoop();
+		}
+
+		private void GetApplicationSettings()
+        {
+			// Load the application settings from the settings file
+			ApplicationSettings.LoadSettings();
+
+			// Check for updates, if set.
+			if (ApplicationSettings.CheckForUpdates)
+				Updater.CheckCurrentRelease(true); // Pass true to disable the response window
+
+			// Minimize the window on application startup, if set.
+			if (ApplicationSettings.MinimizeOnStartup)
+            {
+				if (ApplicationSettings.MinimizeToTray)
+					CreateNotifyIcon();
+				WindowState = WindowState.Minimized;
+			}
 		}
 
         private void BeginControllerLoop()
@@ -82,7 +100,6 @@ namespace DelfinovinUI
 				for (int i = 0; i < 4; i++)
 					_settings[i] = new ControllerSettings();
 
-				ApplicationSettings.LoadSettings();
 				UpdateDefaultProfiles();
 
 				// Only begin the loop if the adapter is initalized.
@@ -92,14 +109,14 @@ namespace DelfinovinUI
 				}
 			}
 
-			// TODO - Implement update checking for Delfinovin here - Maybe using Octokit
-
 			else
             {
+
 				// If it's not installed, propmt the user to download and install it.
-				MessageWindow messageWindow = new MessageWindow("ViGEmBus is not installed. " +
-					"ViGEm is required to use Delfinovin." +
-					"\n\nWould you like to open the ViGEm downloads page?", true, true, "Yes!", "No.");
+				string message = "ViGEmBus is not installed. ViGEm is required to use Delfinovin." +
+					"\n\nWould you like to open the ViGEm downloads page?";
+
+				MessageWindow messageWindow = new MessageWindow(message, true, true, "Yes!", "No.");
 				messageWindow.ShowDialog();
 
 				if (messageWindow.Result != WindowResult.OK)
@@ -256,7 +273,6 @@ namespace DelfinovinUI
 
 		private void SendRumbleStatus()
 		{
-			
 			for (int i = 0; i < 4; i++)
 			{
 				// Check rumble is enabled in the controller settings + the controller sent rumble
@@ -285,6 +301,31 @@ namespace DelfinovinUI
 				if (settingLoaded[i])
 					_gamecubeAdapter.UpdateSettings(_settings[i], i); // Do this so we don't load falsely calibrated profiles
 			}
+		}
+
+		private void CreateNotifyIcon()
+		{
+			notifyIcon.Icon = Properties.Resources.trayMinimizeIcon;
+			notifyIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
+
+			// Create menu items and subscribe to click event
+			var openMenu = new System.Windows.Forms.MenuItem();
+			openMenu.Click += OpenMenu_Click;
+			openMenu.Text = "Open";
+
+			var closeMenu = new System.Windows.Forms.MenuItem();
+			closeMenu.Click += CloseMenu_Click;
+			closeMenu.Text = "Exit";
+
+			// Add them to the contextMenu 
+			notifyIcon.ContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
+			{
+					openMenu,
+					closeMenu
+			});
+
+			// Set the system tray icon visible
+			notifyIcon.Visible = true;
 		}
 
 		private void ExitProgram()
@@ -326,7 +367,7 @@ namespace DelfinovinUI
 				_gamecubeAdapter.UpdateDialog(controllerDialog, _selectedPort);
 
 				// If a new controller is inserted, enable the controllers + buttons 
-				if (_gamecubeAdapter.ControllerInserted)
+				if (_gamecubeAdapter.ControllerInserted || _gamecubeAdapter.ControllerDisconnected)
 				{
 					for (int i = 0; i < 4; i++)
 					{
@@ -454,32 +495,12 @@ namespace DelfinovinUI
 			ExitProgram();
 		}
 
+		
+
 		private void btnMinimize_Click(object sender, RoutedEventArgs e)
 		{
 			if (ApplicationSettings.MinimizeToTray)
-			{
-				notifyIcon.Icon = Properties.Resources.trayMinimizeIcon;
-				notifyIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
-
-				// Create menu items and subscribe to click event
-				var openMenu = new System.Windows.Forms.MenuItem();
-				openMenu.Click += OpenMenu_Click;
-				openMenu.Text = "Open";
-
-				var closeMenu = new System.Windows.Forms.MenuItem();
-				closeMenu.Click += CloseMenu_Click;
-				closeMenu.Text = "Exit";
-
-				// Add them to the contextMenu 
-				notifyIcon.ContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
-				{
-					openMenu,
-					closeMenu
-				});
-
-				// Set the system tray icon visible
-				notifyIcon.Visible = true;
-			}
+				CreateNotifyIcon();
 
 			// Minimize the window
 			WindowState = WindowState.Minimized;

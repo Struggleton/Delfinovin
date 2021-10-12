@@ -12,6 +12,8 @@ namespace DelfinovinUI
 		private static CultureInfo usLangProvider = new CultureInfo("en-US");
 
 		public static bool MinimizeToTray { get; set; } = true;
+		public static bool MinimizeOnStartup { get; set; } = false;
+		public static bool CheckForUpdates { get; set; } = true;
 		public static string DefaultProfile1 { get; set; } = "";
 		public static string DefaultProfile2 { get; set; } = "";
 		public static string DefaultProfile3 { get; set; } = "";

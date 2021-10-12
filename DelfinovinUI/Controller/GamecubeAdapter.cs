@@ -12,6 +12,7 @@ namespace DelfinovinUI
 
 		public GamecubeController[] Controllers;
 		public bool ControllerInserted;
+		public bool ControllerDisconnected;
 		public bool RumbleChanged;
 
 		public GamecubeAdapter()
@@ -122,6 +123,8 @@ namespace DelfinovinUI
 					// Send the default calibrations and disconnect the controller.
 					Controllers[i].UpdateInput(_inputStates[i]);
 					Controllers[i].Disconnect();
+
+					ControllerDisconnected = true;
 				}
 			}
 		}

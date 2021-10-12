@@ -59,6 +59,8 @@ namespace DelfinovinUI
 		{
 			// Update the controls based on the currently loaded ApplicationSettings
 			minimizeSystemTray.IsChecked = ApplicationSettings.MinimizeToTray;
+			minimizeOnStartup.IsChecked = ApplicationSettings.MinimizeOnStartup;
+			checkForUpdates.IsChecked = ApplicationSettings.CheckForUpdates;
 			defaultProfile1.SelectedItem = ApplicationSettings.DefaultProfile1;
 			defaultProfile2.SelectedItem = ApplicationSettings.DefaultProfile2;
 			defaultProfile3.SelectedItem = ApplicationSettings.DefaultProfile3;
@@ -84,14 +86,22 @@ namespace DelfinovinUI
 		{
 			// Gather the application values and save them to the file.
 			ApplicationSettings.MinimizeToTray = minimizeSystemTray.IsChecked.Value;
+			ApplicationSettings.MinimizeOnStartup = minimizeOnStartup.IsChecked.Value;
+			ApplicationSettings.CheckForUpdates = checkForUpdates.IsChecked.Value;
 			ApplicationSettings.DefaultProfile1 = defaultProfile1.Text;
 			ApplicationSettings.DefaultProfile2 = defaultProfile2.Text;
 			ApplicationSettings.DefaultProfile3 = defaultProfile3.Text;
 			ApplicationSettings.DefaultProfile4 = defaultProfile4.Text;
+
 			ApplicationSettings.SaveSettings();
 
 			Result = WindowResult.SaveClosed;
 			Close();
 		}
-	}
+
+        private void btnUpdates_Click(object sender, RoutedEventArgs e)
+        {
+			Updater.CheckCurrentRelease(false);
+        }
+    }
 }

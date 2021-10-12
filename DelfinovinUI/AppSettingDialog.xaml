@@ -59,7 +59,10 @@
                         <Setter Property="IsTabStop" Value="False" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
+                <ListViewItem Content="Check for Updates on Startup" />
                 <ListViewItem Content="Minimize Program to System Tray" />
+                <ListViewItem Content="Minimize Application on Startup" />
+                
                 <ListViewItem Content="Default Profile - Controller #1" />
                 <ListViewItem Content="Default Profile - Controller #2" />
                 <ListViewItem Content="Default Profile - Controller #3" />
@@ -73,7 +76,13 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ListViewItem>
+                    <ToggleButton Name="checkForUpdates" />
+                </ListViewItem>
+                <ListViewItem>
                     <ToggleButton Name="minimizeSystemTray" />
+                </ListViewItem>
+                <ListViewItem>
+                    <ToggleButton Name="minimizeOnStartup" />
                 </ListViewItem>
                 <ListViewItem>
                     <ComboBox Name="defaultProfile1" />
@@ -90,6 +99,7 @@
             </ListView>
         </StackPanel>
         <StackPanel Name="stpProfileOptions" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,5,0">
+            <Button Name="btnUpdates" Content="Check for Updates" Click="btnUpdates_Click" />
             <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click" />
         </StackPanel>
     </Grid>
