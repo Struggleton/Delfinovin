@@ -24,22 +24,10 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <Rectangle Name="rectHeader" Grid.Row="0" MouseDown="rectHeader_MouseDown">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0F2632" Offset="0.0" />
-                    <GradientStop Color="#040912" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
-        <Rectangle Name="rectBackground" Grid.Row="1" Grid.RowSpan="2">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0A1620" Offset="0.0" />
-                    <GradientStop Color="#050B16" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
+        
+        <Rectangle Name="rectHeader" Grid.Row="0" MouseDown="rectHeader_MouseDown" Fill="{DynamicResource infoBarGradient}"/>
+        <Rectangle Name="rectBackground" Grid.Row="1" Grid.RowSpan="2" Fill="{DynamicResource mainGradient}"/>
+
         <StackPanel Name="stpWinControls" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
             <Button Name="btnClose" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,5,0" Click="btnClose_Click">
                 <Image Source="/DelfinovinUI;component/Resources/application_close.png" VerticalAlignment="Center" HorizontalAlignment="Center" />

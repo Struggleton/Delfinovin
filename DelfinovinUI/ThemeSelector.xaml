@@ -1,0 +1,70 @@
+﻿<Window x:Class="DelfinovinUI.ThemeSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DelfinovinUI"
+        mc:Ignorable="d"
+        Title="ThemeSelector" Height="200" Width="450" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize">
+
+    <FrameworkElement.Resources>
+        <ResourceDictionary>
+            <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignFilledComboBox}">
+                <Setter Property="Width" Value="150" />
+            </Style>
+        </ResourceDictionary>
+    </FrameworkElement.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <Rectangle Name="rectHeader" Grid.Row="0" MouseDown="rectHeader_MouseDown" Fill="{DynamicResource infoBarGradient}"/>
+        <Rectangle Name="rectBackground" Grid.Row="1" Grid.RowSpan="2" Fill="{DynamicResource mainGradient}"/>
+
+        <StackPanel Name="stpWinControls" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
+            <Button Name="btnClose" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,5,0" Click="btnClose_Click">
+                <Image Source="/DelfinovinUI;component/Resources/application_close.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
+        </StackPanel>
+
+        <StackPanel Name="stpSettings" Orientation="Horizontal" Grid.Row="1">
+            <ListView Name="lsvDetails" IsHitTestVisible="False">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Foreground" Value="#FFFFFFFF" />
+                        <Setter Property="Height" Value="50" />
+                        <Setter Property="IsTabStop" Value="False" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
+                <ListViewItem Content="Application Theme"/>
+                <ListViewItem Content="Controller Color"/>
+            </ListView>
+            
+            <ListView Name="lsvControls">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Height" Value="50" />
+                        <Setter Property="Foreground" Value="#FFFFFFFF" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
+                <ListViewItem>
+                    <ComboBox Name="cmbApplicationTheme" />
+                </ListViewItem>
+                <ListViewItem>
+                    <ComboBox Name="cmbControllerColor" />
+                </ListViewItem>
+            </ListView>
+            
+        </StackPanel>
+
+        <StackPanel Name="stpProfileOptions" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,5,0">
+            <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

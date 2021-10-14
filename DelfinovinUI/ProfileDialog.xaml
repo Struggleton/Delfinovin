@@ -27,22 +27,10 @@
             <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <Rectangle Name="rectBackground" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0A1620" Offset="0.0" />
-                    <GradientStop Color="#050B16" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
-        <Rectangle Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0F2632" Offset="0.0" />
-                    <GradientStop Color="#040912" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
+        
+        <Rectangle Name="rectBackground" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Fill="{DynamicResource mainGradient}"/>
+        <Rectangle Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown" Fill="{DynamicResource infoBarGradient}"/>
+
         <Border Name="bdrList" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BorderBrush="#FF000000" BorderThickness="0,0,1,0" HorizontalAlignment="Left" />
         <ListBox Name="lsbProfiles" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" SelectionChanged="lsbProfiles_SelectionChanged">
             <ItemsControl.ItemTemplate>

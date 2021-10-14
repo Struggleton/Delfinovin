@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:DelfinovinUI" 
-        Title="ProfileDialog" Height="500" Width="550" WindowStyle="None" AllowsTransparency="True" FontFamily="Microsoft JhengHei Light">
+        Title="ProfileDialog" Height="530" Width="550" WindowStyle="None" AllowsTransparency="True" FontFamily="Microsoft JhengHei Light">
     <FrameworkElement.Resources>
         <ResourceDictionary>
             <Style x:Key="{x:Type Slider}" TargetType="{x:Type Slider}" BasedOn="{StaticResource MaterialDesignDiscreteSlider}">
@@ -29,22 +29,10 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <Rectangle Name="rectBackground" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0A1620" Offset="0.0" />
-                    <GradientStop Color="#050B16" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
-        <Rectangle Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0F2632" Offset="0.0" />
-                    <GradientStop Color="#040912" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
+        
+        <Rectangle Name="rectBackground" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Fill="{DynamicResource mainGradient}"/>
+        <Rectangle Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown" Fill="{DynamicResource infoBarGradient}"/>
+
         <StackPanel Name="stpWinControls" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3" Grid.Column="2">
             <Button Name="btnClose" Grid.Column="2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,5,0" Click="btnClose_Click">
                 <Image Source="/DelfinovinUI;component/Resources/application_close.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -103,6 +91,7 @@
             </ListView>
         </StackPanel>
         <StackPanel Name="stpProfileOptions" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,5,0">
+            <Button x:Name="btnThemeSelect" Content="Select Themes" Margin="1" Click="btnThemeSelect_Click"/>
             <Button Name="btnUpdates" Content="Check for Updates" Click="btnUpdates_Click" />
             <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click" />
         </StackPanel>

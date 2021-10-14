@@ -29,40 +29,12 @@
             <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        
-        <Rectangle Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0A1620" Offset="0.0" />
-                    <GradientStop Color="#050B16" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
-        <Rectangle Name="rectSidebar" Grid.Row="1" Grid.RowSpan="2">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0E1E29" Offset="0.0" />
-                    <GradientStop Color="#091720" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
-        <Rectangle Name="rectInfobar" Grid.Row="2" Grid.ColumnSpan="3">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0A1620" Offset="0.0" />
-                    <GradientStop Color="#050B16" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
-        <Rectangle Name="rectMain" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
-            <Shape.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0F2632" Offset="0.0" />
-                    <GradientStop Color="#040912" Offset="1.0" />
-                </LinearGradientBrush>
-            </Shape.Fill>
-        </Rectangle>
-        
+
+        <Rectangle Name="rectHeader" Grid.Column="0" Grid.ColumnSpan="3" MouseDown="rectHeader_MouseDown" Fill="{DynamicResource infoBarGradient}"/>
+        <Rectangle Name="rectSidebar" Grid.Row="1" Grid.RowSpan="2" Fill="{DynamicResource sideBarGradient}"/>
+        <Rectangle Name="rectInfobar" Grid.Row="2" Grid.ColumnSpan="3" Fill="{DynamicResource infoBarGradient}"/>
+        <Rectangle Name="rectMain" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Fill="{DynamicResource mainGradient}"/>
+
         <StackPanel Name="stpLists" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top">
             <ListView Name="lvwControllers" Foreground="White" Margin="0,0,0,100" SelectionChanged="lvwControllers_SelectionChanged">
                 <ItemsControl.ItemContainerStyle>
@@ -96,10 +68,10 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 
-                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
-                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
-                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
-                <Button Background="#FF0E2531" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Background="{DynamicResource buttonColor}" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Background="{DynamicResource buttonColor}" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Background="{DynamicResource buttonColor}" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Background="{DynamicResource buttonColor}" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
             </ListView>
         </StackPanel>
 
@@ -123,13 +95,13 @@
         <StackPanel Name="stpControllerDlg" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
             <UIElement.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform ScaleX="0.5" ScaleY="0.5" />
+                    <ScaleTransform ScaleX="0.48" ScaleY="0.48" />
                     <SkewTransform />
                     <RotateTransform />
-                    <TranslateTransform />
+                    <TranslateTransform X="-50" Y="-60" />
                 </TransformGroup>
             </UIElement.RenderTransform>
-            <local:GamecubeDialog x:Name="controllerDialog" />
+            <local:GamecubeDialogNew x:Name="controllerDialog" />
         </StackPanel>
 
         <materialDesign:Transitioner Name="tnrSlides" SelectedIndex="0" AutoApplyTransitionOrigins="True" Grid.Column="1" Grid.Row="1">
