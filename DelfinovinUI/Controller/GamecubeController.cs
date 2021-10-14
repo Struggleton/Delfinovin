@@ -110,8 +110,8 @@ namespace DelfinovinUI
 				_controller.SetButtonState(Xbox360Button.Start, inputState.BUTTON_START);
 
 				// Normalize values into triggerdeadzone/threshold range
-				byte clampedLeftTrigger = ClampTriggers(inputState.ANALOG_LEFT, Settings.TriggerDeadzone, Settings.TriggerThreshold);
-				byte clampedRightTrigger = ClampTriggers(inputState.ANALOG_RIGHT, Settings.TriggerDeadzone, Settings.TriggerThreshold);
+				byte clampedLeftTrigger = Extensions.ClampTriggers(inputState.ANALOG_LEFT, Settings.TriggerDeadzone, Settings.TriggerThreshold);
+				byte clampedRightTrigger = Extensions.ClampTriggers(inputState.ANALOG_RIGHT, Settings.TriggerDeadzone, Settings.TriggerThreshold);
 
 				// The user set EnableDigitalPress - We map both analog and digital trigger values
 				if (Settings.EnableDigitalPress)
@@ -190,17 +190,6 @@ namespace DelfinovinUI
 			}
 		}
 
-		private static byte ClampTriggers(byte triggerSlider, float triggerDeadzone, float triggerThreshold)
-		{
-
-			float compare = triggerSlider / 255f;
-			if (triggerDeadzone > compare)
-				return 0;
-
-			if (triggerThreshold < compare)
-				return 255;
-			return triggerSlider;
-		}
 
 		private bool CheckRadialDeadzone(float x, float y, float deadzone)
 		{

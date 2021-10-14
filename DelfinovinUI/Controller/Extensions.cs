@@ -38,5 +38,16 @@ namespace DelfinovinUI
         {
             return b ? (byte)0x01 : (byte)0x00;
         }
+
+        public static byte ClampTriggers(byte triggerSlider, float triggerDeadzone, float triggerThreshold)
+        {
+            float compare = triggerSlider / 255f;
+            if (triggerDeadzone > compare)
+                return 0;
+
+            if (triggerThreshold < compare)
+                return 255;
+            return triggerSlider;
+        }
     }
 }

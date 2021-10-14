@@ -106,8 +106,8 @@
     <Compile Include="GamecubeDialog.xaml.cs">
       <DependentUpon>GamecubeDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gamecube_Gamepad_clip_art.xaml.cs">
-      <DependentUpon>Gamecube_Gamepad_clip_art.xaml</DependentUpon>
+    <Compile Include="GamecubeDialogNew.xaml.cs">
+      <DependentUpon>GamecubeDialogNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
@@ -129,7 +129,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gamecube_Gamepad_clip_art.xaml">
+    <Page Include="GamecubeDialogNew.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
