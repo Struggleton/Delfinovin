@@ -117,7 +117,6 @@ namespace DelfinovinUI
 			LuigiGreen = 0x078E41,
 			MarioRed = 0xCF2B2A,
 			WarioYellow = 0xC58A24
-
 		}
 	}
 }

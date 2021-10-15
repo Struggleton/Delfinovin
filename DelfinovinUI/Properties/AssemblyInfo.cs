@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("DelfinovinUI")]
 [assembly: AssemblyDescription("An XInput solution for Gamecube Controllers")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Struggleton")]
 [assembly: AssemblyProduct("DelfinovinUI")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
@@ -53,3 +53,4 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: Guid("933770bf-5172-49f7-80d7-05266cfd9969")]
