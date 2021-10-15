@@ -15,6 +15,9 @@
                 <Setter Property="HorizontalAlignment" Value="Right" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="Grid.Row" Value="2" />
+                <Setter Property="Foreground" Value="{DynamicResource buttonTextColor}"/>
+                <Setter Property="Background" Value="{DynamicResource buttonColor}"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
             </Style>
         </ResourceDictionary>
     </FrameworkElement.Resources>
@@ -33,19 +36,18 @@
                 <Image Source="/DelfinovinUI;component/Resources/application_close.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Button>
         </StackPanel>
+        
         <StackPanel Name="stpButtons" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="btnLeft" Style="{StaticResource hiddenButtons}" Content="OK" Click="btnLeft_Click" Background="{DynamicResource buttonColor}"/>
-            <Button Name="btnRight" Style="{StaticResource hiddenButtons}" Content="Cancel" Click="btnRight_Click" Background="{DynamicResource buttonColor}"/>
+            <Button Name="btnLeft" Style="{StaticResource hiddenButtons}" Content="OK" Click="btnLeft_Click"/>
+            <Button Name="btnRight" Style="{StaticResource hiddenButtons}" Content="Cancel" Click="btnRight_Click"/>
         </StackPanel>
 
         <Viewbox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Name="lblDisplay" Foreground="White" FontSize="20" HorizontalContentAlignment="Center">
+            <Label Name="lblDisplay" Foreground="{DynamicResource textColor}" FontSize="20" HorizontalContentAlignment="Center">
                 <ContentControl.Content>
                     <AccessText Name="lblText" TextWrapping="Wrap" />
                 </ContentControl.Content>
             </Label>
         </Viewbox>
-        
-        
     </Grid>
 </Window>

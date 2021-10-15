@@ -12,6 +12,12 @@
             <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignFilledComboBox}">
                 <Setter Property="Width" Value="150" />
             </Style>
+
+            <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
+                <Setter Property="Foreground" Value="{DynamicResource buttonTextColor}"/>
+                <Setter Property="Background" Value="{DynamicResource buttonColor}"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+            </Style>
         </ResourceDictionary>
     </FrameworkElement.Resources>
     
@@ -49,7 +55,7 @@
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="Height" Value="50" />
-                        <Setter Property="Foreground" Value="#FFFFFFFF" />
+                        <Setter Property="Foreground" Value="{DynamicResource textColor}" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
 
@@ -64,7 +70,7 @@
         </StackPanel>
 
         <StackPanel Name="stpProfileOptions" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click" Background="{DynamicResource buttonColor}"/>
+            <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click"/>
         </StackPanel>
     </Grid>
 </Window>

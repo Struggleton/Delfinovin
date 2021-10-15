@@ -14,6 +14,13 @@
                 <MenuItem Name="cmiEditSettings" Header="Edit Settings" Click="cmiEditSettings_Click" />
                 <MenuItem Name="cmiCalibrate" Header="Calibrate Controller" Click="cmiCalibrate_Click" />
             </ContextMenu>
+
+            <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
+                <Setter Property="Foreground" Value="{DynamicResource buttonTextColor}"/>
+                <Setter Property="Background" Value="{DynamicResource buttonColor}"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+            </Style>
+            
         </ResourceDictionary>
     </FrameworkElement.Resources>
     <Grid Name="gridDelfinovin">
@@ -36,23 +43,26 @@
         <Rectangle Name="rectMain" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Fill="{DynamicResource mainGradient}"/>
 
         <StackPanel Name="stpLists" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top">
-            <ListView Name="lvwControllers" Foreground="White" Margin="0,0,0,100" SelectionChanged="lvwControllers_SelectionChanged">
+            <ListView Name="lvwControllers" Margin="0,0,0,100" SelectionChanged="lvwControllers_SelectionChanged">
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="IsEnabled" Value="False" />
                         <Setter Property="Height" Value="50" />
+                        <Setter Property="Foreground" Value="{DynamicResource textColor}"/>
                     </Style>
                 </ItemsControl.ItemContainerStyle>
+                
                 <ListViewItem IsSelected="True" Content="Controller 1"/>
                 <ListViewItem Content="Controller 2"/>
                 <ListViewItem Content="Controller 3"/>
                 <ListViewItem Content="Controller 4"/>
             </ListView>
             
-            <ListView Name="lvwFaqSettings" Background="#00FFFFFF" BorderThickness="0" FontWeight="Bold" FontSize="14" Foreground="#FFFFFFFF" VerticalAlignment="Bottom" >
+            <ListView Name="lvwFaqSettings" BorderThickness="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Bottom">
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="Height" Value="50" />
+                        <Setter Property="Foreground" Value="{DynamicResource textColor}"/>
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ListViewItem Name="lviSettings" Content="Settings" MouseUp="lviSettings_MouseUp" />
@@ -67,11 +77,11 @@
                         <Setter Property="Height" Value="50" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
-                
-                <Button Background="{DynamicResource buttonColor}" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
-                <Button Background="{DynamicResource buttonColor}" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
-                <Button Background="{DynamicResource buttonColor}" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
-                <Button Background="{DynamicResource buttonColor}" BorderBrush="Transparent" Click="Button_Click" Content="Edit" IsEnabled="False"/>
+
+                <Button Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Click="Button_Click" Content="Edit" IsEnabled="False"/>
+                <Button Click="Button_Click" Content="Edit" IsEnabled="False"/>
             </ListView>
         </StackPanel>
 
@@ -79,7 +89,6 @@
             <Button Name="btnMinimize" Click="btnMinimize_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Image Source="/DelfinovinUI;component/Resources/application_minimize.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Button>
-
 
             <Button Name="btnClose" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Image Source="/DelfinovinUI;component/Resources/application_close.png" VerticalAlignment="Center" HorizontalAlignment="Center" />

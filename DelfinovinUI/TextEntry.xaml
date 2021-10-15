@@ -13,6 +13,10 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Bottom" />
+
+                <Setter Property="Foreground" Value="{DynamicResource buttonTextColor}"/>
+                <Setter Property="Background" Value="{DynamicResource buttonColor}"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
             </Style>
         </ResourceDictionary>
     </FrameworkElement.Resources>
@@ -27,26 +31,20 @@
         <Rectangle Name="rectHeader" Grid.Row="0" MouseDown="rectHeader_MouseDown" Fill="{DynamicResource infoBarGradient}"/>
         <Rectangle Name="rectBackground" Grid.Row="1" Grid.RowSpan="2" Fill="{DynamicResource mainGradient}"/>
 
-        <StackPanel Name="stpWinControls" Orientation="Horizontal" 
-                    HorizontalAlignment="Right" Margin="3">
-
-            <Button Name="btnClose" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                    Margin="0,0,5,0" Click="btnClose_Click">
-                
-                <Image Source="/DelfinovinUI;component/Resources/application_close.png" VerticalAlignment="Center" 
-                       HorizontalAlignment="Center" />
+        <StackPanel Name="stpWinControls" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
+            <Button Name="btnClose" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,5,0" Click="btnClose_Click">
+                <Image Source="/DelfinovinUI;component/Resources/application_close.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Button>
         </StackPanel>
         
         <TextBox Name="txbTextEntry" Grid.Row="1" HorizontalAlignment="Center" 
                  VerticalAlignment="Center" VerticalContentAlignment="Center" 
-                 HorizontalContentAlignment="Center" Foreground="White" 
+                 HorizontalContentAlignment="Center" Foreground="{DynamicResource textColor}" 
                  FontSize="16" GotFocus="txbNameEntry_GotFocus" />
         
         <Button Name="btnSave" Grid.Row="2" 
                 HorizontalContentAlignment="Center" HorizontalAlignment="Right" 
                 VerticalAlignment="Center" Margin="0,0,10,0"
-                Content="Save" Click="btnSave_Click" 
-                Background="{DynamicResource buttonColor}"/>
+                Content="Save" Click="btnSave_Click"/>
     </Grid>
 </Window>
