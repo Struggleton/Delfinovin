@@ -203,7 +203,7 @@ namespace DelfinovinUI
 		public void UpdateDialog(GamecubeDialog controllerControl, int port)
 		{
 			// Update the gamecube controller UI based on the current input state. 
-			controllerControl.UpdateDialog(_inputStates[port], Controllers[port].Settings);
+			controllerControl.UpdateDialog(_inputStates[port], Controllers[port].Settings, Controllers[port].Calibration);
 		}
 	}
 }

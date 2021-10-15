@@ -11,7 +11,7 @@ namespace DelfinovinUI
 		}
 
 		// Update the dialog based on current settings + controller state
-		public void UpdateDialog(GamecubeInputState inputState, ControllerSettings settings)
+		public void UpdateDialog(GamecubeInputState inputState, ControllerSettings settings, GamecubeCalibration calibration)
 		{
 			// Get if the ab button setting is set
 			bool aButton = (settings.SwapAB ? inputState.BUTTON_B : inputState.BUTTON_A);
@@ -48,10 +48,10 @@ namespace DelfinovinUI
 
 			// I hate this. These numbers are very arbitrary.
 			// stick * movement_scale / byte limit + - position offset
-			int LeftStickX = inputState.LEFT_STICK_X * 200 / 255 + -50;
-            int LeftStickY = inputState.LEFT_STICK_Y * 200 / 255 + -300;
-            int CStickX = inputState.C_STICK_X * 80 / 255 + 495;
-            int CStickY = inputState.C_STICK_Y * 80 / 255 + -295;
+			int LeftStickX = (inputState.LEFT_STICK_X + 127 - calibration.StickOrigins[0]) * 200 / 255 + -50;
+            int LeftStickY = (inputState.LEFT_STICK_Y + 127 - calibration.StickOrigins[1]) * 200 / 255 + -315;
+            int CStickX = (inputState.C_STICK_X + 127 - calibration.StickOrigins[2]) * 125 / 255 + 470;
+            int CStickY = (inputState.C_STICK_Y + 127 - calibration.StickOrigins[3]) * 125 / 255 + -315;
 
 			// This whole thing is very wack and arbitrary 
 			// please fix this if you have the patience :)
