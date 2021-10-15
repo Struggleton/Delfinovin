@@ -50,7 +50,7 @@ namespace DelfinovinUI
 			// stick * movement_scale / byte limit + - position offset
 			int LeftStickX = inputState.LEFT_STICK_X * 200 / 255 + -50;
             int LeftStickY = inputState.LEFT_STICK_Y * 200 / 255 + -300;
-            int CStickX = inputState.C_STICK_X * 80 / 255 + 500;
+            int CStickX = inputState.C_STICK_X * 80 / 255 + 495;
             int CStickY = inputState.C_STICK_Y * 80 / 255 + -295;
 
 			// This whole thing is very wack and arbitrary 

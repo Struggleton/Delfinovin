@@ -66,7 +66,7 @@
             <Button Name="btnSave" Content="Save Profile" Click="btnSave_Click"/>
             <Button Name="btnDelete" Content="Delete Profile" Click="btnDelete_Click"/>
         </StackPanel>
-        
-        <TextBlock Name="txbSettingDisplay" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#FFFFFFFF" FontSize="16" Margin="15,0,0,0" FontWeight="Bold" />
+
+        <TextBlock Name="txbSettingDisplay" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{DynamicResource textColor}" FontSize="16" Margin="15,0,0,0" FontWeight="Bold" />
     </Grid>
 </Window>

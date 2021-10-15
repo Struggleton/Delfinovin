@@ -107,7 +107,7 @@ namespace DelfinovinUI
 		public enum ControllerColor : uint
 		{
 			Indigo = 0xFF3C3760, //
-			JetBlack = 0x0A0A0A, //
+			JetBlack = 0x28282B, //
 			SpiceOrange = 0xCB7017, //
 			Platinum = 0xD3D6D8, // 
 			EmeraldBlue = 0x0E8999,
