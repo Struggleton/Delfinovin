@@ -91,9 +91,9 @@
             </ListView>
         </StackPanel>
         <StackPanel Name="stpProfileOptions" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Button x:Name="btnThemeSelect" Content="Select Themes" Margin="1" Click="btnThemeSelect_Click"/>
-            <Button Name="btnUpdates" Content="Check for Updates" Click="btnUpdates_Click" />
-            <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click" />
+            <Button x:Name="btnThemeSelect" Content="Select Themes" Margin="1" Click="btnThemeSelect_Click" Background="{DynamicResource buttonColor}"/>
+            <Button Name="btnUpdates" Content="Check for Updates" Click="btnUpdates_Click" Background="{DynamicResource buttonColor}"/>
+            <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click" Background="{DynamicResource buttonColor}"/>
         </StackPanel>
     </Grid>
 </Window>

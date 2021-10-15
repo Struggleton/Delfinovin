@@ -46,6 +46,7 @@
         <Button Name="btnSave" Grid.Row="2" 
                 HorizontalContentAlignment="Center" HorizontalAlignment="Right" 
                 VerticalAlignment="Center" Margin="0,0,10,0"
-                Content="Save" Click="btnSave_Click" />
+                Content="Save" Click="btnSave_Click" 
+                Background="{DynamicResource buttonColor}"/>
     </Grid>
 </Window>

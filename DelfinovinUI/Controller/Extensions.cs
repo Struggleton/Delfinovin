@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
+using System.Reflection;
+using System.Resources;
+using System.Windows.Media;
 
 namespace DelfinovinUI
 {
@@ -48,6 +53,41 @@ namespace DelfinovinUI
             if (triggerThreshold < compare)
                 return 255;
             return triggerSlider;
+        }
+
+        public static string[] GetResourcesUnder(string folder)
+        {
+            folder = folder.ToLower() + "/";
+
+            var assembly = Assembly.GetCallingAssembly();
+            var resourcesName = assembly.GetName().Name + ".g.resources";
+            var stream = assembly.GetManifestResourceStream(resourcesName);
+            var resourceReader = new ResourceReader(stream);
+
+            var resources =
+                from p in resourceReader.OfType<DictionaryEntry>()
+                let theme = (string)p.Key
+                where theme.StartsWith(folder)
+                select theme.Substring(folder.Length);
+
+            return resources.ToArray();
+        }
+
+        public static string UppercaseFirst(string s)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(s[0]) + s.Substring(1);
+        }
+
+        public static Color GetColorFromHex(uint hexCode)
+        {
+            byte[] bytes = BitConverter.GetBytes(hexCode);
+            return Color.FromArgb(255, bytes[2], bytes[1], bytes[0]);
         }
     }
 }

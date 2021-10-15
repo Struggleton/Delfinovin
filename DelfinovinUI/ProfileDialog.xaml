@@ -53,9 +53,9 @@
             </Button>
         </StackPanel>
         <StackPanel Name="stpProfileOptions" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
-            <Button Name="btnLoad" Content="Load Profile" Click="btnLoad_Click" />
-            <Button Name="btnSave" Content="Save Profile" Click="btnSave_Click" />
-            <Button Name="btnDelete" Content="Delete Profile" Click="btnDelete_Click" />
+            <Button Name="btnLoad" Content="Load Profile" Click="btnLoad_Click" Background="{DynamicResource buttonColor}"/>
+            <Button Name="btnSave" Content="Save Profile" Click="btnSave_Click" Background="{DynamicResource buttonColor}"/>
+            <Button Name="btnDelete" Content="Delete Profile" Click="btnDelete_Click" Background="{DynamicResource buttonColor}"/>
         </StackPanel>
         <TextBlock Name="txbSettingDisplay" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#FFFFFFFF" FontSize="16" Margin="15,0,0,0" FontWeight="Bold" />
     </Grid>

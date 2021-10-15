@@ -34,8 +34,8 @@
             </Button>
         </StackPanel>
         <StackPanel Name="stpButtons" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="btnLeft" Style="{StaticResource hiddenButtons}" Content="OK" Click="btnLeft_Click" />
-            <Button Name="btnRight" Style="{StaticResource hiddenButtons}" Content="Cancel" Click="btnRight_Click" />
+            <Button Name="btnLeft" Style="{StaticResource hiddenButtons}" Content="OK" Click="btnLeft_Click" Background="{DynamicResource buttonColor}"/>
+            <Button Name="btnRight" Style="{StaticResource hiddenButtons}" Content="Cancel" Click="btnRight_Click" Background="{DynamicResource buttonColor}"/>
         </StackPanel>
 
         <Viewbox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">

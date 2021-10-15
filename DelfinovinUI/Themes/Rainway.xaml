@@ -16,5 +16,5 @@
         <GradientStop Color="#091720" Offset="1.0" />
     </LinearGradientBrush>
 
-    <Brush x:Key="buttonColor">#FF0E2531</Brush>
+    <Brush x:Key="buttonColor">#301934</Brush>
 </ResourceDictionary>

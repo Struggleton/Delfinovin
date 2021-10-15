@@ -9,8 +9,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes\BaseTheme.xaml"/>
-                <ResourceDictionary Source="Themes\ControllerColor.xaml"/>
+                <ResourceDictionary Source="Themes\Rainway.xaml"/>
+                <ResourceDictionary Source="Controller\ControllerColor.xaml"/>
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>

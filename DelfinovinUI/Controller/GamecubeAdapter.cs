@@ -200,7 +200,7 @@ namespace DelfinovinUI
 			Controllers[port].CalibrationStatus = CalibrationStatus.Calibrated;
 		}
 
-		public void UpdateDialog(GamecubeDialogNew controllerControl, int port)
+		public void UpdateDialog(GamecubeDialog controllerControl, int port)
 		{
 			// Update the gamecube controller UI based on the current input state. 
 			controllerControl.UpdateDialog(_inputStates[port], Controllers[port].Settings);

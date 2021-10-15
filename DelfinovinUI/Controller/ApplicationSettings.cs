@@ -18,6 +18,8 @@ namespace DelfinovinUI
 		public static string DefaultProfile2 { get; set; } = "";
 		public static string DefaultProfile3 { get; set; } = "";
 		public static string DefaultProfile4 { get; set; } = "";
+		public static string ApplicationTheme { get; set; } = "";
+		public static string ControllerColor { get; set; } = "";
 
 		public static void LoadSettings()
 		{

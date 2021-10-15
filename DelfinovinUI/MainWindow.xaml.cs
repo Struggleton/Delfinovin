@@ -44,10 +44,10 @@ namespace DelfinovinUI
 
 		private byte[] _rumbleCommand;
 
-		public int _selectedPort = 0;
-
 		private bool _isCalibrating;
 		private bool _vigemInstalled;
+
+		public int _selectedPort = 0;
 
 		System.Windows.Forms.NotifyIcon notifyIcon = new System.Windows.Forms.NotifyIcon();
 		public MainWindow()
@@ -84,6 +84,39 @@ namespace DelfinovinUI
 					CreateNotifyIcon();
 				WindowState = WindowState.Minimized;
 			}
+
+			// Update the application theme and color,
+			// if set.
+			UpdateApplicationTheme();
+		}
+
+		private void UpdateApplicationTheme()
+        {
+			// Check to see if the application theme is set.
+			if (ApplicationSettings.ApplicationTheme != "")
+			{
+				string[] themes = Extensions.GetResourcesUnder("Themes");
+
+				// Check if the selected application theme is in the valid theme list
+				if (Array.IndexOf(themes, (ApplicationSettings.ApplicationTheme + ".baml").ToLower()) >= 0)
+                {
+					// Update the application-wide theme with the selected one.
+					Application.Current.Resources.MergedDictionaries[0] = new ResourceDictionary()
+					{
+						Source = new Uri($"/DelfinovinUI;component/Themes/{ApplicationSettings.ApplicationTheme}.xaml", UriKind.Relative)
+					};
+				}
+			}
+
+			if (Enum.TryParse(ApplicationSettings.ControllerColor, out ThemeSelector.ControllerColor controllerColor))
+			{
+				// Case the controllerColor into an uint
+				uint hexCode = (uint)controllerColor;
+				Color convertedColor = Extensions.GetColorFromHex(hexCode);
+
+				// Set the resource "ControllerColor" to with the new color 
+				App.Current.Resources["ControllerColor"] = new SolidColorBrush(convertedColor);
+			}
 		}
 
         private void BeginControllerLoop()
@@ -111,7 +144,6 @@ namespace DelfinovinUI
 
 			else
             {
-
 				// If it's not installed, propmt the user to download and install it.
 				string message = "ViGEmBus is not installed. ViGEm is required to use Delfinovin." +
 					"\n\nWould you like to open the ViGEm downloads page?";

@@ -67,6 +67,10 @@ namespace DelfinovinUI
 			defaultProfile2.SelectedItem = ApplicationSettings.DefaultProfile2;
 			defaultProfile3.SelectedItem = ApplicationSettings.DefaultProfile3;
 			defaultProfile4.SelectedItem = ApplicationSettings.DefaultProfile4;
+
+			// Get the Startup folder's path 
+			string startupPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\DelfinovinUI.lnk";
+			runOnBoot.IsChecked = System.IO.File.Exists(startupPath);
 		}
 
 		// Implement header bars
@@ -99,6 +103,8 @@ namespace DelfinovinUI
 
 			Result = WindowResult.SaveClosed;
 			Close();
+
+			
 		}
 
         private void btnUpdates_Click(object sender, RoutedEventArgs e)
@@ -117,7 +123,7 @@ namespace DelfinovinUI
             {
 				// Create a WshShell to create the shortcut with
 				WshShell wsh = new WshShell();
-				IWshShortcut shortcut = wsh.CreateShortcut(startupPath) as IWshRuntimeLibrary.IWshShortcut;
+				IWshShortcut shortcut = wsh.CreateShortcut(startupPath) as IWshShortcut;
 
 				// Get the application's current working path
 				shortcut.TargetPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -145,5 +151,11 @@ namespace DelfinovinUI
 			if (System.IO.File.Exists(startupPath))
                 System.IO.File.Delete(startupPath);
 		}
+
+        private void btnThemeSelect_Click(object sender, RoutedEventArgs e)
+        {
+			ThemeSelector themeSelect = new ThemeSelector();
+			themeSelect.ShowDialog();
+        }
     }
 }

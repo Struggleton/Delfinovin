@@ -64,7 +64,7 @@
         </StackPanel>
 
         <StackPanel Name="stpProfileOptions" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click" />
+            <Button Name="btnSave" Content="Save Settings" Click="btnSave_Click" Background="{DynamicResource buttonColor}"/>
         </StackPanel>
     </Grid>
 </Window>
