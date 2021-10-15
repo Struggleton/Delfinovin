@@ -55,15 +55,20 @@ Delfinovin should automatically detect any controllers / adapters being plugged 
 
 - Settings for the application can be set under the "Settings" tab at the bottom of the application. These settings consist of:
 	- Minimize Program to System Tray - When enabled, Delfinovin will minimize itself to the system tray. Right-click the icon to open a menu with options to open/close the program.
-    
-	- Default Profile - Controller #1-4 - Load the selected setting profiles when starting Delfinovin and apply them to the corresponding controller port.
+
+	- Check for Updates on Startup – When enabled, Delfinovin will check for new releases from the main Github page.
+
+ 	- Minimize Application on Startup – When set, the application will minimize when the application is opened.
+
+ 	- Run Application on PC Startup – When the setting is enabled, Delfinovin will be added to the computer’s application startup list
+
+ 	- Default Profile - Controller #1-4 - Load the selected setting profiles when starting Delfinovin and apply them to the corresponding controller port. 
 		
 # Notes
 - Delfinovin can not take exclusive control over the controller adapter. This means you will have to close anything that does (Yuzu, Dolphin, etc.) first, run the program and then open them. 
 
 # Planned features
-- Automatic update checking (Octokit?)
-- Themes / Colors
+- not sure, mainly bug fixes at this moment
 
 # Credits
 Credits and appreciation go to:
@@ -75,13 +80,15 @@ Credits and appreciation go to:
 - [BarkingFrog](https://twitter.com/Barking_Frogssb) for providing the math behind calibrating/centering sticks
 - [Narr the Reg](https://github.com/german77) / The [Dolphin team](https://github.com/dolphin-emu) for advice on fixing Nyko adapters + gathering stick centers
 - The [MaterialDesignInXAML](https://github.com/MaterialDesignInXAML) team behind Material Design in XAML toolkit for providing a great framework for UI design
-- [SVGRepo](https://www.svgrepo.com/) for providing the base vector for the design behind the GamecubeDialog 
+- [OpenClipArt](http://www.openclipart.org/) for providing the base vector for the design behind the GamecubeDialog
+- The [Octokit](https://github.com/octokit) team for providing a great library for interacting with Github
 - All of the testers in the Smash Ultimate Yuzu discord for helping iron out bugs!
 
 ## Libraries used
+- MaterialDesignInXamlToolkit
+- Octokit.NET
 - LibUSB.NET
 - ViGEm.NET
-- MaterialDesignInXamlToolkit
 
 ## Contributing and Support
 Thank you! I am still learning a lot about the USB architecture and Gamecube Controllers, so any help / commits are appreciated! I can be contacted on Discord at Struggleton#4071 / Twitter at @Struggleton as well. 
