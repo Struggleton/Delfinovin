@@ -2,21 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <LinearGradientBrush x:Key="mainGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#111525" Offset="0.0" />
-        <GradientStop Color="#111525" Offset="1.0" />
+        <GradientStop Color="#DAE2F8" Offset="0.0" />
+        <GradientStop Color="#D6A4A4" Offset="1.0" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="infoBarGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#370048" Offset="0.0" />
-        <GradientStop Color="#00364A" Offset="1.0" />
+        <GradientStop Color="#FFBFD2F9" Offset="0.0" />
+        <GradientStop Color="#FFF7BEBE" Offset="1.0" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="sideBarGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#0B1324" Offset="0.0" />
-        <GradientStop Color="#0B1324" Offset="1.0" />
+        <GradientStop Color="#FFB4C7EE" Offset="0.0" />
+        <GradientStop Color="#FFB4C7EE" Offset="1.0" />
     </LinearGradientBrush>
 
-    <Brush x:Key="buttonColor">#008053</Brush>
-    <Brush x:Key="buttonTextColor">#FFFFFF</Brush>
-    <Brush x:Key="textColor">#FFFFFF</Brush>
+    <Brush x:Key="buttonColor">#B993D6</Brush>
+    <Brush x:Key="buttonTextColor">Black</Brush>
+    <Brush x:Key="textColor">Black</Brush>
 </ResourceDictionary>

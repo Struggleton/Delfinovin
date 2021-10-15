@@ -17,4 +17,6 @@
     </LinearGradientBrush>
 
     <Brush x:Key="buttonColor">#000000</Brush>
+    <Brush x:Key="buttonTextColor">#FFFFFF</Brush>
+    <Brush x:Key="textColor">#FFFFFF</Brush>
 </ResourceDictionary>
