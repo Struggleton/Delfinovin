@@ -43,6 +43,7 @@
             <ListViewItem Content="Enable Digital Triggers" />
             <ListViewItem Content="SwapAB" />
             <ListViewItem Content="SwapXY" />
+            <ListViewItem Content="Guide BTN Combo" />
             <ListViewItem Content="TriggerDeadzone" />
             <ListViewItem Content="TriggerThreshold" />
             <ListViewItem Content="LeftStickDeadzone" />
@@ -63,6 +64,9 @@
             </ListViewItem>
             <ListViewItem>
                 <ToggleButton Name="swapXY" />
+            </ListViewItem>
+            <ListViewItem>
+                <ToggleButton Name="guideBTNCombo" />
             </ListViewItem>
             <ListViewItem>
                 <Slider Name="triggerDeadzone" Value="15" />

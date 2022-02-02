@@ -162,6 +162,7 @@ namespace DelfinovinUI
 				sb.AppendLine("Enable Rumble - " + ConvertYesNo(settings.EnableRumble));
 				sb.AppendLine("Swap A/B Buttons - " + ConvertYesNo(settings.SwapAB));
 				sb.AppendLine("Swap X/Y Buttons - " + ConvertYesNo(settings.SwapXY));
+				sb.AppendLine("Guide BTN Combo - " + ConvertYesNo(settings.GuideBTNCombo));
 				sb.AppendLine($"Trigger Deadzones - {settings.TriggerDeadzone * 100f}%");
 				sb.AppendLine($"Trigger Threshold - {settings.TriggerThreshold * 100f}%");
 				sb.AppendLine($"Left Stick Deadzones - {settings.LeftStickDeadzone * 100f}%");

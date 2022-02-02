@@ -108,6 +108,7 @@ namespace DelfinovinUI
 				_controller.SetButtonState(Xbox360Button.Up, inputState.DPAD_UP);
 				_controller.SetButtonState(Xbox360Button.Down, inputState.DPAD_DOWN);
 				_controller.SetButtonState(Xbox360Button.Start, inputState.BUTTON_START);
+				_controller.SetButtonState(Xbox360Button.Guide, (Settings.GuideBTNCombo && inputState.DPAD_DOWN && inputState.BUTTON_START) ? true : false);
 
 				// Normalize values into triggerdeadzone/threshold range
 				byte clampedLeftTrigger = Extensions.ClampTriggers(inputState.ANALOG_LEFT, Settings.TriggerDeadzone, Settings.TriggerThreshold);

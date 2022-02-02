@@ -27,6 +27,7 @@ namespace DelfinovinUI
 				RightStickRange = (float)(rightStickRange.Value / 100.0),
 				SwapAB = swapAB.IsChecked.Value,
 				SwapXY = swapXY.IsChecked.Value,
+				GuideBTNCombo = guideBTNCombo.IsChecked.Value,
 				TriggerDeadzone = (float)(triggerDeadzone.Value / 100.0),
 				TriggerThreshold = (float)(triggerThreshold.Value / 100.0)
 			};
@@ -43,6 +44,7 @@ namespace DelfinovinUI
 			rightStickRange.Value = controllerSettings.RightStickRange * 100f;
 			swapAB.IsChecked = controllerSettings.SwapAB;
 			swapXY.IsChecked = controllerSettings.SwapXY;
+			guideBTNCombo.IsChecked = controllerSettings.GuideBTNCombo;
 			triggerDeadzone.Value = controllerSettings.TriggerDeadzone * 100f;
 			triggerThreshold.Value = controllerSettings.TriggerThreshold * 100f;
 		}

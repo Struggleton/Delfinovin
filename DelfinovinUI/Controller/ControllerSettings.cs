@@ -20,6 +20,7 @@ namespace DelfinovinUI
 		public bool EnableRumble { get; set; } = false;
 		public bool SwapAB { get; set; } = true;
 		public bool SwapXY { get; set; } = true;
+		public bool GuideBTNCombo { get; set; } = true;
 
 		// A false value return from this method means that
 		// the file did not exist or did not contain any content.
