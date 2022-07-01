@@ -3,7 +3,9 @@
 
 Delfinovin - An XInput solution for Gamecube Controllers (Dell-fee-no-vin)
 ------------
-![enter image description here](https://github.com/Struggleton/Delfinovin/blob/wpf-uidev/MainWindow_Screenshot.png?raw=true)
+[![GitHub All Releases](https://img.shields.io/github/downloads/Struggleton/Delfinovin/total)](https://somsubhra.github.io/github-release-stats/?username=Struggleton&repository=Delfinovin) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) 
+
+![Delfinovin's Default UI](https://github.com/Struggleton/Delfinovin/blob/wpf-uidev/MainWindow_Screenshot.png?raw=true)
 
 Delfinovin is an XInput conversion for use with Gamecube Controller adapters that implement Nintendo's WUP-028 firmware. This includes Mayflash controllers, Nintendo's own gamecube adapter and probably more that exist out there. 
 
