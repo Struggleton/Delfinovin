@@ -49,6 +49,8 @@ namespace DelfinovinUI
 
 		public int _selectedPort = 0;
 
+		private WindowedIcon[] icons;
+
 		System.Windows.Forms.NotifyIcon notifyIcon = new System.Windows.Forms.NotifyIcon();
 		public MainWindow()
 		{
@@ -130,8 +132,14 @@ namespace DelfinovinUI
 				// Initialize controller profile array for later and load the 
 				// user selected ones, if available.
 				_settings = new ControllerSettings[4];
+				icons = new WindowedIcon[4];
 				for (int i = 0; i < 4; i++)
+                {
 					_settings[i] = new ControllerSettings();
+					icons[i] = new WindowedIcon();
+
+				}
+					
 
 				UpdateDefaultProfiles();
 
@@ -397,6 +405,7 @@ namespace DelfinovinUI
 			{
 				// Pass the control to GamecubeAdapter
 				_gamecubeAdapter.UpdateDialog(controllerDialog, _selectedPort);
+				_gamecubeAdapter.UpdateDialog(icons[_selectedPort].gamecubeDialog, _selectedPort);
 
 				// If a new controller is inserted, enable the controllers + buttons 
 				if (_gamecubeAdapter.ControllerInserted || _gamecubeAdapter.ControllerDisconnected)
@@ -591,5 +600,11 @@ namespace DelfinovinUI
         {
 			Process.Start("https://github.com/Struggleton/Delfinovin/blob/wpf-uidev/Delfinovin Help & FAQ.pdf");
         }
+
+        private void cmiPopout_Click(object sender, RoutedEventArgs e)
+        {
+			icons[_selectedPort] = new WindowedIcon();
+			icons[_selectedPort].Show();
+		}
     }
 }
