@@ -29,10 +29,10 @@ namespace DelfinovinUI
             return githubVersion;
         }
 
-        public static void CheckCurrentRelease(bool silent)
+        public static async void CheckCurrentRelease(bool silent)
         {
             // Get the version of Delfinovin on Github
-            var githubVersion = GetGithubVersion();
+            var githubVersion = await GetGithubVersion();
 
             // Get the application's current version and compare it to the github version.
             Version localVersion = typeof(Updater).Assembly.GetName().Version;
