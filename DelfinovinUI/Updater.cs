@@ -5,15 +5,16 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace DelfinovinUI
 {
     public static class Updater
     {
-        public static async void CheckCurrentRelease(bool silent)
+        private static async Task<Version> GetGithubVersion()
         {
             // Do this so we don't get rejected by the API
-            var client = new GitHubClient(new ProductHeaderValue("DelfinovinUI"));
+            GitHubClient client = new GitHubClient(new ProductHeaderValue("DelfinovinUI"));
 
             // Access the main repository
             var releases = await client.Repository.Release.GetAll("Struggleton", "Delfinovin");
@@ -24,6 +25,14 @@ namespace DelfinovinUI
             // Create a version object. We need to strip the nonnumeric chars from the
             // Github versioning. 
             Version githubVersion = new Version(Regex.Replace(latest.TagName, "[^0-9.]", ""));
+
+            return githubVersion;
+        }
+
+        public static void CheckCurrentRelease(bool silent)
+        {
+            // Get the version of Delfinovin on Github
+            var githubVersion = GetGithubVersion();
 
             // Get the application's current version and compare it to the github version.
             Version localVersion = typeof(Updater).Assembly.GetName().Version;
