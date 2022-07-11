@@ -34,7 +34,6 @@ namespace DelfinovinUpdater
                     File.Move("settings.txt", "settings.bak");
                 }
 
-
                 // Get the current running process of Delfinovin and kill them.
                 Console.WriteLine("Closing any current instances of Delfinovin...");
                 Process[] processes = Process.GetProcessesByName("DelfinovinUI");
@@ -77,16 +76,11 @@ namespace DelfinovinUpdater
                 File.Delete("DelfinovinLatest.zip");
         }
 
-        static void BackupConfig()
-        { 
-        }
-
         static void UnpackRelease()
         {
             // Extract files from the downloaded zip to an update folder
             Console.WriteLine("Unpacking release...");
             ZipFile.ExtractToDirectory("DelfinovinLatest.zip", "update");
-
 
             // Get all the files from the update directory and try to move them
             string[] files = Directory.GetFiles("update");
@@ -97,7 +91,7 @@ namespace DelfinovinUpdater
                     File.Copy(file, Path.GetFileName(file), true);
                 }
 
-                // 
+                // Skip the file copy if it can't be copied
                 catch (Exception ex)
                 {
                     continue;
