@@ -362,6 +362,9 @@ namespace DelfinovinUI
 
 		private void ExitProgram()
 		{
+			// Deinitialize the USB device 
+			DeinitializeUSB();
+
 			// This is so we can close the notifyIcon properly
 			// after application close.
 
