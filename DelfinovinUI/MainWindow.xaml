@@ -13,6 +13,7 @@
             <ContextMenu x:Key="ctmControllerSettings">
                 <MenuItem Name="cmiEditSettings" Header="Edit Settings" Click="cmiEditSettings_Click" />
                 <MenuItem Name="cmiCalibrate" Header="Calibrate Controller" Click="cmiCalibrate_Click" />
+                <MenuItem Name="cmiPopout" Header="Popout Controller" Click="cmiPopout_Click" />
             </ContextMenu>
 
             <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
