@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:DelfinovinUI" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              StartupUri="MainWindow.xaml"
-             ShutdownMode="OnLastWindowClose">
+             ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

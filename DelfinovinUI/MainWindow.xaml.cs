@@ -529,16 +529,6 @@ namespace DelfinovinUI
 				this.DragMove();
 		}
 
-		private void btnClose_Click(object sender, RoutedEventArgs e)
-		{
-			ExitProgram();
-		}
-
-		private void CloseMenu_Click(object sender, EventArgs e)
-		{
-			ExitProgram();
-		}
-
 		
 
 		private void btnMinimize_Click(object sender, RoutedEventArgs e)
@@ -609,5 +599,20 @@ namespace DelfinovinUI
 			icons[_selectedPort] = new WindowedIcon();
 			icons[_selectedPort].Show();
 		}
+
+		private void btnClose_Click(object sender, RoutedEventArgs e)
+		{
+			ExitProgram();
+		}
+
+		private void CloseMenu_Click(object sender, EventArgs e)
+		{
+			ExitProgram();
+		}
+
+		private void Window_Closed(object sender, EventArgs e)
+        {
+			ExitProgram();
+        }
     }
 }

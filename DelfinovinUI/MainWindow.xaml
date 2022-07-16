@@ -6,7 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DelfinovinUI" 
-        Title="Delfinovin" Height="500" Width="830" WindowStyle="None" AllowsTransparency="True" FontFamily="Microsoft JhengHei Light" ResizeMode="NoResize">
+        Title="Delfinovin" Height="500" Width="830" WindowStyle="None" AllowsTransparency="True" FontFamily="Microsoft JhengHei Light" ResizeMode="NoResize" Closed="Window_Closed">
     
     <FrameworkElement.Resources>
         <ResourceDictionary>
