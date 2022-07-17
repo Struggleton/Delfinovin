@@ -6,9 +6,9 @@ namespace DelfinovinUI
 	internal class GamecubeAdapter
 	{
 		private GamecubeInputState[] _inputStates = new GamecubeInputState[4];
-		private ViGEmClient[] _vgmClient = new ViGEmClient[4];
 		private GamecubeCalibration[] _previousStickCenters;
 		private bool[] _previousRumbleStates;
+		private ViGEmClient _vgmClient;
 
 		public GamecubeController[] Controllers;
 		public bool ControllerInserted;
@@ -21,13 +21,12 @@ namespace DelfinovinUI
 			Controllers = new GamecubeController[4];
 			_previousStickCenters = new GamecubeCalibration[4];
 			_previousRumbleStates = new bool[4];
+			_vgmClient = new ViGEmClient();
+
 
 			for (int i = 0; i < 4; i++)
 			{
-				// Create 4 clients. I'm actually not sure if this is necessary.
-				_vgmClient[i] = new ViGEmClient();
-				Controllers[i] = new GamecubeController(_vgmClient[i]);
-
+				Controllers[i] = new GamecubeController(_vgmClient);
 				_previousStickCenters[i] = new GamecubeCalibration();
 				_inputStates[i] = new GamecubeInputState();
 			}
