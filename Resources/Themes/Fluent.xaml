@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Name="Fluent">
+    
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="controllerBarGradient">
+        <GradientStop Color="#292D37" Offset="0"/>
+        <GradientStop Color="#292D38" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="headerGradient">
+        <GradientStop Color="#231C2A" Offset="0"/>
+        <GradientStop Color="#1A2227" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="sidebarGradient">
+        <GradientStop Color="#231C2A" Offset="0"/>
+        <GradientStop Color="#1C202B" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="mainBackground">
+        <GradientStop Color="#FF6F6A92" Offset="0"/>
+        <GradientStop Color="#FF6F6A92" Offset="1"/>
+    </LinearGradientBrush>
+
+</ResourceDictionary>
