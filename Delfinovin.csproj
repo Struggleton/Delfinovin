@@ -5,11 +5,17 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Icons\app.ico</ApplicationIcon>
+    <AssemblyVersion>3.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Icons\window-close.png" />
     <None Remove="Resources\Icons\window-minimize.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\app.ico" />
   </ItemGroup>
 
   <ItemGroup>

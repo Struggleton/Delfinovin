@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,11 +24,21 @@ namespace Delfinovin
         public MainWindow()
         {
             InitializeComponent();
+            SetApplicationTitle();
         }
 
         private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void SetApplicationTitle()
+        {
+            Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            appTitle.Content = Strings.WindowTitle + " " + string.Format(Strings.VersionText, 
+                appVersion.Major, 
+                appVersion.Minor, 
+                appVersion.Build);
         }
     }
 }

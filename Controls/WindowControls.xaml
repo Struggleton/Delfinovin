@@ -42,7 +42,7 @@
             <Button x:Name="windowMinimize" 
                     Style="{StaticResource hoverHighlight}"
                     Visibility="{Binding MinimizeButtonVisibility}" 
-                    Click="windowMinimize_Click">
+                    Click="WindowMinimize_Click">
                 
                 <Image x:Name="minimizeImage"  
                        Source="/Delfinovin;component/Resources/Icons/window-minimize.png"
@@ -52,7 +52,7 @@
             <Button x:Name="windowClose" 
                     Style="{StaticResource hoverHighlight}"
                     Visibility="{Binding CloseButtonVisibility}" 
-                    Click="windowClose_Click">
+                    Click="WindowClose_Click">
 
                 <Image x:Name="closeImage"
                        Source="/Delfinovin;component/Resources/Icons/window-close.png"
