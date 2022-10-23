@@ -58,9 +58,8 @@
 
         <StackPanel x:Name="headerDisplay"
             Grid.ColumnSpan="2"
-            Margin="15,0,10,0"
             HorizontalAlignment="Left" VerticalAlignment="Center"
-            Orientation="Horizontal"
+            Orientation="Horizontal" Margin="15,0,10,0"
             MouseLeftButtonDown="MouseLeftButtonDown">
 
             <Image x:Name="headerImage"
@@ -71,6 +70,15 @@
             <Label x:Name="appTitle"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
                 Foreground="White"/>
+
         </StackPanel>
+
+        <Viewbox x:Name="controllerListContainer" 
+                 Grid.Column="1" Grid.ColumnSpan="2"
+                 Grid.Row="2">
+            
+            <StackPanel x:Name="controllerList" 
+                        Orientation="Horizontal"/>
+        </Viewbox>
     </Grid>
 </Window>

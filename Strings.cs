@@ -10,5 +10,7 @@ namespace Delfinovin
     {
         public const string WindowTitle = "Delfinovin - Gamecube Controller Application";
         public const string VersionText = "[by @Struggleton, v{0}.{1}.{2}]";
+
+        public const string ControllerText = "Controller {0}";
     }
 }

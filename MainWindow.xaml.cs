@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Delfinovin.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -25,12 +26,10 @@ namespace Delfinovin
         {
             InitializeComponent();
             SetApplicationTitle();
+            CreateDetailButtons();
         }
 
-        private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+        
 
         private void SetApplicationTitle()
         {
@@ -39,6 +38,26 @@ namespace Delfinovin
                 appVersion.Major, 
                 appVersion.Minor, 
                 appVersion.Build);
+        }
+
+        private void CreateDetailButtons()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                ControllerDetailButton button = new ControllerDetailButton()
+                {
+                    CalibrationStatus = CalibrationStatus.Uncalibrated,
+                    ConnectionStatus = ConnectionStatus.Connected,
+                    ControllerPort = i + 1,
+                };
+
+                controllerList.Children.Add(button);
+            }
+        }
+
+        private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

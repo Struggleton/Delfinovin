@@ -22,4 +22,9 @@
         <GradientStop Color="#FF6F6A92" Offset="1"/>
     </LinearGradientBrush>
 
+    <SolidColorBrush x:Key="roundedButtonHighlight" Color="#7F343945"/>
+    <SolidColorBrush x:Key="detailButtonColor" Color="#343945"/>
+    <SolidColorBrush x:Key="detailButtonHighlight" Color="#495060"/>
+    <SolidColorBrush x:Key="controllerButtonTextColor" Color="#FF706479"/>
+    
 </ResourceDictionary>

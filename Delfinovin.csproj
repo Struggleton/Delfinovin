@@ -10,12 +10,41 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\arrow-down.png" />
+    <None Remove="Resources\Icons\arrow-up.png" />
+    <None Remove="Resources\Icons\Buttons\Control Stick Clockwise.png" />
+    <None Remove="Resources\Icons\controller-plugged.png" />
+    <None Remove="Resources\Icons\controller-unplugged.png" />
+    <None Remove="Resources\Icons\pencil.png" />
     <None Remove="Resources\Icons\window-close.png" />
     <None Remove="Resources\Icons\window-minimize.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Icons\app.ico" />
+    <Resource Include="Resources\Icons\arrow-down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\app.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\arrow-up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Control Stick Clockwise.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\controller-plugged.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\controller-unplugged.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\pencil.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
