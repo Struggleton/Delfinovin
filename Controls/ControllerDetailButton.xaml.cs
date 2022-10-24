@@ -83,18 +83,21 @@ namespace Delfinovin.Controls
 
         private void OpenDetails()
         {
+            // Create a new optionsMenu and spawn it above the current button.
             ControllerOptionsMenu optionsMenu = new ControllerOptionsMenu();
-            optionsMenu.OptionSelected += DetailOptionsWindow_OptionSelected;
-            optionsMenu.Closed += _currentOptionsWindow_Closed;
+
+            // Subscribe to the window events
+            optionsMenu.OptionSelected += ControllerOptionsMenu_OptionSelected;
+            optionsMenu.Closed += ControllerOptionsMenu_Closed;
             optionsMenu.Show();
 
-            double[] spawnLocation = Extensions.GetScreenSpawnPosition(this, optionsMenu);
-            optionsMenu.Left = spawnLocation[0];
-            optionsMenu.Top = spawnLocation[1];
-
+            // Get the point above this button and spawn the menu at that location.
+            Point location = ControlExtensions.GetScreenSpawnPosition(this, optionsMenu);
+            optionsMenu.Left = location.X;
+            optionsMenu.Top = location.Y;
+            
             IsSettingMenuOpen = true;
             UpdateSettingsTab();
-
         }
 
         private void UpdateSettingsTab()
@@ -110,15 +113,17 @@ namespace Delfinovin.Controls
             }
         }
 
-        private void _currentOptionsWindow_Closed(object? sender, EventArgs e)
+        private void ControllerOptionsMenu_Closed(object? sender, EventArgs e)
         {
+            // The menu was closed, update the settings button.
             IsSettingMenuOpen = false;
             UpdateSettingsTab();
         }
 
-        private void DetailOptionsWindow_OptionSelected(object? sender, OptionSelection e)
+        private void ControllerOptionsMenu_OptionSelected(object? sender, OptionSelection e)
         {
-            Debug.WriteLine(e.ToString());
+            // Pass the selected option to the event handler.
+            OptionSelected.Invoke(this, e);
         }
 
         private void DetailButton_Click(object sender, RoutedEventArgs e)
