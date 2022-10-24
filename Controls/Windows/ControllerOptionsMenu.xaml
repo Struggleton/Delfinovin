@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:Delfinovin"
         xmlns:ctrl="clr-namespace:Delfinovin.Controls"
         mc:Ignorable="d"
-        Title="ControllerOptionsMenu" Width="215" Height="140" 
+        Title="ControllerOptionsMenu" Width="215"
         ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" 
-        Background="Transparent">
+        Background="Transparent"
+        SizeToContent="Height">
 
     <Grid>
         <Rectangle x:Name="windowBackground" 
@@ -86,6 +87,7 @@
                     ImageSource="/Delfinovin;component/Resources/Icons/Buttons/Control Stick Clockwise.png"/>
                 
             </ListViewItem>
+
         </ListView>
     </Grid>
 </Window>
