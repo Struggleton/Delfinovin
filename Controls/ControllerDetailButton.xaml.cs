@@ -8,7 +8,8 @@ using Delfinovin.Controls.Windows;
 namespace Delfinovin.Controls
 {
     /// <summary>
-    /// Interaction logic for ControllerDetailButton.xaml
+    /// A user control to display the current status of the 
+    /// associated game controller and manage settings.
     /// </summary>
     public partial class ControllerDetailButton : UserControl
     {
@@ -48,6 +49,7 @@ namespace Delfinovin.Controls
         public bool IsSettingMenuOpen { get; set; } = false;
 
         public event EventHandler<OptionSelection> OptionSelected;
+        public event EventHandler<RoutedEventArgs> Clicked;
 
         public ControllerDetailButton()
         {
@@ -81,6 +83,19 @@ namespace Delfinovin.Controls
             portDisplay.Text = string.Format(Strings.ControllerText, ControllerPort); 
         }
 
+        private void UpdateSettingsTab()
+        {
+            if (IsSettingMenuOpen)
+            {
+                settingsButton.Source = new BitmapImage(new Uri("/Delfinovin;component/Resources/Icons/arrow-down.png", UriKind.Relative));
+            }
+
+            else
+            {
+                settingsButton.Source = new BitmapImage(new Uri("/Delfinovin;component/Resources/Icons/arrow-up.png", UriKind.Relative));
+            }
+        }
+
         private void OpenDetails()
         {
             // Create a new optionsMenu and spawn it above the current button.
@@ -95,22 +110,9 @@ namespace Delfinovin.Controls
             Point location = ControlExtensions.GetScreenSpawnPosition(this, optionsMenu);
             optionsMenu.Left = location.X;
             optionsMenu.Top = location.Y;
-            
+
             IsSettingMenuOpen = true;
             UpdateSettingsTab();
-        }
-
-        private void UpdateSettingsTab()
-        {
-            if (IsSettingMenuOpen)
-            {
-                settingsButton.Source = new BitmapImage(new Uri("/Delfinovin;component/Resources/Icons/arrow-down.png", UriKind.Relative));
-            }
-
-            else
-            {
-                settingsButton.Source = new BitmapImage(new Uri("/Delfinovin;component/Resources/Icons/arrow-up.png", UriKind.Relative));
-            }
         }
 
         private void ControllerOptionsMenu_Closed(object? sender, EventArgs e)
@@ -123,12 +125,14 @@ namespace Delfinovin.Controls
         private void ControllerOptionsMenu_OptionSelected(object? sender, OptionSelection e)
         {
             // Pass the selected option to the event handler.
-            OptionSelected.Invoke(this, e);
+            OptionSelected?.Invoke(this, e);
         }
 
         private void DetailButton_Click(object sender, RoutedEventArgs e)
         {
+            // Open the details menu and invoke the click event.
             OpenDetails();
+            Clicked?.Invoke(this, e);
         }
     }
 }

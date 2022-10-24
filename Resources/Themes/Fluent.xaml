@@ -26,5 +26,4 @@
     <SolidColorBrush x:Key="detailButtonColor" Color="#343945"/>
     <SolidColorBrush x:Key="detailButtonHighlight" Color="#495060"/>
     <SolidColorBrush x:Key="controllerButtonTextColor" Color="#FF706479"/>
-    
 </ResourceDictionary>

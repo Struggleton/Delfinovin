@@ -21,11 +21,12 @@ namespace Delfinovin
             // Get the current location on screen the main control is at.
             Point locationFromScreen = baseControl.PointToScreen(new Point(baseControl.ActualWidth, 0));
 
-
             // Get position above the control using the spawningControl's height/width.
-            Point spawningLocation = new Point(0, 0);
-            spawningLocation.X = locationFromScreen.X - spawningControl.Width;
-            spawningLocation.Y = locationFromScreen.Y - spawningControl.Height;
+            Point spawningLocation = new Point(0, 0)
+            {
+                X = locationFromScreen.X - spawningControl.Width,
+                Y = locationFromScreen.Y - spawningControl.Height
+            };
 
             return spawningLocation;
         }

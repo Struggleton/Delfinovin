@@ -16,7 +16,8 @@ using System.Windows.Shapes;
 namespace Delfinovin.Controls
 {
     /// <summary>
-    /// Interaction logic for ImageListItem.xaml
+    /// A UserControl intended to be used to display an image
+    /// and text next to each other.
     /// </summary>
     public partial class ImageListItem : UserControl
     {

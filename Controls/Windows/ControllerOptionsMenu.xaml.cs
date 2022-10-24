@@ -17,13 +17,14 @@ using System.Windows.Shapes;
 namespace Delfinovin.Controls.Windows
 {
     /// <summary>
-    /// Interaction logic for ControllerOptionsMenu.xaml
+    /// A menu popup to get a user selection.
     /// </summary>
     public partial class ControllerOptionsMenu : Window
     {
-        public event EventHandler<OptionSelection> OptionSelected;
         private bool _isClosing;
 
+        public event EventHandler<OptionSelection> OptionSelected;
+        
         public ControllerOptionsMenu()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace Delfinovin.Controls.Windows
         private void ItemSelected(object sender, MouseButtonEventArgs e)
         {
             ListViewItem item = (ListViewItem)sender;
-            OptionSelected.Invoke(this, (OptionSelection)item.Tag);
+            OptionSelected?.Invoke(this, (OptionSelection)item.Tag);
             this.Close();
         }
 
@@ -43,6 +44,7 @@ namespace Delfinovin.Controls.Windows
             _isClosing = true;
         }
 
+        // Close the window if clicked outside of.
         protected override void OnDeactivated(EventArgs e)
         {
             base.OnDeactivated(e);

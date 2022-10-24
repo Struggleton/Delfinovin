@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Delfinovin.Controls.NavigationButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Delfinovin.Controls"
+             mc:Ignorable="d">
+    <Grid>
+        <Button x:Name="navigationButton" 
+                Width="80" Height="80"
+                Click="NavigationButton_Click">
+            
+            <Button.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Opacity" Value="0.75"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" 
+                                        CornerRadius="5">
+                                    
+                                    <ContentPresenter VerticalAlignment="Center" 
+                                                      HorizontalAlignment="Stretch"/>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{DynamicResource roundedButtonHighlight}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                                
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource roundedButtonHighlight}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Resources>
+
+            <Grid x:Name="controlContainer">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Image x:Name="buttonIcon" 
+                       Grid.ColumnSpan="3"
+                       HorizontalAlignment="Center"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                <TextBlock x:Name="buttonText" 
+                           Grid.Row="1" Grid.ColumnSpan="3" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           Foreground="White" FontFamily="Bahnschrift SemiBold" 
+                           TextWrapping="WrapWithOverflow" TextAlignment="Center" 
+                           Text="{Binding ButtonText}"/>
+                
+            </Grid>
+        </Button>
+    </Grid>
+</UserControl>

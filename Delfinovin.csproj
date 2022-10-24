@@ -15,7 +15,17 @@
     <None Remove="Resources\Icons\Buttons\Control Stick Clockwise.png" />
     <None Remove="Resources\Icons\controller-plugged.png" />
     <None Remove="Resources\Icons\controller-unplugged.png" />
+    <None Remove="Resources\Icons\donate-support.png" />
+    <None Remove="Resources\Icons\faq-support.png" />
+    <None Remove="Resources\Icons\gamepad-buttons.png" />
+    <None Remove="Resources\Icons\github.png" />
+    <None Remove="Resources\Icons\home.png" />
+    <None Remove="Resources\Icons\ko-fi.png" />
+    <None Remove="Resources\Icons\patreon.png" />
+    <None Remove="Resources\Icons\paypal.png" />
     <None Remove="Resources\Icons\pencil.png" />
+    <None Remove="Resources\Icons\profiles.png" />
+    <None Remove="Resources\Icons\settings.png" />
     <None Remove="Resources\Icons\window-close.png" />
     <None Remove="Resources\Icons\window-minimize.png" />
   </ItemGroup>
@@ -42,7 +52,37 @@
     <Resource Include="Resources\Icons\controller-unplugged.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\donate-support.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\faq-support.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\gamepad-buttons.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\github.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\ko-fi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\patreon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\paypal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\pencil.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\profiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -64,6 +104,10 @@
 
   <ItemGroup>
     <Page Update="Controls\WindowControls.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Themes\ControllerColor.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

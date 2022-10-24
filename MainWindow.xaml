@@ -39,7 +39,7 @@
             Grid.RowSpan="1" Grid.ColumnSpan="3"
             Background="{DynamicResource headerGradient}"
             CornerRadius="15,15,0,0"
-            MouseLeftButtonDown="MouseLeftButtonDown"/>
+            MouseLeftButtonDown="Window_MouseLeftButtonDown"/>
 
         <Border x:Name="mainDisplay"
             Grid.Row="1" Grid.RowSpan="1"
@@ -60,7 +60,7 @@
             Grid.ColumnSpan="2"
             HorizontalAlignment="Left" VerticalAlignment="Center"
             Orientation="Horizontal" Margin="15,0,10,0"
-            MouseLeftButtonDown="MouseLeftButtonDown">
+            MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
             <Image x:Name="headerImage"
                 Height="20"
@@ -80,5 +80,60 @@
             <StackPanel x:Name="controllerList" 
                         Orientation="Horizontal"/>
         </Viewbox>
+
+        <Viewbox x:Name="navigationItemContainer"
+                 Grid.Row="1" 
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Top">
+
+            <StackPanel x:Name="navigationItemList">
+                <ctrl:NavigationButton x:Name="homeButton"
+                    ButtonText="Home"
+                    ButtonIcon="/Delfinovin;component/Resources/Icons/home.png"
+                    Tag="{x:Static local:NavigationSelection.Home}" 
+                    Clicked="NavigationButton_Clicked"/>
+
+                <ctrl:NavigationButton x:Name="profileButton"
+                    ButtonText="Profiles"
+                    ButtonIcon="/Delfinovin;component/Resources/Icons/profiles.png"
+                    Tag="{x:Static local:NavigationSelection.Profiles}" 
+                    Clicked="NavigationButton_Clicked"/>
+                
+                <ctrl:NavigationButton x:Name="playbackButton"
+                    ButtonText="Playback Recording"
+                    ButtonIcon="/Delfinovin;component/Resources/Icons/gamepad-buttons.png"
+                    Tag="{x:Static local:NavigationSelection.PlaybackRecording}" 
+                    Clicked="NavigationButton_Clicked"/>
+
+                <ctrl:NavigationButton x:Name="donationButton"
+                    ButtonText="Donate/Support"
+                    ButtonIcon="/Delfinovin;component/Resources/Icons/donate-support.png"
+                    Tag="{x:Static local:NavigationSelection.DonationSupport}" 
+                    Clicked="NavigationButton_Clicked"/>
+
+                <ctrl:NavigationButton x:Name="faqButton"
+                    ButtonText="FAQ"
+                    ButtonIcon="/Delfinovin;component/Resources/Icons/faq-support.png"
+                    Tag="{x:Static local:NavigationSelection.FAQ}" 
+                    Clicked="NavigationButton_Clicked"/>
+            </StackPanel>
+        </Viewbox>
+
+        <ctrl:NavigationButton x:Name="settingsButton" 
+                    Grid.Row="2" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    ButtonText="Settings" Tag="{x:Static local:NavigationSelection.Settings}" 
+                    ButtonIcon="/Delfinovin;component/Resources/Icons/settings.png"
+                    Clicked="NavigationButton_Clicked"/>
+
+        <Viewbox x:Name="viewContainer" Grid.Row="1" Grid.Column="1" 
+                 Grid.ColumnSpan="2" Margin="0,40,10,20"
+                 HorizontalAlignment="Right" VerticalAlignment="Top">
+
+            <ContentControl x:Name="viewDisplay">
+
+            </ContentControl>
+        </Viewbox>
+        
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using Delfinovin.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Delfinovin.Controls.Views;
 
 namespace Delfinovin
 {
@@ -22,14 +24,15 @@ namespace Delfinovin
     /// </summary>
     public partial class MainWindow : Window
     {
+        private GamecubeDialog _controllerDialog = new GamecubeDialog();
+        private int _selectedControllerPort = 0;
+        
         public MainWindow()
         {
             InitializeComponent();
             SetApplicationTitle();
             CreateDetailButtons();
         }
-
-        
 
         private void SetApplicationTitle()
         {
@@ -51,13 +54,37 @@ namespace Delfinovin
                     ControllerPort = i + 1,
                 };
 
+                button.Clicked += ControllerButton_Clicked;
                 controllerList.Children.Add(button);
             }
         }
 
-        private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ControllerButton_Clicked(object? sender, RoutedEventArgs e)
+        {
+            _selectedControllerPort = ((ControllerDetailButton)sender).ControllerPort - 1;
+            Debug.WriteLine(_selectedControllerPort);
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void NavigationButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            NavigationSelection navigationTag = (NavigationSelection)((NavigationButton)sender).Tag;
+            Debug.WriteLine(navigationTag.ToString());
+
+            if (navigationTag == NavigationSelection.Home)
+            {
+                viewDisplay.Content = _controllerDialog;
+            }
+
+            else if (navigationTag == NavigationSelection.DonationSupport)
+            {
+                DonateSupportView donateSupportView = new DonateSupportView();
+                viewDisplay.Content = donateSupportView;
+            }
         }
     }
 }

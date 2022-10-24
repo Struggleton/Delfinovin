@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace Delfinovin.Controls
 {
     /// <summary>
-    /// Interaction logic for WindowControls.xaml
+    /// A reusable UserControl to allow for window controls (Minimize, Close, etc.)
     /// </summary>
     public partial class WindowControls : UserControl
     {
