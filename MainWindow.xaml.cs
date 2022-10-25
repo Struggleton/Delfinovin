@@ -65,26 +65,26 @@ namespace Delfinovin
             Debug.WriteLine(_selectedControllerPort);
         }
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-
         private void NavigationButton_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationSelection navigationTag = (NavigationSelection)((NavigationButton)sender).Tag;
-            Debug.WriteLine(navigationTag.ToString());
-
             if (navigationTag == NavigationSelection.Home)
             {
                 viewDisplay.Content = _controllerDialog;
+                viewDisplay.OnApplyTemplate();
             }
 
             else if (navigationTag == NavigationSelection.DonationSupport)
             {
                 DonateSupportView donateSupportView = new DonateSupportView();
                 viewDisplay.Content = donateSupportView;
+                viewDisplay.OnApplyTemplate();
             }
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

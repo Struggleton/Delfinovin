@@ -2,10 +2,11 @@
     x:Class="Delfinovin.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ctrl="clr-namespace:Delfinovin.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Delfinovin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Delfinovin"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:ctrl="clr-namespace:Delfinovin.Controls"
     Title="{x:Static local:Strings.WindowTitle}"
     Width="930" Height="500"
     AllowsTransparency="True" Background="Transparent"
@@ -130,9 +131,11 @@
                  Grid.ColumnSpan="2" Margin="0,40,10,20"
                  HorizontalAlignment="Right" VerticalAlignment="Top">
 
-            <ContentControl x:Name="viewDisplay">
-
-            </ContentControl>
+            <materialDesign:TransitioningContent x:Name="viewDisplay">
+                <materialDesign:TransitioningContent.OpeningEffects>
+                    <materialDesign:TransitionEffect Kind="ExpandIn" Duration="0:0:0.75"/>
+                </materialDesign:TransitioningContent.OpeningEffects>
+            </materialDesign:TransitioningContent>
         </Viewbox>
         
     </Grid>
