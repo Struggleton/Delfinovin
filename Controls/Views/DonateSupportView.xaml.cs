@@ -30,7 +30,7 @@ namespace Delfinovin.Controls.Views
         private void NavigationButton_Clicked(object sender, RoutedEventArgs e)
         {
             string buttonLink = ((NavigationButton)sender).Tag.ToString();
-            Process.Start(buttonLink);
+            Process.Start(new ProcessStartInfo(buttonLink) { UseShellExecute = true });
         }
     }
 }
