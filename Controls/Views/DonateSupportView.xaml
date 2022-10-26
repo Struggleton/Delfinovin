@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Delfinovin"
              xmlns:ctrl="clr-namespace:Delfinovin.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" Width="570" Height="200">
 
-    <FrameworkElement.Resources>
+    <UserControl.Resources>
         <ResourceDictionary>
             <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
                 <Setter Property="FontFamily" Value="Bahnschrift SemiBold"/>
@@ -34,7 +35,7 @@
                 </Setter>
             </Style>
         </ResourceDictionary>
-    </FrameworkElement.Resources>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -93,5 +94,12 @@
                                ButtonText="{x:Static local:Strings.SupportGithub}"
                                Tag="{x:Static local:Strings.GithubLink}"
                                Clicked="NavigationButton_Clicked"/>
+
+        <CheckBox x:Name="hideDialog" Grid.Column="1" Grid.Row="3" 
+                  HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                  VerticalContentAlignment="Center"
+                  Foreground="White" FontSize="8" 
+                  Content="Don't show this dialog on startup again."
+                  Checked="CheckBox_Changed" Unchecked="CheckBox_Changed"/>
     </Grid>
 </UserControl>

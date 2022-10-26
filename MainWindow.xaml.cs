@@ -32,6 +32,7 @@ namespace Delfinovin
             InitializeComponent();
             SetApplicationTitle();
             CreateDetailButtons();
+            SetDefaultView();
         }
 
         private void SetApplicationTitle()
@@ -68,18 +69,32 @@ namespace Delfinovin
         private void NavigationButton_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationSelection navigationTag = (NavigationSelection)((NavigationButton)sender).Tag;
-            if (navigationTag == NavigationSelection.Home)
+            SetCurrentView(navigationTag);
+        }
+
+        private void SetCurrentView(NavigationSelection navigationSelection)
+        {
+            if (navigationSelection == NavigationSelection.Home)
             {
                 viewDisplay.Content = _controllerDialog;
                 viewDisplay.OnApplyTemplate();
             }
 
-            else if (navigationTag == NavigationSelection.DonationSupport)
+            else if (navigationSelection == NavigationSelection.DonationSupport)
             {
                 DonateSupportView donateSupportView = new DonateSupportView();
                 viewDisplay.Content = donateSupportView;
                 viewDisplay.OnApplyTemplate();
             }
+        }
+
+        private void SetDefaultView()
+        {
+            bool donateHidden = Properties.Settings.Default.HideDonationOnStartup;
+            NavigationSelection navigationSelection = donateHidden ? NavigationSelection.Home : 
+                                                                     NavigationSelection.DonationSupport;
+
+            SetCurrentView(navigationSelection);
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

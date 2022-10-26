@@ -25,12 +25,29 @@ namespace Delfinovin.Controls.Views
         {
             InitializeComponent();
             this.DataContext = this;
+
+            SetDonationCheckVisibility();
         }
 
         private void NavigationButton_Clicked(object sender, RoutedEventArgs e)
         {
             string buttonLink = ((NavigationButton)sender).Tag.ToString();
-            Process.Start(new ProcessStartInfo(buttonLink) { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo(buttonLink) 
+            { 
+                UseShellExecute = true 
+            });
+        }
+
+        private void CheckBox_Changed(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.HideDonationOnStartup = (bool)hideDialog.IsChecked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void SetDonationCheckVisibility()
+        {
+            bool donateHidden = Properties.Settings.Default.HideDonationOnStartup;
+            hideDialog.Visibility = donateHidden ? Visibility.Hidden : Visibility.Visible;
         }
     }
 }
