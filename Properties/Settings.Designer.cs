@@ -34,5 +34,71 @@ namespace Delfinovin.Properties {
                 this["HideDonationOnStartup"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CheckForUpdates {
+            get {
+                return ((bool)(this["CheckForUpdates"]));
+            }
+            set {
+                this["CheckForUpdates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MinimizeToTray {
+            get {
+                return ((bool)(this["MinimizeToTray"]));
+            }
+            set {
+                this["MinimizeToTray"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MinimizeOnStartup {
+            get {
+                return ((bool)(this["MinimizeOnStartup"]));
+            }
+            set {
+                this["MinimizeOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RunOnStartup {
+            get {
+                return ((bool)(this["RunOnStartup"]));
+            }
+            set {
+                this["RunOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <string>DefaultProfile1</string>
+  <string>DefaultProfile2</string>
+  <string>DefaultProfile3</string>
+  <string>DefaultProfile4</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection DefaultProfiles {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DefaultProfiles"]));
+            }
+            set {
+                this["DefaultProfiles"] = value;
+            }
+        }
     }
 }

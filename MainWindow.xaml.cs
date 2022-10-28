@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Delfinovin.Controls.Views;
+using Delfinovin.Controls.Windows;
 
 namespace Delfinovin
 {
@@ -60,18 +61,6 @@ namespace Delfinovin
             }
         }
 
-        private void ControllerButton_Clicked(object? sender, RoutedEventArgs e)
-        {
-            _selectedControllerPort = ((ControllerDetailButton)sender).ControllerPort - 1;
-            Debug.WriteLine(_selectedControllerPort);
-        }
-
-        private void NavigationButton_Clicked(object sender, RoutedEventArgs e)
-        {
-            NavigationSelection navigationTag = (NavigationSelection)((NavigationButton)sender).Tag;
-            SetCurrentView(navigationTag);
-        }
-
         private void SetCurrentView(NavigationSelection navigationSelection)
         {
             if (navigationSelection == NavigationSelection.Home)
@@ -86,6 +75,12 @@ namespace Delfinovin
                 viewDisplay.Content = donateSupportView;
                 viewDisplay.OnApplyTemplate();
             }
+
+            else if (navigationSelection == NavigationSelection.Settings)
+            {
+                ApplicationSettingsMenu applicationSettingsMenu = new ApplicationSettingsMenu();
+                applicationSettingsMenu.ShowDialog();   
+            }
         }
 
         private void SetDefaultView()
@@ -95,6 +90,18 @@ namespace Delfinovin
                                                                      NavigationSelection.DonationSupport;
 
             SetCurrentView(navigationSelection);
+        }
+
+        private void ControllerButton_Clicked(object? sender, RoutedEventArgs e)
+        {
+            _selectedControllerPort = ((ControllerDetailButton)sender).ControllerPort - 1;
+            Debug.WriteLine(_selectedControllerPort);
+        }
+
+        private void NavigationButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            NavigationSelection navigationTag = (NavigationSelection)((NavigationButton)sender).Tag;
+            SetCurrentView(navigationTag);
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

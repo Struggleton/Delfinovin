@@ -1,0 +1,119 @@
+﻿<Window x:Class="Delfinovin.Controls.Windows.ApplicationSettingsMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Delfinovin.Controls.Windows"
+        xmlns:ctrl="clr-namespace:Delfinovin.Controls"
+        mc:Ignorable="d"
+        Title="Application Settings" Height="550" Width="440"
+        ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" 
+        Background="Transparent">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Margin" Value="0,5,7,10"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="Background" Value="#9391DEFF"/>
+            </Style>
+
+            <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                <Setter Property="Width" Value="200" />
+                <Setter Property="Background" Value="#26AC9EF1"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Border x:Name="mainBackground" 
+                Grid.RowSpan="3" 
+                Background="{DynamicResource headerGradient}" 
+                BorderThickness="2" BorderBrush="Black"
+                CornerRadius="15,15,15,15"/>
+
+        <Border x:Name="navigationBarBackground" 
+                Grid.Row="2" 
+                Background="{DynamicResource controllerBarGradient}" 
+                BorderThickness="2" BorderBrush="Black"
+                CornerRadius="0,0,15,15" d:IsLocked="True"/>
+
+        <StackPanel x:Name="headerDisplay"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+            Orientation="Horizontal" Margin="15,0,10,0"
+            MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+            <Image x:Name="headerImage"
+                Height="20"
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Source="/Delfinovin;component/Resources/Icons/app.ico"/>
+
+            <Label x:Name="appTitle"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Foreground="White" Content="Application Settings" 
+                Margin="5,0,0,0"/>
+
+        </StackPanel>
+
+        <ctrl:WindowControls x:Name="windowNavigation" 
+            HorizontalAlignment="Right"/>
+
+        <StackPanel x:Name="settingsContainer" 
+                    Grid.Row="1"
+                    Orientation="Vertical">
+
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type ctrl:ToggleButtonListItem}">
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="Margin" Value="10,0,0,0"/>
+                </Style>
+
+                <Style TargetType="{x:Type ctrl:ComboBoxListItem}">
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="Margin" Value="10,0,0,0"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <ctrl:ToggleButtonListItem x:Name="checkUpdatesStartup" 
+                                           ItemText="Check for Updates on Startup"/>
+
+            <ctrl:ToggleButtonListItem x:Name="minimizeToSystemTray" 
+                                           ItemText="Minimize Program to System Tray"/>
+
+            <ctrl:ToggleButtonListItem x:Name="minimizeAppOnStartup" 
+                                           ItemText="Minimize Application on Startup"/>
+
+            <ctrl:ToggleButtonListItem x:Name="runAppOnPCStart" 
+                                           ItemText="Run Application on PC Startup"/>
+
+        </StackPanel>
+
+        <StackPanel x:Name="windowOptionsContainer" Grid.Row="2"  
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center" 
+                    Margin="5,5,0,0">
+            
+            <Button x:Name="selectTheme" 
+                    Content="Select Theme"/>
+            
+            <Button x:Name="checkForUpdates" 
+                    Content="Check for Updates"/>
+            
+            <Button x:Name="saveSettings" 
+                    Content="Save Settings" Click="saveSettings_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
