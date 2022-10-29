@@ -11,5 +11,6 @@ namespace Delfinovin
         None,
         EditControllerSettings,
         CalibrateController,
+        PopoutInputViewer
     }
 }

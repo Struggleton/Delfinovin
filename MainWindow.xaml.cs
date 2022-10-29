@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Delfinovin.Controls.Views;
 using Delfinovin.Controls.Windows;
+using Delfinovin.Controllers;
 
 namespace Delfinovin
 {
@@ -34,12 +35,18 @@ namespace Delfinovin
             SetApplicationTitle();
             CreateDetailButtons();
             SetDefaultView();
+            ProfileSavingTest();
+        }
+
+        private void ProfileSavingTest()
+        {
+            ProfileManager.SaveProfile(new ControllerProfile(), "testing");
         }
 
         private void SetApplicationTitle()
         {
             Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            appTitle.Content = Strings.WindowTitle + " " + string.Format(Strings.VersionText, 
+            windowLabel.HeaderText = Strings.WindowTitle + " " + string.Format(Strings.VersionText, 
                 appVersion.Major, 
                 appVersion.Minor, 
                 appVersion.Build);

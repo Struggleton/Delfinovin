@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Delfinovin.Controls.Windows"
         xmlns:ctrl="clr-namespace:Delfinovin.Controls"
+        xmlns:main="clr-namespace:Delfinovin"
         mc:Ignorable="d"
         Title="Application Settings" Height="550" Width="440"
         ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" 
@@ -18,13 +19,6 @@
                 <Setter Property="BorderBrush" Value="Black"/>
                 <Setter Property="BorderThickness" Value="2"/>
                 <Setter Property="Background" Value="#9391DEFF"/>
-            </Style>
-
-            <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
-                <Setter Property="Width" Value="200" />
-                <Setter Property="Background" Value="#26AC9EF1"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="2"/>
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -46,25 +40,9 @@
                 Grid.Row="2" 
                 Background="{DynamicResource controllerBarGradient}" 
                 BorderThickness="2" BorderBrush="Black"
-                CornerRadius="0,0,15,15" d:IsLocked="True"/>
+                CornerRadius="0,0,15,15"/>
 
-        <StackPanel x:Name="headerDisplay"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-            Orientation="Horizontal" Margin="15,0,10,0"
-            MouseLeftButtonDown="Window_MouseLeftButtonDown">
-
-            <Image x:Name="headerImage"
-                Height="20"
-                HorizontalAlignment="Left" VerticalAlignment="Center"
-                Source="/Delfinovin;component/Resources/Icons/app.ico"/>
-
-            <Label x:Name="appTitle"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                Foreground="White" Content="Application Settings" 
-                Margin="5,0,0,0"/>
-
-        </StackPanel>
+        <ctrl:ApplicationTitleLabel HeaderText="{x:Static main:Strings.ApplicationSettingsHeader}"/>
 
         <ctrl:WindowControls x:Name="windowNavigation" 
             HorizontalAlignment="Right"/>
@@ -88,16 +66,16 @@
             </StackPanel.Resources>
 
             <ctrl:ToggleButtonListItem x:Name="checkUpdatesStartup" 
-                                           ItemText="Check for Updates on Startup"/>
+                                           ItemText="{x:Static main:Strings.CheckForUpdatesOnStart}"/>
 
             <ctrl:ToggleButtonListItem x:Name="minimizeToSystemTray" 
-                                           ItemText="Minimize Program to System Tray"/>
+                                           ItemText="{x:Static main:Strings.MinimizeAppToTray}"/>
 
             <ctrl:ToggleButtonListItem x:Name="minimizeAppOnStartup" 
-                                           ItemText="Minimize Application on Startup"/>
+                                           ItemText="{x:Static main:Strings.MinimizeAppOnStartup}"/>
 
             <ctrl:ToggleButtonListItem x:Name="runAppOnPCStart" 
-                                           ItemText="Run Application on PC Startup"/>
+                                           ItemText="{x:Static main:Strings.RunApplicationOnPCStart}"/>
 
         </StackPanel>
 
@@ -107,13 +85,13 @@
                     Margin="5,5,0,0">
             
             <Button x:Name="selectTheme" 
-                    Content="Select Theme"/>
+                    Content="{x:Static main:Strings.SelectTheme}" Click="selectTheme_Click"/>
             
             <Button x:Name="checkForUpdates" 
-                    Content="Check for Updates"/>
+                    Content="{x:Static main:Strings.CheckForUpdates}"/>
             
             <Button x:Name="saveSettings" 
-                    Content="Save Settings" Click="saveSettings_Click"/>
+                    Content="{x:Static main:Strings.SaveSettings}" Click="saveSettings_Click"/>
         </StackPanel>
     </Grid>
 </Window>

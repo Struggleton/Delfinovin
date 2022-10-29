@@ -23,7 +23,7 @@
             Width="200"
             SelectedIndex="{Binding SelectedIndex}"
             SelectedItem="{Binding SelectedItem}"
-            HorizontalAlignment="Center" VerticalAlignment="Center"
+            HorizontalAlignment="Right" VerticalAlignment="Center"
             Background="{DynamicResource appSettingToggleColor}" 
             Margin="10,0,0,0" ItemsSource="{Binding Items}" BorderBrush="Black"/>
 

@@ -76,16 +76,23 @@
 
             <ListViewItem Tag="{x:Static local:OptionSelection.EditControllerSettings}">
                 <ctrl:ImageListItem 
-                    ItemText="Edit Controller Settings"
+                    ItemText="{x:Static local:Strings.EditControllerSettings}"
                     ImageSource="/Delfinovin;component/Resources/Icons/pencil.png"/>
                 
             </ListViewItem>
 
             <ListViewItem Tag="{x:Static local:OptionSelection.CalibrateController}">
                 <ctrl:ImageListItem 
-                    ItemText="Calibrate Control Sticks"
+                    ItemText="{x:Static local:Strings.CalibrateControlSticks}"
                     ImageSource="/Delfinovin;component/Resources/Icons/Buttons/Control Stick Clockwise.png"/>
                 
+            </ListViewItem>
+
+            <ListViewItem Tag="{x:Static local:OptionSelection.PopoutInputViewer}">
+                <ctrl:ImageListItem 
+                    ItemText="{x:Static local:Strings.OpenInputViewer}"
+                    ImageSource="/Delfinovin;component/Resources/Icons/button-cursor.png"/>
+
             </ListViewItem>
 
         </ListView>

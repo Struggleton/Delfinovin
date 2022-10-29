@@ -57,22 +57,8 @@
             Grid.Column="2"
             HorizontalAlignment="Right"/>
 
-        <StackPanel x:Name="headerDisplay"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-            Orientation="Horizontal" Margin="15,0,10,0"
-            MouseLeftButtonDown="Window_MouseLeftButtonDown">
-
-            <Image x:Name="headerImage"
-                Height="20"
-                HorizontalAlignment="Left" VerticalAlignment="Center"
-                Source="/Delfinovin;component/Resources/Icons/app.ico"/>
-
-            <Label x:Name="appTitle"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                Foreground="White"/>
-
-        </StackPanel>
+        <ctrl:ApplicationTitleLabel x:Name="windowLabel" 
+                                    Grid.ColumnSpan="2"/>
 
         <Viewbox x:Name="controllerListContainer" 
                  Grid.Column="1" Grid.ColumnSpan="2"

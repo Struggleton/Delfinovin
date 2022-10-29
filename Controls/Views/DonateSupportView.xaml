@@ -99,7 +99,7 @@
                   HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                   VerticalContentAlignment="Center"
                   Foreground="White" FontSize="8" 
-                  Content="Don't show this dialog on startup again."
+                  Content="{x:Static local:Strings.DontShowAgain}"
                   Checked="CheckBox_Changed" Unchecked="CheckBox_Changed"/>
     </Grid>
 </UserControl>

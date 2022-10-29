@@ -30,5 +30,11 @@ namespace Delfinovin
 
             return spawningLocation;
         }
+
+        public static System.Windows.Media.Color GetColorFromHex(uint hexCode)
+        {
+            byte[] bytes = BitConverter.GetBytes(hexCode);
+            return System.Windows.Media.Color.FromArgb(255, bytes[2], bytes[1], bytes[0]);
+        }
     }
 }

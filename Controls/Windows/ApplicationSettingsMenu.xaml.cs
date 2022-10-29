@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using UserSettings = Delfinovin.Properties.Settings;
 using ProfileManager = Delfinovin.Controllers.ProfileManager;
+using System.IO;
 
 namespace Delfinovin.Controls.Windows
 {
@@ -47,7 +48,7 @@ namespace Delfinovin.Controls.Windows
             for (int i = 0; i < UserSettings.Default.DefaultProfiles.Count; i++)
             {
                 profileListItems[i] = new ComboBoxListItem();
-                profileListItems[i].ItemText = $"Default Profile - Controller #{i + 1}";
+                profileListItems[i].ItemText = Strings.DefaultControllerProfile + $"{i + 1}";
                 profileListItems[i].Items = _profiles;
 
                 // Retrive the currently set default profile
@@ -69,6 +70,27 @@ namespace Delfinovin.Controls.Windows
             UserSettings.Default.DefaultProfiles[profileNum] = profileExists ? profileName : "";
             UserSettings.Default.Save();
         }
+
+        private void UpdateStartupEntry(bool runOnStartup)
+        {
+            // Get the Startup folder's path 
+            string startupPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "Delfinovin.lnk");
+            if (runOnStartup)
+            {
+                Extensions.CreateApplicationShortcut(startupPath);
+            }
+
+            else
+            {
+                // See if the shortcut exists. If it does remove it
+                if (File.Exists(startupPath))
+                {
+                    File.Delete(startupPath);
+                }
+                    
+            }
+        }
+
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -94,7 +116,14 @@ namespace Delfinovin.Controls.Windows
             }
 
             UserSettings.Default.Save();
+            UpdateStartupEntry(runAppOnPCStart.Checked);
             Close();
+        }
+
+        private void selectTheme_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeSelectorMenu themeMenu = new ThemeSelectorMenu();
+            themeMenu.ShowDialog();
         }
     }
 }

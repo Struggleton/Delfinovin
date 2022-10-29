@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Remove="Resources\Icons\arrow-down.png" />
     <None Remove="Resources\Icons\arrow-up.png" />
+    <None Remove="Resources\Icons\button-cursor.png" />
     <None Remove="Resources\Icons\Buttons\Control Stick Clockwise.png" />
     <None Remove="Resources\Icons\controller-plugged.png" />
     <None Remove="Resources\Icons\controller-unplugged.png" />
@@ -31,6 +32,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>f935dc20-1cf0-11d0-adb9-00c04fd58a0b</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
   </ItemGroup>
 
@@ -45,6 +58,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\arrow-up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\button-cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Buttons\Control Stick Clockwise.png">

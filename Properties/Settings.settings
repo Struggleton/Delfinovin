@@ -26,5 +26,8 @@
   &lt;string&gt;DefaultProfile4&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="ControllerColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Indigo</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
