@@ -185,7 +185,7 @@
 
         <Path Name="LeftStickDeadzone" 
               Fill="Red"
-              d:IsHidden="True">
+              Visibility="Hidden">
             
             <Path.RenderTransform>
                 <TransformGroup>
@@ -214,7 +214,7 @@
 
         <Path Name="RightStickDeadzone" 
               Fill="Red" 
-              d:IsHidden="False">
+              Visibility="Hidden">
             
             <Path.RenderTransform>
                 <TransformGroup>
