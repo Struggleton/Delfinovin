@@ -35,12 +35,20 @@ namespace Delfinovin
             SetApplicationTitle();
             CreateDetailButtons();
             SetDefaultView();
+
+
             ProfileSavingTest();
+            GamecubeAdapterTest();
         }
 
         private void ProfileSavingTest()
         {
             ProfileManager.SaveProfile(new ControllerProfile(), "testing");
+        }
+
+        private void GamecubeAdapterTest()
+        {
+            GamecubeAdapter adapter = new GamecubeAdapter();
         }
 
         private void SetApplicationTitle()

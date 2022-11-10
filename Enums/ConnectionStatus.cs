@@ -9,6 +9,7 @@ namespace Delfinovin
     public enum ConnectionStatus
     {
         Disconnected, 
-        Connected
+        Connected,
+        Initialized
     }
 }
