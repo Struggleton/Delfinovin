@@ -87,7 +87,6 @@ namespace Delfinovin.Controls.Windows
                 {
                     File.Delete(startupPath);
                 }
-                    
             }
         }
 

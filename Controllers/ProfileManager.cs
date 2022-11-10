@@ -72,6 +72,7 @@ namespace Delfinovin.Controllers
         public static void SaveProfile(ControllerProfile profile, string profileName)
         {
             string jsonString = JsonSerializer.Serialize(profile);
+            CheckOrCreateDirectory();
             File.WriteAllText(Path.Combine(PROFILE_DIRECTORY, profileName + ".json"), jsonString);
         }
 
