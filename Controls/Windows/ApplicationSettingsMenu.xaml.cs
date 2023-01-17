@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using UserSettings = Delfinovin.Properties.Settings;
-using ProfileManager = Delfinovin.Controllers.ProfileManager;
 using System.IO;
+using System.Windows;
+using System.Windows.Input;
+using Forms = System.Windows.Forms;
+using ProfileManager = Delfinovin.Controllers.ProfileManager;
+using UserSettings = Delfinovin.Properties.Settings;
 
 namespace Delfinovin.Controls.Windows
 {
     /// <summary>
-    /// Interaction logic for ApplicationSettingsMenu.xaml
+    /// A window providing controls to change
+    /// Application-wide settings.
     /// </summary>
     public partial class ApplicationSettingsMenu : Window
     {
@@ -31,16 +24,16 @@ namespace Delfinovin.Controls.Windows
             this.DataContext = this;
 
             UpdateControls();
+            CreateComboBoxListItems();
         }
 
         private void UpdateControls()
         {
+            // Update the controls with the application settings.
             checkUpdatesStartup.Checked = UserSettings.Default.CheckForUpdates;
             minimizeToSystemTray.Checked = UserSettings.Default.MinimizeToTray;
             minimizeAppOnStartup.Checked = UserSettings.Default.MinimizeOnStartup;
             runAppOnPCStart.Checked = UserSettings.Default.RunOnStartup;
-
-            CreateComboBoxListItems();
         }
 
         private void CreateComboBoxListItems()
@@ -48,7 +41,7 @@ namespace Delfinovin.Controls.Windows
             for (int i = 0; i < UserSettings.Default.DefaultProfiles.Count; i++)
             {
                 profileListItems[i] = new ComboBoxListItem();
-                profileListItems[i].ItemText = Strings.DefaultControllerProfile + $"{i + 1}";
+                profileListItems[i].ItemText = Strings.ListItemDefaultProfile + $"{i + 1}";
                 profileListItems[i].Items = _profiles;
 
                 // Retrive the currently set default profile
@@ -66,6 +59,8 @@ namespace Delfinovin.Controls.Windows
 
         private void UpdateDefaultProfileEntries(int profileNum, string profileName)
         {
+            // Check to see if the profile still exists.
+            // If not, remove it from the DefaultProfiles entry.
             bool profileExists = _profiles.Contains(profileName);
             UserSettings.Default.DefaultProfiles[profileNum] = profileExists ? profileName : "";
             UserSettings.Default.Save();
@@ -77,7 +72,7 @@ namespace Delfinovin.Controls.Windows
             string startupPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "Delfinovin.lnk");
             if (runOnStartup)
             {
-                Extensions.CreateApplicationShortcut(startupPath);
+                ControlExtensions.CreateApplicationShortcut(startupPath);
             }
 
             else
@@ -96,8 +91,9 @@ namespace Delfinovin.Controls.Windows
             DragMove();
         }
 
-        private void saveSettings_Click(object sender, RoutedEventArgs e)
+        private void SaveSettings_Click(object sender, RoutedEventArgs e)
         {
+            // Gather the settings from the controls.
             UserSettings.Default.CheckForUpdates = checkUpdatesStartup.Checked;
             UserSettings.Default.MinimizeOnStartup = minimizeAppOnStartup.Checked;
             UserSettings.Default.MinimizeToTray = minimizeToSystemTray.Checked;
@@ -114,15 +110,75 @@ namespace Delfinovin.Controls.Windows
                 }
             }
 
+            // Save the user settings.
             UserSettings.Default.Save();
+
+            // Update the startup entry, if it hasn't already.
             UpdateStartupEntry(runAppOnPCStart.Checked);
             Close();
         }
 
-        private void selectTheme_Click(object sender, RoutedEventArgs e)
+        private void SelectTheme_Click(object sender, RoutedEventArgs e)
         {
+            // Open the theme selector menu
             ThemeSelectorMenu themeMenu = new ThemeSelectorMenu();
             themeMenu.ShowDialog();
+        }
+
+        private void RestoreDefaults_Click(object sender, RoutedEventArgs e)
+        {
+            // Prompt the user if they'd like to reset the application settings.
+            MessageDialog messageDialog = new MessageDialog(Strings.PromptResetSettings);
+            messageDialog.ShowDialog();
+
+            bool restore = messageDialog.Result == Forms.DialogResult.Yes;
+
+            // Exit if they choose no
+            if (!restore)
+                return;
+
+            // Reset these values to the defaults and save it to 
+            // the application setting file.
+            UserSettings.Default.CheckForUpdates = true;
+            UserSettings.Default.MinimizeOnStartup = false;
+            UserSettings.Default.MinimizeToTray = false;
+            UserSettings.Default.RunOnStartup = false;
+            UserSettings.Default.ControllerColor = Enum.GetName(typeof(ControllerColor), ControllerColor.Indigo);
+
+            // Reset all of the default profiles.
+            for (int i = 0; i < UserSettings.Default.DefaultProfiles.Count; i++)
+                UserSettings.Default.DefaultProfiles[i] = String.Empty;
+
+            UserSettings.Default.HideDonationOnStartup = false;
+
+            // Save the user settings.
+            UserSettings.Default.Save();
+
+            // Update the startup entry and controls
+            UpdateStartupEntry(false);
+            UpdateControls();
+
+            // Tell the user we've reset the settings.
+            messageDialog = new MessageDialog(Strings.NotificationSettingsReset, Forms.MessageBoxButtons.OK);
+            messageDialog.ShowDialog();
+        }
+
+        private void HotkeySettings_Click(object sender, RoutedEventArgs e)
+        {
+            // Open the HotkeyMappingWindow
+            HotkeyMappingWindow mappingWindow = new HotkeyMappingWindow();
+            mappingWindow.ShowDialog();
+
+            // Reload the settings. 
+            // If the user didn't save any settings
+            // the hotkeys will not persist.
+            UserSettings.Default.Reload();
+        }
+
+        private void CheckForUpdates_Click(object sender, RoutedEventArgs e)
+        {
+            // Pass false to enable response windows
+            Updater.CheckForUpdates(false);
         }
     }
 }

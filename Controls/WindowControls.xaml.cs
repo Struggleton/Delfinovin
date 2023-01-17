@@ -27,12 +27,14 @@ namespace Delfinovin.Controls
 
         private void WindowClose_Click(object sender, RoutedEventArgs e)
         {
+            // If our window isn't null, close it.
             if (ParentWindow != null)
                 ParentWindow.Close();
         }
 
         private void WindowMinimize_Click(object sender, RoutedEventArgs e)
         {
+            // If our window isn't null, minimize it.
             if (ParentWindow != null)
                 ParentWindow.WindowState = WindowState.Minimized;
         }

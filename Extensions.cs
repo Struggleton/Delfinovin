@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WshLibrary = IWshRuntimeLibrary;
-using System.IO;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Delfinovin
 {
@@ -25,30 +21,112 @@ namespace Delfinovin
             return to;
         }
 
-        public static void CreateApplicationShortcut(string path)
+        public static bool GetBit(byte b, int bitNumber)
         {
-            // Check to see if the shortcut exists
-            if (!File.Exists(path))
+            var bit = ((b >> bitNumber) & 1) != 0;
+            return bit;
+        }
+
+        public static Vector2 ClampToByte(Vector2 stick)
+        {
+            Vector2 point = new Vector2(stick.X, stick.Y);
+            point.X = Clamp(point.X, 0, 255);
+            point.Y = Clamp(point.Y, 0, 255);
+
+            return point;
+        }
+
+        public static Vector2 ScaleStickVector(Vector2 byteStick)
+        {
+            Vector2 point = new Vector2(byteStick.X, byteStick.Y);
+            point.X = ByteToShort((byte)point.X, false);
+            point.Y = ByteToShort((byte)point.Y, false);
+
+            return point;
+        }
+
+        public static short ByteToShort(byte b, bool invert)
+        {
+            var intValue = b - 0x80;
+            if (intValue == -128)
+                intValue = -127;
+
+            // I have no clue what this value does. Thanks to Nefarius
+            // for this scaling function
+            var wtfValue = intValue * 258.00787401574803149606299212599f;
+
+            return (short)(invert ? -wtfValue : wtfValue);
+        }
+
+        public static Vector2 ApplyDeadzone(Vector2 stick, float deadzone)
+        {
+            Vector2 point = new Vector2(stick.X, stick.Y);
+            if (CheckRadialDeadzone(stick.X, stick.Y, deadzone))
             {
-                // Create a WshShell to create the shortcut with
-                WshLibrary.WshShell wsh = new WshLibrary.WshShell();
-                WshLibrary.IWshShortcut shortcut = wsh.CreateShortcut(path) as WshLibrary.IWshShortcut;
-
-                // Get the application's current working path
-                shortcut.TargetPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-
-                // Not sure what this does
-                shortcut.WindowStyle = 1;
-
-                // Set the description for the shortcut
-                shortcut.Description = "An XInput solution for Gamecube Controllers";
-
-                // Get the application's working directory
-                shortcut.WorkingDirectory = Directory.GetCurrentDirectory();
-
-                // Save the shortcut to the startup folder
-                shortcut.Save();
+                point.X = 0;
+                point.Y = 0;
             }
+
+            return point;
+        }
+
+        private static bool CheckRadialDeadzone(float x, float y, float deadzone)
+        {
+            if (deadzone <= 0f)
+                return false;
+
+            float rad2 = 32767f * 32767f * deadzone * deadzone;
+
+            // Calculate the distance using the Manhattan distance
+            float distance2 = x * x + y * y;
+
+            // Compare the distance to the radius
+            return distance2 < rad2;
+        }
+
+
+        public static T Clamp<T>(T value, T min, T max) where T : IComparable<T>
+        {
+            // ensure values fit within given bounds
+            if (value.CompareTo(max) > 0) return max;
+            if (value.CompareTo(min) < 0) return min;
+            return value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 ClampToCircle(Vector2 position, float range)
+        {
+            Vector2 point = new Vector2(position.X, position.Y) * range;
+
+            if (point.Length() > short.MaxValue)
+            {
+                point = point / point.Length() * short.MaxValue;
+            }
+
+            return new Vector2((float)point.X, (float)point.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 ClampToCircle(Vector2 position)
+        {
+            Vector2 point = new Vector2(position.X, position.Y);
+            if (point.Length() > short.MaxValue)
+            {
+                point = point / point.Length() * short.MaxValue;
+            }
+
+            return new Vector2((float)point.X, (float)point.Y);
+        }
+
+        public static string UppercaseFirst(string s)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(s[0]) + s.Substring(1);
         }
     }
 }

@@ -29,5 +29,23 @@
     <Setting Name="ControllerColor" Type="System.String" Scope="User">
       <Value Profile="(Default)">Indigo</Value>
     </Setting>
+    <Setting Name="CalibrationHotkey" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="StartRecordingHotkey" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="StopRecordingHotkey" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="BeginPlaybackHotkey" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ApplicationTheme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Fluent</Value>
+    </Setting>
+    <Setting Name="StopPlaybackHotkey" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

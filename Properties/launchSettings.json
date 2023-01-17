@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Delfinovin": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

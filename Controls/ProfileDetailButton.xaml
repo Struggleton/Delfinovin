@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Delfinovin.Controls.ProfileDetailButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:main="clr-namespace:Delfinovin"
+             mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="600">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+
+        <Border x:Name="profileBackground" 
+                Grid.ColumnSpan="3"
+                Background="#4741484E" 
+                CornerRadius="5" 
+                BorderBrush="Black" 
+                BorderThickness="1" />
+
+        <Image x:Name="favoriteStatus"
+               Source="/Delfinovin;component/Resources/Icons/not-favorite.png" 
+               Width="30" Height="30" 
+               RenderOptions.BitmapScalingMode="HighQuality"
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center" 
+               MouseLeftButtonDown="FavoriteStatus_MouseLeftButtonDown" />
+
+        <StackPanel x:Name="profileInfoContainer" Grid.Column="1"
+                    Orientation="Vertical"  
+                    VerticalAlignment="Center">
+            
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Foreground" Value="{DynamicResource textColor}"/>
+                    <Setter Property="FontFamily" Value="Lato Light"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Label x:Name="profileName" 
+                   FontSize="16" 
+                   Content="{x:Static main:Strings.DetailsDefaultName}"/>
+
+            <Label x:Name="profileDetails"
+                   FontSize="12" 
+                   Margin="0,-5,0,0"
+                   Content="{x:Static main:Strings.DetailsDefaultInfo}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

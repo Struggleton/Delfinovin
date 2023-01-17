@@ -25,5 +25,7 @@
     <SolidColorBrush x:Key="roundedButtonHighlight" Color="#7F343945"/>
     <SolidColorBrush x:Key="detailButtonColor" Color="#343945"/>
     <SolidColorBrush x:Key="detailButtonHighlight" Color="#495060"/>
-    <SolidColorBrush x:Key="controllerButtonTextColor" Color="#FF706479"/>
+    <SolidColorBrush x:Key="normalButtonColor" Color="#FF656F98"/>
+    <SolidColorBrush x:Key="textColor" Color="White"/>
+    <SolidColorBrush x:Key="controllerOptionMenuBackground" Color="#2C2C2C"/>
 </ResourceDictionary>

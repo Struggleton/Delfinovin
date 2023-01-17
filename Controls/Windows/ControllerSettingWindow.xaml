@@ -1,0 +1,157 @@
+﻿<Window x:Class="Delfinovin.Controls.Windows.ControllerSettingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:main="clr-namespace:Delfinovin"
+        xmlns:ctrl="clr-namespace:Delfinovin.Controls"
+        mc:Ignorable="d"
+        Title="{x:Static main:Strings.HeaderControllerSettings}" ResizeMode="NoResize" 
+        AllowsTransparency="True" WindowStyle="None" 
+        Background="Transparent" Width="900" Height="500">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Margin" Value="0,5,7,10"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Background" Value="{DynamicResource normalButtonColor}"/>
+                </Style>
+            </ResourceDictionary>
+        </Grid.Resources>
+
+        <Border x:Name="mainBackground" 
+                Grid.RowSpan="4"
+                Grid.ColumnSpan="2"
+                Background="{DynamicResource headerGradient}" 
+                BorderThickness="2" BorderBrush="Black"
+                CornerRadius="15,15,15,15"/>
+
+        <Border x:Name="navigationBar" 
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Background="{DynamicResource controllerBarGradient}" 
+                BorderThickness="2" BorderBrush="Black"
+                CornerRadius="0,0,15,15"/>
+
+        <ctrl:ApplicationTitleLabel x:Name="settingsWindowTitle" 
+                                    Grid.ColumnSpan="2"
+                                    HeaderText="{x:Static main:Strings.HeaderControllerSettings}"/>
+
+        <ctrl:WindowControls x:Name="windowControls" 
+                             Grid.Column="1"
+                             HorizontalAlignment="Right" />
+
+
+        <Viewbox x:Name="dialogContainer" 
+                 Grid.Row="1" 
+                 Grid.Column="1" 
+                 HorizontalAlignment="Right" 
+                 Margin="0,35,50,25">
+
+            <ctrl:GamecubeDialog x:Name="controllerDialog"/>
+        </Viewbox>
+
+        <StackPanel x:Name="settingContainer" 
+                    Grid.Row="1" 
+                    Grid.ColumnSpan="2" 
+                    Width="300" 
+                    HorizontalAlignment="Left" 
+                    Margin="10,0,0,0">
+            
+            <StackPanel.Resources>
+                <Style TargetType="ctrl:SliderListItem">
+                    <Setter Property="Margin" Value="10"/>
+                </Style>
+                
+                <Style TargetType="ctrl:ToggleButtonListItem">
+                    <Setter Property="Margin" Value="10"/>
+                </Style>
+            </StackPanel.Resources>
+            
+            <ctrl:SliderListItem x:Name="triggerDeadzone" 
+                                 ItemText="{x:Static main:Strings.SettingTriggerDeadzone}"
+                                 Minimum="0" Maximum="100"/>
+            
+            <ctrl:SliderListItem x:Name="triggerThreshold" 
+                                 ItemText="{x:Static main:Strings.SettingTriggerThreshold}"
+                                 Minimum="0" Maximum="100"/>
+
+            <ctrl:SliderListItem x:Name="leftStickRange" 
+                                 ItemText="{x:Static main:Strings.SettingLeftStickRange}"
+                                 Minimum="0" Maximum="100"/>
+            
+            <ctrl:SliderListItem x:Name="leftStickDeadzone" 
+                                 ItemText="{x:Static main:Strings.SettingLeftStickDeadzone}"
+                                 Minimum="0" Maximum="100" 
+                                 ValueChanged="StickDeadzoneValueChanged"
+                                 Tag="{x:Static main:Sticks.LStick}"/>
+
+            <ctrl:SliderListItem x:Name="rightStickRange" 
+                                 ItemText="{x:Static main:Strings.SettingRightStickRange}"
+                                 Minimum="0" Maximum="100"/>
+            
+            <ctrl:SliderListItem x:Name="rightStickDeadzone" 
+                                 ItemText="{x:Static main:Strings.SettingRightStickDeadzone}"
+                                 Minimum="0" Maximum="100"
+                                 ValueChanged="StickDeadzoneValueChanged"
+                                 Tag="{x:Static main:Sticks.LStick}"/>
+
+            <ctrl:ToggleButtonListItem x:Name="enableRumble" 
+                                       ItemText="{x:Static main:Strings.SettingEnableRumble}"
+                                       ToggleValueChanged="RumbleToggleValueChanged"/>
+            
+            <ctrl:ToggleButtonListItem x:Name="swapControlSticks" 
+                                       ItemText="{x:Static main:Strings.SettingSwapSticks}"
+                                       ToggleValueChanged="SwapSticksToggleValueChanged"/>
+
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom">
+
+                <Button x:Name="buttonMapping" 
+                        Click="ButtonMapping_Click"
+                        Content="{x:Static main:Strings.ButtonMapping}">
+                </Button>
+            </StackPanel>
+            
+        </StackPanel>
+
+        <StackPanel x:Name="optionsContainer" Grid.Row="2"
+                    Grid.Column="2"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="5,5,0,0">
+
+            <Button x:Name="restoreDefaults" 
+                        Content="{x:Static main:Strings.RestoreDefaults}"
+                        Click="RestoreDefaults_Click">
+
+            </Button>
+
+            <Button x:Name="saveProfile" 
+                    Content="{x:Static main:Strings.SaveProfile}" 
+                    Click="SaveProfile_Click"/>
+            
+            <Button x:Name="applySettings" 
+                    Content="{x:Static main:Strings.ApplySettings}" 
+                    Click="ApplySettings_Click"/>
+            
+        </StackPanel>
+    </Grid>
+</Window>

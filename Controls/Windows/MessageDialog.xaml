@@ -1,0 +1,80 @@
+﻿<Window x:Class="Delfinovin.Controls.Windows.MessageDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:main="clr-namespace:Delfinovin"
+        xmlns:ctrl="clr-namespace:Delfinovin.Controls"
+        xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        mc:Ignorable="d" Height="200" Width="700" 
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        Title="{x:Static main:Strings.HeaderMessagePrompt}">
+
+    <Grid x:Name="controlContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Border x:Name="mainBackground" Grid.RowSpan="3" 
+                Background="{DynamicResource headerGradient}" 
+                CornerRadius="15,15,15,15" BorderThickness="2" BorderBrush="Black"/>
+        
+        <Border x:Name="optionsBar" Grid.Row="2" 
+                Background="{DynamicResource controllerBarGradient}" 
+                CornerRadius="0,0,15,15" BorderThickness="2" BorderBrush="Black"/>
+
+        <ctrl:ApplicationTitleLabel x:Name="messageWindowTitle" 
+                                    HeaderText="{x:Static main:Strings.HeaderMessagePrompt}"/>
+
+        <TextBlock x:Name="dialogText" 
+                   Grid.RowSpan="2" 
+                   Width="600" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"
+                   FontSize="24" Foreground="{DynamicResource textColor}"
+                   TextWrapping="Wrap" TextAlignment="Center">
+            
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="0" 
+                                  BlurRadius="15" 
+                                  Color="#FF000000" />
+            </TextBlock.Effect>
+            
+        </TextBlock>
+        
+        <StackPanel x:Name="buttonContainer" 
+                    Grid.Row="2"
+                    Orientation="Horizontal"  
+                    HorizontalAlignment="Right">
+
+            <StackPanel.Resources>
+                <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
+                    <Setter Property="Width" Value="80"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Margin" Value="0,5,10,5"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Background" Value="{DynamicResource normalButtonColor}"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button x:Name="okayButton" 
+                    Click="Button_Click"
+                    Content="{x:Static main:Strings.OK}"
+                    Tag="{x:Static forms:DialogResult.OK}"/>
+
+            <Button x:Name="yesButton" 
+                    Click="Button_Click"
+                    Content="{x:Static main:Strings.Yes}"
+                    Tag="{x:Static forms:DialogResult.Yes}"/>
+
+            <Button x:Name="noButton" 
+                    Click="Button_Click"
+                    Content="{x:Static main:Strings.No}"
+                    Tag="{x:Static forms:DialogResult.No}"/>
+            
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Name="Cinnamint">
+    
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="controllerBarGradient">
+        <GradientStop Color="#283340" Offset="0"/>
+        <GradientStop Color="#283340" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="headerGradient">
+        <GradientStop Color="#12171d" Offset="0"/>
+        <GradientStop Color="#161c23" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="sidebarGradient">
+        <GradientStop Color="#12171d" Offset="0"/>
+        <GradientStop Color="#161c23" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="mainBackground">
+        <GradientStop Color="#222931" Offset="0"/>
+        <GradientStop Color="#222931" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="roundedButtonHighlight" Color="#7F343945"/>
+    <SolidColorBrush x:Key="detailButtonColor" Color="#5a707c"/>
+    <SolidColorBrush x:Key="detailButtonHighlight" Color="#7c9aab"/>
+    <SolidColorBrush x:Key="normalButtonColor" Color="#5a707c"/>
+    <SolidColorBrush x:Key="textColor" Color="White"/>
+    <SolidColorBrush x:Key="controllerOptionMenuBackground" Color="#2C2C2C"/>
+</ResourceDictionary>

@@ -1,0 +1,195 @@
+﻿<Window x:Class="Delfinovin.Controls.Windows.HotkeyMappingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:main="clr-namespace:Delfinovin"
+        xmlns:ctrl="clr-namespace:Delfinovin.Controls"
+        mc:Ignorable="d"
+        Title="{x:Static main:Strings.HeaderHotkeyMapping}" Height="400" Width="500"
+        ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" 
+        Background="Transparent">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Margin" Value="0,5,7,10"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="Background" Value="{DynamicResource normalButtonColor}"/>
+            </Style>
+        </Grid.Resources>
+
+        <Border x:Name="mainBackground" 
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="2"
+                Background="{DynamicResource headerGradient}" 
+                BorderThickness="2" 
+                BorderBrush="Black"
+                CornerRadius="15,15,15,15"/>
+
+        <Border x:Name="optionsBackground" 
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Background="{DynamicResource controllerBarGradient}" 
+                BorderThickness="2" 
+                BorderBrush="Black"
+                CornerRadius="0,0,15,15"/>
+
+        <ctrl:ApplicationTitleLabel x:Name="hotkeyWindowTitle" 
+                                    Grid.ColumnSpan="2"
+                                    HeaderText="{x:Static main:Strings.HeaderHotkeyMapping}"/>
+
+        <ctrl:WindowControls x:Name="windowControls" 
+                             HorizontalAlignment="Right" 
+                             Grid.Column="1"/>
+
+        <ListView x:Name="hotkeyListView" 
+                  Grid.Row="1"
+                  Background="Transparent" 
+                  BorderBrush="Transparent" 
+                  Margin="5,5,5,5">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="60"/>
+                    <Setter Property="Foreground" Value="{DynamicResource textColor}"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="HotkeyListViewItem_PreviewMouseLeftButtonDown"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border x:Name="Bd" 
+                                        CornerRadius="5" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}" 
+                                        Background="{TemplateBinding Background}" 
+                                        Padding="{TemplateBinding Padding}"
+                                        SnapsToDevicePixels="False">
+
+                                    <ContentPresenter Content="{TemplateBinding Content}" 
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsMouseOver" Value="True"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <MultiTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="Bd" 
+                                                                    Storyboard.TargetProperty="Background.Color" 
+                                                                    To="#2698DBE0" Duration="0:0:0.5" />
+
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </MultiTrigger.EnterActions>
+
+                                        <MultiTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="Bd" 
+                                                                    Storyboard.TargetProperty="Background.Color" 
+                                                                    To="Transparent" Duration="00:00:0.5" />
+
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </MultiTrigger.ExitActions>
+                                    </MultiTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListViewItem Content="{x:Static main:Strings.ListItemStartCalibration}"
+                          Tag="{x:Static main:HotkeySelection.CalibrationHotkey}"/>
+
+            <ListViewItem Content="{x:Static main:Strings.ListItemStartRecording}"
+                          Tag="{x:Static main:HotkeySelection.StartRecording}"/>
+
+            <ListViewItem Content="{x:Static main:Strings.ListItemStopRecording}"
+                          Tag="{x:Static main:HotkeySelection.StopRecording}"/>
+
+            <ListViewItem Content="{x:Static main:Strings.ListItemBeginPlayback}"
+                          Tag="{x:Static main:HotkeySelection.BeginPlayback}"/>
+
+            <ListViewItem Content="{x:Static main:Strings.ListItemStopPlayback}"
+                          Tag="{x:Static main:HotkeySelection.StopPlayback}"/>
+        </ListView>
+
+        <StackPanel x:Name="optionsContainer" 
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="5,5,0,0">
+
+            <Button x:Name="saveSettings" 
+                    Content="{x:Static main:Strings.SaveSettings}"
+                    Click="SaveSettings_Click" />
+
+        </StackPanel>
+
+        <Label x:Name="selectedHotkeyDisplay" 
+               Grid.Row="1" Grid.Column="1"
+               Foreground="{DynamicResource textColor}"
+               HorizontalAlignment="Center" FontSize="14"/>
+
+        <ListView x:Name="buttonListView" 
+                      Grid.Row="1" 
+                      Grid.Column="1"
+                      Margin="0,15,0,0" 
+                      SelectionChanged="ButtonListView_SelectionChanged">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <StackPanel x:Name="mappingButtons" Orientation="Horizontal" 
+                    Grid.Column="1" Grid.Row="1"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Bottom" 
+                    Margin="5,0,0,0">
+
+            <Button x:Name="addMapping" 
+                    ToolTip="{x:Static main:Strings.ToolTipAddMapping}"
+                    IsEnabled="False" 
+                    Click="AddMapping_Click">
+
+                <Image Source="/Delfinovin;component/Resources/Icons/add.png"/>
+            </Button>
+
+            <Button x:Name="removeMapping" 
+                    ToolTip="{x:Static main:Strings.ToolTipAddMapping}"
+                    IsEnabled="False" 
+                    Click="RemoveMapping_Click">
+
+                <Image Source="/Delfinovin;component/Resources/Icons/minus.png"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

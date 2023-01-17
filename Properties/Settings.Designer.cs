@@ -12,7 +12,7 @@ namespace Delfinovin.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -110,6 +110,78 @@ namespace Delfinovin.Properties {
             }
             set {
                 this["ControllerColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long CalibrationHotkey {
+            get {
+                return ((long)(this["CalibrationHotkey"]));
+            }
+            set {
+                this["CalibrationHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long StartRecordingHotkey {
+            get {
+                return ((long)(this["StartRecordingHotkey"]));
+            }
+            set {
+                this["StartRecordingHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long StopRecordingHotkey {
+            get {
+                return ((long)(this["StopRecordingHotkey"]));
+            }
+            set {
+                this["StopRecordingHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long BeginPlaybackHotkey {
+            get {
+                return ((long)(this["BeginPlaybackHotkey"]));
+            }
+            set {
+                this["BeginPlaybackHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Fluent")]
+        public string ApplicationTheme {
+            get {
+                return ((string)(this["ApplicationTheme"]));
+            }
+            set {
+                this["ApplicationTheme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long StopPlaybackHotkey {
+            get {
+                return ((long)(this["StopPlaybackHotkey"]));
+            }
+            set {
+                this["StopPlaybackHotkey"] = value;
             }
         }
     }

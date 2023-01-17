@@ -1,9 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using Delfinovin.Controls.Windows;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using Delfinovin.Controls.Windows;
 
 namespace Delfinovin.Controls
 {
@@ -13,6 +12,13 @@ namespace Delfinovin.Controls
     /// </summary>
     public partial class ControllerDetailButton : UserControl
     {
+        private const string CONTROLLER_PLUGGED_LINK = "/Delfinovin;component/Resources/Icons/controller-plugged.png";
+        private const string CONTROLLER_UNPLUGGED_LINK = "/Delfinovin;component/Resources/Icons/controller-unplugged.png";
+        private const string ARROW_DOWN = "/Delfinovin;component/Resources/Icons/arrow-down.png";
+        private const string ARROW_UP = "/Delfinovin;component/Resources/Icons/arrow-up.png";
+
+        public bool IsSettingMenuOpen { get; set; } = false;
+
         private ConnectionStatus _connectionStatus;
         public ConnectionStatus ConnectionStatus
         {
@@ -46,8 +52,6 @@ namespace Delfinovin.Controls
             }
         }
 
-        public bool IsSettingMenuOpen { get; set; } = false;
-
         public event EventHandler<OptionSelection> OptionSelected;
         public event EventHandler<RoutedEventArgs> Clicked;
 
@@ -55,45 +59,6 @@ namespace Delfinovin.Controls
         {
             InitializeComponent();
             this.DataContext = this;
-        }
-
-        private void UpdateConnectionDisplay()
-        {
-            switch (ConnectionStatus)
-            {
-                case ConnectionStatus.Connected:
-                    connectionStatusDisplay.Source = new BitmapImage(new Uri("/Delfinovin;component/Resources/Icons/controller-plugged.png", UriKind.Relative));
-                    IsEnabled = true;
-                    break;
-                case ConnectionStatus.Disconnected:
-                    connectionStatusDisplay.Source = new BitmapImage(new Uri("/Delfinovin;component/Resources/Icons/controller-unplugged.png", UriKind.Relative));
-                    CalibrationStatus = CalibrationStatus.Uncalibrated;
-                    IsEnabled = false;
-                    break;
-            }
-        }
-
-        private void UpdateCalibrationDisplay()
-        {
-            calibrationStatusDisplay.Text = CalibrationStatus.ToString();
-        }
-
-        private void UpdatePortDisplay() 
-        { 
-            portDisplay.Text = string.Format(Strings.ControllerText, ControllerPort); 
-        }
-
-        private void UpdateSettingsTab()
-        {
-            if (IsSettingMenuOpen)
-            {
-                settingsButton.Source = new BitmapImage(new Uri("/Delfinovin;component/Resources/Icons/arrow-down.png", UriKind.Relative));
-            }
-
-            else
-            {
-                settingsButton.Source = new BitmapImage(new Uri("/Delfinovin;component/Resources/Icons/arrow-up.png", UriKind.Relative));
-            }
         }
 
         private void OpenDetails()
@@ -113,6 +78,46 @@ namespace Delfinovin.Controls
 
             IsSettingMenuOpen = true;
             UpdateSettingsTab();
+        }
+
+        private void UpdateSettingsTab()
+        {
+            // Update the expander icon based on if the menu is open or not.
+            if (IsSettingMenuOpen)
+            {
+                settingsButton.Source = new BitmapImage(new Uri(ARROW_DOWN, UriKind.Relative));
+            }
+
+            else
+            {
+                settingsButton.Source = new BitmapImage(new Uri(ARROW_UP, UriKind.Relative));
+            }
+        }
+
+        private void UpdateConnectionDisplay()
+        {
+            switch (ConnectionStatus)
+            {
+                case ConnectionStatus.Connected:
+                    connectionStatusDisplay.Source = new BitmapImage(new Uri(CONTROLLER_PLUGGED_LINK, UriKind.Relative));
+                    IsEnabled = true;
+                    break;
+                case ConnectionStatus.Disconnected:
+                    connectionStatusDisplay.Source = new BitmapImage(new Uri(CONTROLLER_UNPLUGGED_LINK, UriKind.Relative));
+                    CalibrationStatus = CalibrationStatus.Uncalibrated;
+                    IsEnabled = false;
+                    break;
+            }
+        }
+
+        private void UpdatePortDisplay()
+        {
+            portDisplay.Text = string.Format(Strings.DetailsControllerPort, ControllerPort);
+        }
+
+        private void UpdateCalibrationDisplay()
+        {
+            calibrationStatusDisplay.Text = CalibrationStatus.ToString();
         }
 
         private void ControllerOptionsMenu_Closed(object? sender, EventArgs e)

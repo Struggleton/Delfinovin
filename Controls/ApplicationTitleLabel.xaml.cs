@@ -1,28 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Delfinovin.Controls
 {
     /// <summary>
-    /// Interaction logic for ApplicationTitleLabel.xaml
+    /// A control displaying the application icon and 
+    /// text to be placed as a header.
     /// </summary>
     public partial class ApplicationTitleLabel : UserControl
     {
-        private Window ParentWindow { get; set; }
-
         public string HeaderText { get; set; }
+
+        private Window ParentWindow { get; set; }
 
         public ApplicationTitleLabel()
         {
@@ -38,6 +28,7 @@ namespace Delfinovin.Controls
 
         private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // If the parent window isn't null, drag it wherever our mouse moves.
             if (ParentWindow != null)
                 ParentWindow.DragMove();
         }

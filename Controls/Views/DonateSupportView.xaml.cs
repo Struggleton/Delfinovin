@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using UserSettings = Delfinovin.Properties.Settings;
 
 namespace Delfinovin.Controls.Views
 {
     /// <summary>
-    /// Interaction logic for DonateSupportView.xaml
+    /// A view displaying buttons for supporting
+    /// and donating to the project. :)
     /// </summary>
     public partial class DonateSupportView : UserControl
     {
@@ -29,9 +19,23 @@ namespace Delfinovin.Controls.Views
             SetDonationCheckVisibility();
         }
 
+        private void SetDonationCheckVisibility()
+        {
+            // Set the visibility based on if the user's set the donation
+            // check to true.
+            bool donateHidden = UserSettings.Default.HideDonationOnStartup;
+            hideDialog.Visibility = donateHidden ? Visibility.Hidden : Visibility.Visible;
+        }
+
         private void NavigationButton_Clicked(object sender, RoutedEventArgs e)
         {
-            string buttonLink = ((NavigationButton)sender).Tag.ToString();
+            // Get the navigation button from the sender
+            NavigationButton navButton = (NavigationButton)sender;
+
+            // Get the URL from the button tag
+            string buttonLink = navButton.Tag.ToString();
+
+            // Open the URL in the default browser.
             Process.Start(new ProcessStartInfo(buttonLink) 
             { 
                 UseShellExecute = true 
@@ -40,14 +44,8 @@ namespace Delfinovin.Controls.Views
 
         private void CheckBox_Changed(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.HideDonationOnStartup = (bool)hideDialog.IsChecked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void SetDonationCheckVisibility()
-        {
-            bool donateHidden = Properties.Settings.Default.HideDonationOnStartup;
-            hideDialog.Visibility = donateHidden ? Visibility.Hidden : Visibility.Visible;
+            UserSettings.Default.HideDonationOnStartup = (bool)hideDialog.IsChecked;
+            UserSettings.Default.Save();
         }
     }
 }

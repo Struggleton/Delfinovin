@@ -1,32 +1,108 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>Resources\Icons\app.ico</ApplicationIcon>
-    <AssemblyVersion>3.0.0</AssemblyVersion>
+	  <OutputType>WinExe</OutputType>
+      <TargetFramework>net7.0-windows</TargetFramework>
+      <Nullable>enable</Nullable>
+      <UseWPF>true</UseWPF>
+      <ApplicationIcon>Resources\Icons\app.ico</ApplicationIcon>
+      <AssemblyVersion>3.0.0</AssemblyVersion>
+	  <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+    <None Remove="Resources\Icons\add.png" />
     <None Remove="Resources\Icons\arrow-down.png" />
     <None Remove="Resources\Icons\arrow-up.png" />
+    <None Remove="Resources\Icons\begin-recording.png" />
     <None Remove="Resources\Icons\button-cursor.png" />
-    <None Remove="Resources\Icons\Buttons\Control Stick Clockwise.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\A.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\B.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\C Stick All.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\C Stick Down.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\C Stick Left.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\C Stick Right.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\C Stick Up.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\C Stick.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Control Stick All.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Control Stick Down.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Control Stick Left.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Control Stick Right.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Control Stick Up.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Control Stick.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\D-Pad Down.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\D-Pad Left.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\D-Pad Right.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\D-Pad Up.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\D-Pad.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\L Analog.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\L Digital.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\R Analog.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\R Digital.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Start.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\X.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Y.png" />
+    <None Remove="Resources\Icons\Buttons\Gamecube\Z.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\A.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\B.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Back.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\D-Pad Down.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\D-Pad Left.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\D-Pad Right.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\D-Pad Up.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\D-Pad.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Guide.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Bumper.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick All.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick Click.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick Down.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick Left-Right.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick Left.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick Right.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick Up-Down.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick Up.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Stick.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Left Trigger.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Bumper.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick All.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick Click.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick Down.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick Left-Right.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick Left.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick Right.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick Up-Down.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick Up.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Stick.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Right Trigger.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Share.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Start.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\X.png" />
+    <None Remove="Resources\Icons\Buttons\Xbox\Y.png" />
     <None Remove="Resources\Icons\controller-plugged.png" />
     <None Remove="Resources\Icons\controller-unplugged.png" />
+    <None Remove="Resources\Icons\default-profile.png" />
     <None Remove="Resources\Icons\donate-support.png" />
     <None Remove="Resources\Icons\faq-support.png" />
+    <None Remove="Resources\Icons\favorite-default.png" />
+    <None Remove="Resources\Icons\favorite.png" />
     <None Remove="Resources\Icons\gamepad-buttons.png" />
     <None Remove="Resources\Icons\github.png" />
+    <None Remove="Resources\Icons\green-screen.png" />
     <None Remove="Resources\Icons\home.png" />
+    <None Remove="Resources\Icons\hotkey.png" />
     <None Remove="Resources\Icons\ko-fi.png" />
+    <None Remove="Resources\Icons\minus.png" />
+    <None Remove="Resources\Icons\not-favorite.png" />
     <None Remove="Resources\Icons\patreon.png" />
     <None Remove="Resources\Icons\paypal.png" />
     <None Remove="Resources\Icons\pencil.png" />
+    <None Remove="Resources\Icons\play.png" />
     <None Remove="Resources\Icons\profiles.png" />
+    <None Remove="Resources\Icons\recording-in-progress.png" />
+    <None Remove="Resources\Icons\restore.png" />
     <None Remove="Resources\Icons\settings.png" />
+    <None Remove="Resources\Icons\stop-recording.png" />
+    <None Remove="Resources\Icons\stop.png" />
     <None Remove="Resources\Icons\window-close.png" />
     <None Remove="Resources\Icons\window-minimize.png" />
   </ItemGroup>
@@ -44,9 +120,237 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
-    <PackageReference Include="Nefarius.Drivers.WinUSB" Version="4.1.71" />
-    <PackageReference Include="Nefarius.Utilities.DeviceManagement" Version="3.3.196" />
+    <Resource Include="Resources\Icons\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\begin-recording.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\B.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\C Stick All.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\C Stick Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\C Stick Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\C Stick Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\C Stick Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\C Stick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Control Stick All.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Control Stick Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Control Stick Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Control Stick Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Control Stick Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Control Stick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\D-Pad Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\D-Pad Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\D-Pad Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\D-Pad Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\D-Pad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\L Analog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\L Digital.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\R Analog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\R Digital.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Start.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\X.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Y.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Gamecube\Z.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\B.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\D-Pad Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\D-Pad Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\D-Pad Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\D-Pad Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\D-Pad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Guide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Bumper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick All.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick Click.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick Left-Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick Up-Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Stick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Left Trigger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Bumper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick All.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick Click.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick Left-Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick Up-Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Stick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Right Trigger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Share.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Start.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\X.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Buttons\Xbox\Y.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\default-profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\favorite-default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\favorite.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\green-screen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\hotkey.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\minus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\not-favorite.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\recording-in-progress.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\restore.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LibUsbDotNet" Version="2.2.29" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.7.1" />
+    <PackageReference Include="Nefarius.Utilities.DeviceManagement" Version="3.6.213" />
+    <PackageReference Include="Nefarius.Utilities.GitHubUpdater" Version="1.0.4" />
+    <PackageReference Include="Nefarius.ViGEm.Client" Version="1.21.232" />
+    <PackageReference Include="Notifications.Wpf" Version="0.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,9 +367,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\button-cursor.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Buttons\Control Stick Clockwise.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\controller-plugged.png">
@@ -107,6 +408,12 @@
     <Resource Include="Resources\Icons\settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\stop-recording.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -141,14 +448,28 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Resources\Themes\ControllerColor.xaml">
+    <Page Update="Resources\ControllerColor.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EventArgs\" />
+    <Page Update="Resources\Themes\Dark.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Resources\Themes\Slate.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Resources\Themes\MuddyTree.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Resources\Themes\DirtyFog.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Resources\Themes\Cinnamint.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Resources\Themes\Fluent.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
 
 </Project>

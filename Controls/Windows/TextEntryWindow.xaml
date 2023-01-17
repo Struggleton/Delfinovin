@@ -1,0 +1,76 @@
+﻿<Window x:Class="Delfinovin.Controls.Windows.TextEntryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:main="clr-namespace:Delfinovin"
+        xmlns:ctrl="clr-namespace:Delfinovin.Controls"
+        mc:Ignorable="d"
+        Title="{x:Static main:Strings.HeaderTextEntry}" Height="200" Width="700" 
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent" >
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,5,10,5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="{DynamicResource normalButtonColor}"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Border x:Name="mainBackground" 
+                Grid.RowSpan="3" 
+                Background="{DynamicResource headerGradient}"
+                CornerRadius="15,15,15,15" 
+                BorderThickness="2" BorderBrush="Black"/>
+
+        <Border x:Name="optionsBackground" 
+                Grid.Row="2" 
+                Background="{DynamicResource controllerBarGradient}"  
+                CornerRadius="0,0,15,15" 
+                BorderThickness="2"
+                BorderBrush="Black"/>
+
+        <TextBox x:Name="textEntry" 
+                 Grid.RowSpan="2" 
+                 HorizontalAlignment="Center" VerticalAlignment="Center" 
+                 Width="600" 
+                 Foreground="{DynamicResource textColor}" FontSize="24" 
+                 TextWrapping="Wrap" TextAlignment="Center" 
+                 GotFocus="TextEntry_GotFocus" 
+                 TextChanged="TextEntry_TextChanged">
+            
+            <TextBox.Effect>
+                <DropShadowEffect Color="#FF000000" 
+                                  ShadowDepth="0" 
+                                  BlurRadius="15"/>
+                
+            </TextBox.Effect>
+        </TextBox>
+
+        <ctrl:ApplicationTitleLabel x:Name="textWindowTitle"/>
+        
+        <ctrl:WindowControls x:Name="windowControls" 
+                             HorizontalAlignment="Right" 
+                             MinimizeButtonVisibility="Collapsed" />
+
+        <StackPanel x:Name="optionsContainer" 
+                    Grid.Row="2"
+                    HorizontalAlignment="Right" 
+                    Orientation="Horizontal">
+            
+            <Button x:Name="saveButton" 
+                    Click="SaveButton_Click"/>
+            
+        </StackPanel>
+    </Grid>
+</Window>

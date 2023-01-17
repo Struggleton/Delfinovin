@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Name="DirtyFog">
+    
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="controllerBarGradient">
+        <GradientStop Color="#FFA4B8E0" Offset="0"/>
+        <GradientStop Color="#FFA4B8E0" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="headerGradient">
+        <GradientStop Color="#bfd2f9" Offset="0"/>
+        <GradientStop Color="#f6bebf" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="sidebarGradient">
+        <GradientStop Color="#bfd2f9" Offset="0"/>
+        <GradientStop Color="#b4c7ee" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="mainBackground">
+        <GradientStop Color="#dae2f7" Offset="0"/>
+        <GradientStop Color="#d6a6a6" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="roundedButtonHighlight" Color="#7F344537"/>
+    <SolidColorBrush x:Key="detailButtonColor" Color="#667488"/>
+    <SolidColorBrush x:Key="detailButtonHighlight" Color="#FF8598AD"/>
+    <SolidColorBrush x:Key="normalButtonColor" Color="#b993d6"/>
+    <SolidColorBrush x:Key="textColor" Color="Black"/>
+    <SolidColorBrush x:Key="controllerOptionMenuBackground" Color="#b993d6"/>
+</ResourceDictionary>

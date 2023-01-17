@@ -1,23 +1,25 @@
 ﻿<Window x:Class="Delfinovin.Controls.Windows.ControllerOptionsMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Delfinovin"
+        xmlns:main="clr-namespace:Delfinovin"
         xmlns:ctrl="clr-namespace:Delfinovin.Controls"
         mc:Ignorable="d"
-        Title="ControllerOptionsMenu" Width="215"
+        Title="{x:Static main:Strings.HeaderControllerOptions}" Width="215"
         ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" 
-        Background="Transparent"
-        SizeToContent="Height">
+        Background="Transparent" SizeToContent="Height">
 
     <Grid>
         <Rectangle x:Name="windowBackground" 
-                   Fill="#2C2C2C" Stroke="#3b3b3b"
-                   RadiusX="15" RadiusY="15" />
+                   Fill="{DynamicResource controllerOptionMenuBackground}" 
+                   Stroke="#3b3b3b"
+                   RadiusX="15" 
+                   RadiusY="15" />
 
         <ListView x:Name="itemContainer" 
-                  Background="Transparent" BorderBrush="Transparent" 
+                  Background="Transparent" 
+                  BorderBrush="Transparent" 
                   Margin="5,5,5,5">
             
             <ListView.ItemContainerStyle>
@@ -74,23 +76,23 @@
                 </Style>
             </ListView.ItemContainerStyle>
 
-            <ListViewItem Tag="{x:Static local:OptionSelection.EditControllerSettings}">
+            <ListViewItem Tag="{x:Static main:OptionSelection.EditControllerSettings}">
                 <ctrl:ImageListItem 
-                    ItemText="{x:Static local:Strings.EditControllerSettings}"
+                    ItemText="{x:Static main:Strings.MenuItemEditController}"
                     ImageSource="/Delfinovin;component/Resources/Icons/pencil.png"/>
                 
             </ListViewItem>
 
-            <ListViewItem Tag="{x:Static local:OptionSelection.CalibrateController}">
+            <ListViewItem Tag="{x:Static main:OptionSelection.CalibrateController}">
                 <ctrl:ImageListItem 
-                    ItemText="{x:Static local:Strings.CalibrateControlSticks}"
-                    ImageSource="/Delfinovin;component/Resources/Icons/Buttons/Control Stick Clockwise.png"/>
+                    ItemText="{x:Static main:Strings.MenuItemCalibrateSticks}"
+                    ImageSource="/Delfinovin;component/Resources/Icons/Buttons/Xbox/Left Stick.png"/>
                 
             </ListViewItem>
 
-            <ListViewItem Tag="{x:Static local:OptionSelection.PopoutInputViewer}">
+            <ListViewItem Tag="{x:Static main:OptionSelection.PopoutInputViewer}">
                 <ctrl:ImageListItem 
-                    ItemText="{x:Static local:Strings.OpenInputViewer}"
+                    ItemText="{x:Static main:Strings.MenuItemOpenViewer}"
                     ImageSource="/Delfinovin;component/Resources/Icons/button-cursor.png"/>
 
             </ListViewItem>
